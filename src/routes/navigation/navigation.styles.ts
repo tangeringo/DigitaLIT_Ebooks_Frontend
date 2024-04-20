@@ -23,7 +23,7 @@ export const NavBarImage = styled.img.attrs(() => ({
     height: "60",
 }))<NavBarImageProps>`
     margin-right: 15px;
-    // margin-left: ${({route}) => route === editPdfRoute? "0": "100px"};
+    margin-left: ${({route}) => route === editPdfRoute? "0": "100px"};
     background-color: ${white};
     border-radius: 20px;
     padding: 5px;
