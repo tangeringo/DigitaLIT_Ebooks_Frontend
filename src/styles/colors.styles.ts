@@ -1,0 +1,12 @@
+export const black = "#000";
+export const lightBlack = "#333";
+export const white = "#fff";
+export const red = "red";
+export const orange = "orange";
+export const yellow = "yellow";
+export const green = "green";
+export const creme = "burlywood";
+export const darkCreme = "#CC9544";
+export const grey = "#808080";
+export const darkGrey = "#747264";
+export const transparentGrey = "#191919";

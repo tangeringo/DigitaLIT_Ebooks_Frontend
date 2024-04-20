@@ -1,0 +1,13 @@
+/* div#icon {
+    font-size: 50vh;
+} */
+
+* iron-icon {
+    display: none;
+}
+
+/* #icon iron-icon {
+    display: none;
+} */
+
+
