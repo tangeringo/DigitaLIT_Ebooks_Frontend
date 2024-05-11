@@ -37,13 +37,13 @@ export type ThemeType = {
     formBackground: string
 }
 
-export type RouteProps = {
+export interface RouteProps {
   theme: ThemeType,
-  setRoute: React.Dispatch<React.SetStateAction<RouteOptions>>
+  setRoute: (options: RouteOptions) => void
 }
 
 // THEME TOGGLER COMPONENT
-export type ThemeTogglerProps = {
+export interface ThemeTogglerProps {
   themeTitle: string,
   setThemeTitle: React.Dispatch<React.SetStateAction<string | undefined>>
 }
@@ -54,7 +54,8 @@ export type CartItemInfo = {
   showBook: boolean;
 }
 
-export type MyBookProps = {
+// BOOK ITEM COMPONENT
+export interface MyBookProps {
   book: BookItem,
   buttonName: string,
   cartItemInfo?: CartItemInfo | undefined,

@@ -36,7 +36,6 @@ const CheckoutPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
         if (secretCalled) return;
         else try {
             const clientSecret: unknown = await paymentIntent('http://127.0.0.1:8000/secret', cartTotal)
-            console.log("clientSecret: ", clientSecret)
             setSecret(clientSecret);
             setSecredCalled(true);
         } catch (error) {
@@ -47,7 +46,7 @@ const CheckoutPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
     useEffect(() => {
         dispatch(setIsCartOpen(false));
         setRoute(checkoutRoute);
-    }, [dispatch]);
+    }, [dispatch, setRoute]);
 
     return (
         <ThemeProvider theme={theme}>

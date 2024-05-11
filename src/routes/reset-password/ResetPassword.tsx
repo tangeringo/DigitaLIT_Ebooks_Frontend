@@ -54,7 +54,7 @@ const ResetPasswordPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
     useEffect(() => {
         dispatch(setIsCartOpen(false));
         setRoute("/reset-password");
-    }, [dispatch]);
+    }, [dispatch, setRoute]);
 
     const getStrengthCounter = () => {
         if (newPassword.length <= 4) return 0;

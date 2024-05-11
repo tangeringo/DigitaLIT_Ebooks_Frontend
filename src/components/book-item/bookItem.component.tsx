@@ -21,7 +21,7 @@ import {
 } from './bookItem.styles';
 
 
-const BookItemComponent = ({ book, buttonName, cartItemInfo, setCartItemInfo }: MyBookProps) => {
+const BookItemComponent = ({ book, buttonName, cartItemInfo, setCartItemInfo }: MyBookProps): JSX.Element => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -29,7 +29,6 @@ const BookItemComponent = ({ book, buttonName, cartItemInfo, setCartItemInfo }: 
     const cartItems = useSelector(selectCartItems);
 
     const buttonIconOnClick = (book: BookItem): void => {
-        // if (buttonName === showBook) navigate(displayBookInfoRoute);
         if (buttonName === showBook) navigate(editPdfRoute);
         else if (buttonName === addToCart) {
             dispatch(setCartIconPulse(true));

@@ -17,7 +17,6 @@ const stripePromise = loadStripe(nodeEnv);
 
 const CheckoutCard: React.FC<CheckoutCardProps> = ({ theme, secret }) => {
     const navigate = useNavigate();
-    console.log("secret: ", secret)
 
     useEffect(() => {
       if (!stripePromise || !secret) {
@@ -26,9 +25,7 @@ const CheckoutCard: React.FC<CheckoutCardProps> = ({ theme, secret }) => {
     }, [secret, navigate])
 
     const options: StripeTypes = {
-      // pass the client secret
       clientSecret: secret,
-      // Fully customizable with appearance API.
       appearance: {
         theme: theme.background === white? "stripe" : "night",
         variables: {
@@ -44,4 +41,4 @@ const CheckoutCard: React.FC<CheckoutCardProps> = ({ theme, secret }) => {
 
 }
 
-export default CheckoutCard
+export default CheckoutCard;

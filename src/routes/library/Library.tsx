@@ -19,7 +19,7 @@ import {
 import { setOpenSideBar } from '../../redux/library/libraryActions';
 import SubmitButton, { BUTTON_TYPE_CLASS } from '../../components/submit-button/submitButton.component';
 
-const LibraryPage = ({ theme, filteredBooks, setRoute }: LibraryPageProps) => {
+const LibraryPage = ({ theme, filteredBooks, setRoute }: LibraryPageProps): JSX.Element => {
     const dispatch = useDispatch();
     const selectedBook = useSelector(selectTargetBookItem);
     const isSideBarOpen = useSelector(selectIsSideBarOpen);
@@ -34,7 +34,7 @@ const LibraryPage = ({ theme, filteredBooks, setRoute }: LibraryPageProps) => {
     useEffect(() => {
         dispatch(setIsCartOpen(false));
         setRoute(libraryRoute);
-    }, [dispatch]);
+    }, [dispatch, setRoute]);
 
     return (
         <ThemeProvider theme={theme}>

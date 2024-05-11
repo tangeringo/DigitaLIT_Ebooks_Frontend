@@ -6,9 +6,6 @@ import { useSelector } from "react-redux";
 import { selectIsCartOpen } from '../../redux/cart/cartSelectors';
 
 import { Link } from "react-router-dom";
-
-// import appLogo from '../../assets/AppLogo/matrix-bg.jpg';
-// import appLogo from '../../assets/AppLogo/lightbulp-earth.jpg';
 import appLogo from '../../assets/AppLogo/ebook.png';
 import profileImg from '../../assets/ProfilePage/profileDefault.png';
 
@@ -82,7 +79,3 @@ const Navigation: React.FC<NavBarProps> = ({ brandName, route, setSearchTerm }) 
 }
 
 export default Navigation;
-
-
-
-// {/* <SearchButton>Search</SearchButton> */}

@@ -27,7 +27,7 @@ const ProfilePage: React.FC<RouteProps> = ({ theme, setRoute }) => {
     useEffect(() => {
         dispatch(setIsCartOpen(false));
         setRoute(profileRoute);
-    }, [dispatch]);
+    }, [dispatch, setRoute]);
 
     return (
         <ThemeProvider theme={theme}>

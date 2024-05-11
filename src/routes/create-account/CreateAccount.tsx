@@ -48,7 +48,7 @@ import {
     useEffect(() => {
       dispatch(setIsCartOpen(false));
       setRoute(createAccountRoute);
-    }, [dispatch]);
+    }, [dispatch, setRoute]);
   
     return (
       <ThemeProvider theme={theme}>

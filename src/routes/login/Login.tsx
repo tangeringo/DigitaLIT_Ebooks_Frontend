@@ -55,7 +55,7 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
     useEffect(() => {
         dispatch(setIsCartOpen(false));
         setRoute(loginRoute);
-    }, [dispatch]);
+    }, [dispatch, setRoute]);
 
     return (
         <ThemeProvider theme={theme}>

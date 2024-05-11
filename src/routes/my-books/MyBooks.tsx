@@ -21,7 +21,7 @@ const MyBooks: React.FC<RouteProps> = ({ theme, setRoute }) => {
     useEffect(() => {
         dispatch(setIsCartOpen(false));
         setRoute(myBooksRoute);
-    }, [dispatch]);
+    }, [dispatch, setRoute]);
 
     return (
         <ThemeProvider theme={theme}>

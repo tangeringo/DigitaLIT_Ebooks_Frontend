@@ -8,7 +8,6 @@ import { editPdfRoute } from '../../variables';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
 
 import './editPdf.css'
-// import DrawingCanvas from '../../components/drawing-canvas/drawingCanvas.component';
 
 
 
@@ -38,7 +37,7 @@ const PdfEditor: React.FC<RouteProps> = ({ theme, setRoute }) => {
     useEffect(() => {
         dispatch(setIsCartOpen(false));
         setRoute(editPdfRoute);
-    }, [dispatch]);
+    }, [dispatch, setRoute]);
 
     return (
         <div style={{marginTop: "4.5%"}}>
