@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { RouteProps } from '../../globalTypes';
-import { checkoutRoute } from '../../variables';
+import { checkoutRoute, serverHost } from '../../variables';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
@@ -11,7 +11,7 @@ import CheckoutItemComponent from '../../components/checkout-item/checkoutItem.c
 import SubmitButton from '../../components/submit-button/submitButton.component';
 import { BUTTON_TYPE_CLASS } from '../../components/submit-button/submitButton.component';
 
-import { paymentIntent } from '../../stripe/payment-intent-utils';
+import { paymentIntent } from '../../fetchUtils/payment-intent-utils';
 import CheckoutCard from '../../components/checkout-card/checkoutCard.component';
 
 import { ThemeProvider } from 'styled-components';
@@ -35,7 +35,7 @@ const CheckoutPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
     const onCheckoutSubmit = async() => {
         if (secretCalled) return;
         else try {
-            const clientSecret: unknown = await paymentIntent('http://127.0.0.1:8000/secret', cartTotal)
+            const clientSecret: unknown = await paymentIntent(`${serverHost}/secret`, cartTotal)
             setSecret(clientSecret);
             setSecredCalled(true);
         } catch (error) {

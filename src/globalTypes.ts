@@ -88,3 +88,9 @@ export type StripeTypes = {
     theme: ThemeType,
     secret: any
   }
+
+  export type LoginPayload = {
+    name?: string | undefined;
+    email: string;
+    password: string;
+  }

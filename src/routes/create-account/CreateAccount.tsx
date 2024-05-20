@@ -1,6 +1,6 @@
-import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
+import React, { useEffect, useState, ChangeEvent } from 'react';
 import { RouteProps } from "../../globalTypes";
-import { appName, createAccountRoute, loginRoute, defaultCreateAccountFormFields } from '../../variables';
+import { appName, createAccountRoute, loginRoute, defaultCreateAccountFormFields, serverHost } from '../../variables';
 
 import { useDispatch } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
@@ -16,6 +16,7 @@ import {
     ComponentsContainer,
     RedirectionLink
 } from '../login/login.styles';
+import { loginIntent } from '../../fetchUtils/login.intent';
 
   
   const CreateAccountPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
@@ -32,17 +33,21 @@ import {
     const resetFormFields = () => {
       setFormFields(defaultCreateAccountFormFields);
     }
+
+      const handleSubmit = async () => {
+        if (email.length && password.length) {
+          try {
+            const tokens = await loginIntent(`${serverHost}/create-account`, {name, email, password});
+            console.log("tokens: ", tokens);
+            // also set the user to loginPayload
+            // dispatch(emailSignInStart(email, password));
+            resetFormFields();
   
-    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-  
-      try {
-        // dispatch(emailSignInStart(email, password));
-        resetFormFields();
-  
-      } catch(error) {
-        return console.log('Error while creating the user, ', error)
-      }
+          } catch(error) {
+              return console.log('Error while creating the user, ', error)
+          }
+        }
+      else return;
     }
   
     useEffect(() => {
@@ -57,7 +62,7 @@ import {
                 <Headding>{appName}</Headding>
                 <p>Create an account to get access to latest educational digital literature</p>
                 <ComponentsContainer>
-                    <form style={{width: "100%"}} onSubmit={handleSubmit}>
+                    <form style={{width: "100%"}}>
                         <FormInput type="text" name="name" value={name}
                             onChange={handleChange} label="Name" required
                         />
@@ -70,7 +75,7 @@ import {
                         <FormInput type="password" name="confirmPassword" value={confirmPassword}
                             onChange={handleChange} label="Confirm Password" required
                         />
-                        <SubmitButton onClick={() => console.log("create acc func")} buttonType={BUTTON_TYPE_CLASS.dropdown}>Create Account</SubmitButton>
+                        <SubmitButton onClick={handleSubmit} buttonType={BUTTON_TYPE_CLASS.dropdown}>Create Account</SubmitButton>
                     </form>
                     <RedirectionLink to={loginRoute}>Login</RedirectionLink>
                 </ComponentsContainer>

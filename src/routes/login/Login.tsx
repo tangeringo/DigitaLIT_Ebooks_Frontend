@@ -1,7 +1,7 @@
-import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 
 import { RouteProps } from "../../globalTypes";
-import { appName, createAccountRoute, loginRoute, resetPasswordRoute, defaultLoginFormFields } from '../../variables';
+import { appName, createAccountRoute, loginRoute, resetPasswordRoute, defaultLoginFormFields, serverHost } from '../../variables';
 import { useDispatch } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
 
@@ -23,6 +23,7 @@ import {
     RememberCheckbox,
     RedirectionLink
 } from './login.styles';
+import { loginIntent } from '../../fetchUtils/login.intent';
 
 
 
@@ -40,16 +41,20 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
         setFormFields(defaultLoginFormFields);
     }
 
-    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-        try {
-            // dispatch(emailSignInStart(email, password));
-            resetFormFields();
-
-        } catch(error) {
-            return console.log('Error while creating the user, ', error)
+    const handleSubmit = async () => {
+        if (email.length && password.length) {
+            try {
+                const tokens = await loginIntent(`${serverHost}/login`, {email, password});
+                console.log("tokens111: ", tokens);
+                // also set the user to loginPayload
+                // dispatch(emailSignInStart(email, password));
+                resetFormFields();
+    
+            } catch(error) {
+                return console.log('Error while creating the user, ', error)
+            }
         }
+        else return;
     }
 
     useEffect(() => {
@@ -69,14 +74,14 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
                             <FontAwesomeIcon icon={faInstagram} size='2x' />
                         </IconsContainer>
                         <Divider><OrText>OR</OrText></Divider>
-                        <form style={{width: "100%"}} onSubmit={handleSubmit}>
+                        <form style={{width: "100%"}}>
                             <FormInput type="email" name="email" value={email} 
                                 onChange={handleChange} label="Email" required
                             />
                             <FormInput type="password" name="password" value={password}
                                 onChange={handleChange} label="Password" required
                             />
-                            <SubmitButton onClick={() => console.log("logg in function")} buttonType={BUTTON_TYPE_CLASS.dropdown}>Log In</SubmitButton>
+                            <SubmitButton onClick={handleSubmit} buttonType={BUTTON_TYPE_CLASS.dropdown}>Log In</SubmitButton>
                         </form>
                         <BottomComponnetsContainer>
                             <RememberContainer>
