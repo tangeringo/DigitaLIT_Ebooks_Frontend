@@ -94,3 +94,8 @@ export type StripeTypes = {
     email: string;
     password: string;
   }
+
+  export type TokenType = {
+    access: string;
+    refresh: string;
+  }

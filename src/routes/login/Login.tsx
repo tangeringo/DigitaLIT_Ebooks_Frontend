@@ -1,7 +1,7 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 
-import { RouteProps } from "../../globalTypes";
-import { appName, createAccountRoute, loginRoute, resetPasswordRoute, defaultLoginFormFields, serverHost } from '../../variables';
+import { RouteProps, TokenType } from "../../globalTypes";
+import { appName, createAccountRoute, loginRoute, resetPasswordRoute, defaultLoginFormFields, serverHostUrl } from '../../variables';
 import { useDispatch } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
 
@@ -23,13 +23,15 @@ import {
     RememberCheckbox,
     RedirectionLink
 } from './login.styles';
-import { loginIntent } from '../../fetchUtils/login.intent';
+import { loginIntentAxios } from '../../fetchUtils/login.intent';
 
 
 
 const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
     const [formFields, setFormFields] = useState(defaultLoginFormFields);
+    const [tokens, setTokens] = useState({ access: "", refresh: "" });
     const { email, password } = formFields;
+    const serverHost: string = (process.env.SERVER_HOST as string) ?? serverHostUrl;
     const dispatch = useDispatch();
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -41,18 +43,16 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
         setFormFields(defaultLoginFormFields);
     }
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (event: FormEvent) => {
+        event.preventDefault();
         if (email.length && password.length) {
             try {
-                const tokens = await loginIntent(`${serverHost}/login`, {email, password});
-                console.log("tokens111: ", tokens);
+                const tokens: TokenType = await loginIntentAxios(`${serverHost}/login`, {email, password});
+                setTokens({access: tokens.access, refresh: tokens.refresh})
                 // also set the user to loginPayload
                 // dispatch(emailSignInStart(email, password));
                 resetFormFields();
-    
-            } catch(error) {
-                return console.log('Error while creating the user, ', error)
-            }
+            } catch(error) { alert('Error while logging in; try again later!') }
         }
         else return;
     }

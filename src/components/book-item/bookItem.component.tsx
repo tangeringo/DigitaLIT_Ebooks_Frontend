@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { addToCart, editPdfRoute, moreInfo, showBook } from '../../variables';
+import { addToCart, moreInfo, showBook } from '../../variables';  //editPdfRoute,
 
 import { MyBookProps } from '../../globalTypes';
 
@@ -24,6 +24,8 @@ import {
 const BookItemComponent = ({ book, buttonName, cartItemInfo, setCartItemInfo }: MyBookProps): JSX.Element => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const editPdfRoute = process.env.EDIT_PDF_ROUTE ?? "";
 
     const { id, imgSource, name, price, description } = book;
     const cartItems = useSelector(selectCartItems);

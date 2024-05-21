@@ -1,6 +1,6 @@
-import React, { useEffect, useState, ChangeEvent } from 'react';
-import { RouteProps } from "../../globalTypes";
-import { appName, createAccountRoute, loginRoute, defaultCreateAccountFormFields, serverHost } from '../../variables';
+import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
+import { RouteProps, TokenType } from "../../globalTypes";
+import { appName, createAccountRoute, loginRoute, defaultCreateAccountFormFields, serverHostUrl } from '../../variables';
 
 import { useDispatch } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
@@ -16,14 +16,15 @@ import {
     ComponentsContainer,
     RedirectionLink
 } from '../login/login.styles';
-import { loginIntent } from '../../fetchUtils/login.intent';
+import { loginIntentAxios } from '../../fetchUtils/login.intent';
 
   
   const CreateAccountPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
-    const dispatch = useDispatch();
     const [formFields, setFormFields] = useState(defaultCreateAccountFormFields);
+    const [tokens, setTokens] = useState({ access: "", refresh: "" });
     const { name, email, password, confirmPassword } = formFields;
-  
+    const serverHost: string = (process.env.SERVER_HOST as string) ?? serverHostUrl;
+    const dispatch = useDispatch();
   
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = event.target;
@@ -34,13 +35,14 @@ import { loginIntent } from '../../fetchUtils/login.intent';
       setFormFields(defaultCreateAccountFormFields);
     }
 
-      const handleSubmit = async () => {
+      const handleSubmit = async (event: FormEvent) => {
+        event.preventDefault();
         if (email.length && password.length) {
           try {
-            const tokens = await loginIntent(`${serverHost}/create-account`, {name, email, password});
-            console.log("tokens: ", tokens);
-            // also set the user to loginPayload
+            const tokens: TokenType = await loginIntentAxios(`${serverHost}/create-account`, {name, email, password});
+            setTokens({access: tokens.access, refresh: tokens.refresh})
             // dispatch(emailSignInStart(email, password));
+            // also set the user to loginPayload
             resetFormFields();
   
           } catch(error) {

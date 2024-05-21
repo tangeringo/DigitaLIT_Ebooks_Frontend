@@ -3,16 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
-import { REACT_PUBLISHABLE_KEY } from "../../variables";
-import { CheckoutCardProps, StripeTypes } from '../../globalTypes'
+import { CheckoutCardProps, StripeTypes } from '../../globalTypes';
+import { react_public_key } from "../../variables";
 
 import PaymentForm from "../payment-form/paymentForm.component";
 import { white } from "../../styles/colors.styles";
 
 
-const nodeEnv: string = (REACT_PUBLISHABLE_KEY as string);
-
-const stripePromise = loadStripe(nodeEnv);
+const reactEnvKey: string = (process.env.REACT_PUBLISHABLE_KEY as string) ?? react_public_key;
+const stripePromise = loadStripe(reactEnvKey);
 
 
 const CheckoutCard: React.FC<CheckoutCardProps> = ({ theme, secret }) => {
@@ -34,9 +33,9 @@ const CheckoutCard: React.FC<CheckoutCardProps> = ({ theme, secret }) => {
       },
     };
     return (
-        <Elements stripe={stripePromise} options={options}>
-            <PaymentForm />
-        </Elements>
+      <Elements stripe={stripePromise} options={options}>
+        <PaymentForm />
+      </Elements>
     );
 
 }
