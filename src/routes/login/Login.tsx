@@ -1,7 +1,7 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 
 import { RouteProps, TokenType } from "../../globalTypes";
-import { appName, createAccountRoute, loginRoute, resetPasswordRoute, defaultLoginFormFields, serverHostUrl } from '../../variables';
+import { appName, createAccountRoute, loginRoute, resetPasswordRoute, defaultLoginFormFields } from '../../variables';
 import { useDispatch } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
 
@@ -31,7 +31,6 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
     const [formFields, setFormFields] = useState(defaultLoginFormFields);
     const [tokens, setTokens] = useState({ access: "", refresh: "" });
     const { email, password } = formFields;
-    const serverHost: string = (process.env.SERVER_HOST as string) ?? serverHostUrl;
     const dispatch = useDispatch();
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -47,7 +46,7 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
         event.preventDefault();
         if (email.length && password.length) {
             try {
-                const tokens: TokenType = await loginIntentAxios(`${serverHost}/login`, {email, password});
+                const tokens: TokenType = await loginIntentAxios(`/auth/login`, {email, password});
                 setTokens({access: tokens.access, refresh: tokens.refresh})
                 // also set the user to loginPayload
                 // dispatch(emailSignInStart(email, password));

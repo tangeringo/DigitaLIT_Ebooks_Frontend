@@ -1,6 +1,6 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import { RouteProps, TokenType } from "../../globalTypes";
-import { appName, createAccountRoute, loginRoute, defaultCreateAccountFormFields, serverHostUrl } from '../../variables';
+import { appName, createAccountRoute, loginRoute, defaultCreateAccountFormFields } from '../../variables';
 
 import { useDispatch } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
@@ -23,7 +23,6 @@ import { loginIntentAxios } from '../../fetchUtils/login.intent';
     const [formFields, setFormFields] = useState(defaultCreateAccountFormFields);
     const [tokens, setTokens] = useState({ access: "", refresh: "" });
     const { name, email, password, confirmPassword } = formFields;
-    const serverHost: string = (process.env.SERVER_HOST as string) ?? serverHostUrl;
     const dispatch = useDispatch();
   
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +38,7 @@ import { loginIntentAxios } from '../../fetchUtils/login.intent';
         event.preventDefault();
         if (email.length && password.length) {
           try {
-            const tokens: TokenType = await loginIntentAxios(`${serverHost}/create-account`, {name, email, password});
+            const tokens: TokenType = await loginIntentAxios(`auth/register`, {name, email, password});
             setTokens({access: tokens.access, refresh: tokens.refresh})
             // dispatch(emailSignInStart(email, password));
             // also set the user to loginPayload

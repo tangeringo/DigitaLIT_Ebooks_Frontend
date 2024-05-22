@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { RouteProps } from '../../globalTypes';
-import { checkoutRoute, serverHostUrl } from '../../variables';
+import { checkoutRoute } from '../../variables';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
@@ -11,7 +11,7 @@ import CheckoutItemComponent from '../../components/checkout-item/checkoutItem.c
 import SubmitButton from '../../components/submit-button/submitButton.component';
 import { BUTTON_TYPE_CLASS } from '../../components/submit-button/submitButton.component';
 
-import { paymentIntent, paymentIntentAxios } from '../../fetchUtils/payment-intent-utils';
+import { paymentIntentAxios } from '../../fetchUtils/payment-intent-utils';
 import CheckoutCard from '../../components/checkout-card/checkoutCard.component';
 
 import { ThemeProvider } from 'styled-components';
@@ -30,14 +30,13 @@ const CheckoutPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
     const [secretCalled, setSecredCalled] = useState<boolean>(false);
     const cartItems = useSelector(selectCartItems);
     const cartTotal = useSelector(selectCartTotal);
-    const serverHost: string = (process.env.SERVER_HOST as string) ?? serverHostUrl;
     const dispatch = useDispatch();
 
 
     const onCheckoutSubmit = async() => {
         if (secretCalled) return;
         else try {
-            const clientSecret: unknown = await paymentIntentAxios(`${serverHost}/secret`, cartTotal)
+            const clientSecret: unknown = await paymentIntentAxios(`stripe/secret`, cartTotal)
             setSecret(clientSecret);
             setSecredCalled(true);
         } catch (error) {
