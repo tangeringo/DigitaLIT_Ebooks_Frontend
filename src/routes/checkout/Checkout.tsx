@@ -11,7 +11,7 @@ import CheckoutItemComponent from '../../components/checkout-item/checkoutItem.c
 import SubmitButton from '../../components/submit-button/submitButton.component';
 import { BUTTON_TYPE_CLASS } from '../../components/submit-button/submitButton.component';
 
-import { paymentIntentAxios } from '../../fetchUtils/payment-intent-utils';
+import { paymentIntent } from '../../fetchUtils/payment-intent-utils';
 import CheckoutCard from '../../components/checkout-card/checkoutCard.component';
 
 import { ThemeProvider } from 'styled-components';
@@ -22,6 +22,7 @@ import {
     TotalCountWrapper, Total, 
     CheckoutBackground 
 } from './checkout.styles';
+import axios from 'axios';
 
 
 
@@ -36,11 +37,13 @@ const CheckoutPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
     const onCheckoutSubmit = async() => {
         if (secretCalled) return;
         else try {
-            const clientSecret: unknown = await paymentIntentAxios(`stripe/secret`, cartTotal)
+            // const clientSecret: unknown = await paymentIntent(`/secret`, cartTotal)
+            const res = await axios.post(`http://localhost:8000/api/stripe/secret`, { amount: cartTotal * 100 })      // DEVELOPMENT
+            const { client_secret: clientSecret } = await res.data;                                                   // DEVELOPMENT
             setSecret(clientSecret);
             setSecredCalled(true);
         } catch (error) {
-            alert('An error has occurred; try again later!')
+            alert("An error has occurred; try again later!")
         }
     };
 
@@ -56,7 +59,6 @@ const CheckoutPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
                    <CheckoutItemsWrapper>
                         { cartItems.map(cartItem => (<CheckoutItemComponent key={cartItem.id} cartItem={cartItem}/> ))}
                     </CheckoutItemsWrapper>
-
 
                     <BottomComponentsContainer>
                         <SubmitButton onClick={onCheckoutSubmit} buttonType={BUTTON_TYPE_CLASS.checkout}>Proceed to Transaction</SubmitButton>

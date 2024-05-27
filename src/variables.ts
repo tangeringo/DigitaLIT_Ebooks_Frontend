@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const appName = "DigitaLIT";
-export const serverHostUrl = "http://localhost:8000";
 export const apiUrl = "http://37.46.209.133/api";
 export const react_public_key = "pk_test_51KEX2rKDqxO1AAP3V4yuAGW0ZVqmNiAgK0VDAjTTNRN3kCMRI9bZGi2iTwXUhePayYSd5EmxBTdCXMNR0EPDHmoY00yERUY7vb";
 

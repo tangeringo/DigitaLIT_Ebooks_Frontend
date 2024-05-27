@@ -16,7 +16,8 @@ import {
     ComponentsContainer,
     RedirectionLink
 } from '../login/login.styles';
-import { loginIntentAxios } from '../../fetchUtils/login.intent';
+import { loginIntent } from '../../fetchUtils/login-intent';
+import axios from 'axios';
 
   
   const CreateAccountPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
@@ -38,7 +39,9 @@ import { loginIntentAxios } from '../../fetchUtils/login.intent';
         event.preventDefault();
         if (email.length && password.length) {
           try {
-            const tokens: TokenType = await loginIntentAxios(`auth/register`, {name, email, password});
+            // const tokens: TokenType = await loginIntent(`/auth/register`, {name, email, password});
+            const res = await axios.post(`http://localhost:8000/api/auth/register`, { name, email, password });        // DEVELOPMENT
+            const { tokens } = await res.data;                                                                         // DEVELOPMENT
             setTokens({access: tokens.access, refresh: tokens.refresh})
             // dispatch(emailSignInStart(email, password));
             // also set the user to loginPayload

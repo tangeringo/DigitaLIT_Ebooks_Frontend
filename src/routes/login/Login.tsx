@@ -23,7 +23,8 @@ import {
     RememberCheckbox,
     RedirectionLink
 } from './login.styles';
-import { loginIntentAxios } from '../../fetchUtils/login.intent';
+import { loginIntent } from '../../fetchUtils/login-intent';
+import axios from 'axios';
 
 
 
@@ -46,7 +47,9 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
         event.preventDefault();
         if (email.length && password.length) {
             try {
-                const tokens: TokenType = await loginIntentAxios(`/auth/login`, {email, password});
+                // const tokens: TokenType = await loginIntent(`/auth/login`, {email, password});
+                const res = await axios.post(`http://localhost:8000/api/auth/login`, { email, password });        // DEVELOPMENT
+                const { tokens } = await res.data;                                                                // DEVELOPMENT
                 setTokens({access: tokens.access, refresh: tokens.refresh})
                 // also set the user to loginPayload
                 // dispatch(emailSignInStart(email, password));
