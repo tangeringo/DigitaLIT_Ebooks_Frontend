@@ -37,8 +37,11 @@ export const TotalCountWrapper = styled.div`
     width: fit-content;
     background-color: ${creme};
     box-shadow: 0px 0px 16px ${(props) => props.theme.border};
-    margin-left: auto;
     padding: 4px;
+
+    @media (max-width: ${mediaPixelsWidth600}) {
+        margin: 30px auto;
+    }  
 `;
 
 export const Total = styled.span`

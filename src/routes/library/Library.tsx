@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { LibraryPageProps, CartItemInfo } from '../../globalTypes';
-import { moreInfo, addToCart, closeButton, libraryRoute, defaultCartItemInfoState } from '../../variables';
+import { addToCart, closeButton, libraryRoute, defaultCartItemInfoState } from '../../variables';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
@@ -18,6 +18,7 @@ import {
 
 import { setOpenSideBar } from '../../redux/library/libraryActions';
 import SubmitButton, { BUTTON_TYPE_CLASS } from '../../components/submit-button/submitButton.component';
+import GenreRowComponent from '../../components/genre-row/genreRow.component';
 
 const LibraryPage = ({ theme, filteredBooks, setRoute }: LibraryPageProps): JSX.Element => {
     const dispatch = useDispatch();
@@ -44,12 +45,7 @@ const LibraryPage = ({ theme, filteredBooks, setRoute }: LibraryPageProps): JSX.
 
                         <BookItemsWrapperContainer isSideBarOpen={isSideBarOpen}>
                             {filteredBooks.map(item => (
-                                <BookItemComponent 
-                                    key={item.id} book={item} 
-                                    buttonName={moreInfo} 
-                                    cartItemInfo={cartItemInfo} 
-                                    setCartItemInfo={setCartItemInfo}
-                                />
+                                <GenreRowComponent key={item.genre} genre={item.genre} books={item.books} cartItemInfo={cartItemInfo} setCartItemInfo={setCartItemInfo}/>
                             ))}
                         </BookItemsWrapperContainer>
 

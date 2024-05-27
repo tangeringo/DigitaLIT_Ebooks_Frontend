@@ -23,6 +23,12 @@ export const libraryRoute = "/library";
 export const checkoutRoute = "/checkout";
 
 
+export const businessGenre = "Business";
+export const psychologyGenre = "Psychology";
+export const itGenre = "IT";
+export const physicsGenre = "Physics";
+
+
 export const mediaPixelsWidth1600 = "1600px";
 export const mediaPixelsWidth1400 = "1400px";
 export const mediaPixelsWidth1200 = "1200px";

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import useLocalStorage from "use-local-storage";
 import "bootstrap/dist/css/bootstrap.css";
 
-import { bookData } from './data/dummyData';
+import { businessBooks, itBooks, physicsBooks, psychologyBooks } from './data/dummyData';
 import { RouteOptions } from './globalTypes';
 import { darkTheme, lightTheme } from './styles/globalStyles.styles';
 
@@ -16,7 +16,7 @@ import LoginPage from './routes/login/Login';
 import CreateAccountPage from './routes/create-account/CreateAccount';
 import ProfilePage from './routes/profile/Profile';
 import ResetPasswordPage from './routes/reset-password/ResetPassword';
-import MyBooksPage from './routes/my-books/MyBooks';
+// import MyBooksPage from './routes/my-books/MyBooks';
 import LibraryPage from './routes/library/Library';
 import ThemeToggler from './components/theme-toggler/themeToggler.component';
 import PdfEditor from './routes/edit-pdf/EditPdf';
@@ -30,7 +30,17 @@ const App: React.FC = () => {
   const [themeTitle, setThemeTitle] = useLocalStorage('light', 'dark');
 
   const theme = themeTitle === 'light'? lightTheme : darkTheme;
-  const filteredBooks = bookData.filter(book => book.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredBusinessBooks = businessBooks.filter(book => book.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredPsychologyBooks = psychologyBooks.filter(book => book.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredItBooks = itBooks.filter(book => book.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredPhysicsBooks = physicsBooks.filter(book => book.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  
+  const filteredBooks = [ 
+    { genre: "Business", books: [...filteredBusinessBooks] },
+    { genre: "Psychology", books: [...filteredPsychologyBooks] },
+    { genre: "Technology", books: [...filteredItBooks] },
+    { genre: "Physics", books: [...filteredPhysicsBooks] }
+  ];
 
 
   return (
@@ -43,7 +53,8 @@ const App: React.FC = () => {
         <Route path={createAccountRoute} element={<CreateAccountPage theme={theme} setRoute={setRoute}/>} />
         <Route path={resetPasswordRoute} element={<ResetPasswordPage theme={theme} setRoute={setRoute}/>}/>
         <Route path={profileRoute} element={<ProfilePage theme={theme} setRoute={setRoute}/>} />
-        <Route path={myBooksRoute} element={<MyBooksPage theme={theme} setRoute={setRoute}/>} />
+        {/* <Route path={myBooksRoute} element={<MyBooksPage theme={theme} setRoute={setRoute}/>} /> */}
+        {/* change the array of my books */}
         <Route path={editPdfRoute} element={<PdfEditor theme={theme} setRoute={setRoute} />} />
         <Route path={libraryRoute} element={<LibraryPage theme={theme} filteredBooks={filteredBooks} setRoute={setRoute}/>} />
         <Route path={checkoutRoute} element={<CheckoutPage theme={theme} setRoute={setRoute}/>} />
@@ -64,10 +75,6 @@ export default App;
 
 
 // BUSINESS STEPS  (SUPER IMPORTANT):
-
-// 1.) adding all the frontend code to the purchased cloud --DONE
-// 2.) programming the server (microservices) and adding the code to the purchased cloud --FAST
-// 2.1.) connecting client + server --FAST
 
 // 3.) creating the database and adding to the purchased cloud
 // 3.1.) connecting server + database

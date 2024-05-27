@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { addToCart, moreInfo, showBook } from '../../variables';  //editPdfRoute,
+import { addToCart, moreInfo, showBook, editPdfRoute } from '../../variables';
 
 import { MyBookProps } from '../../globalTypes';
 
@@ -25,8 +25,6 @@ const BookItemComponent = ({ book, buttonName, cartItemInfo, setCartItemInfo }: 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const editPdfRoute = process.env.EDIT_PDF_ROUTE ?? "";
-
     const { id, imgSource, name, price, description } = book;
     const cartItems = useSelector(selectCartItems);
 
@@ -35,8 +33,6 @@ const BookItemComponent = ({ book, buttonName, cartItemInfo, setCartItemInfo }: 
         else if (buttonName === addToCart) {
             dispatch(setCartIconPulse(true));
             dispatch(addItemToCart(cartItems, book));
-
-
         } else if (buttonName === moreInfo && setCartItemInfo)
             if ((!cartItemInfo?.showBook) || (cartItemInfo?.id !== id)) {
                 dispatch(setSelectedBookItem(book));

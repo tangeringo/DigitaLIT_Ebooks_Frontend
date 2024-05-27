@@ -65,7 +65,7 @@ const Navigation: React.FC<NavBarProps> = ({ brandName, route, setSearchTerm }) 
             </RoutesContainer>
           
             <FormSearch>
-              { route === editPdfRoute? <p style={{color: "white"}}>save button</p> : null }
+              { route === editPdfRoute? <p style={{color: "white", margin: "10px 25px 0 0"}}>save button</p> : null }
               { route === profileRoute? <NavBarImage src={profileImg}/> : null}
               { route === libraryRoute || route === myBooksRoute? <InputSearch onChange={(event) => setSearchTerm(event.target.value)} /> : null}
               <CartIcon />

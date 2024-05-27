@@ -1,6 +1,7 @@
 export const black = "#000";
 export const lightBlack = "#333";
 export const white = "#fff";
+export const darkWhite = "#D1D1D1";
 export const red = "red";
 export const orange = "orange";
 export const yellow = "yellow";

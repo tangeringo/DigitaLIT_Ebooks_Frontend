@@ -1,6 +1,6 @@
 import styled, { RuleSet, css } from "styled-components";
 import { black, creme } from "../../styles/colors.styles";
-import { addToCart, closeButton, moreInfo, showBook } from "../../variables";
+import { addToCart, moreInfo, showBook } from "../../variables";
 
 
 export const BookImage = styled.img.attrs(() => ({
@@ -18,6 +18,9 @@ const LibraryItemStyles = css`
     width: 50px;
     padding: 0;
     position: absolute;
+    letter-spacing: 2.7px;
+    line-height: 35px;
+    font-size: 25px;
     top: 15px;
     right: 25px;
     transform: rotate(-90.0deg);
@@ -46,7 +49,6 @@ export const CartItemButton = styled.button<ButtonNameProps>`
     letter-spacing: 1.5px;
     line-height: 50px;
     padding: 0 35px 0 35px;
-    font-size: 15px;
     color: ${black};
     text-transform: uppercase;
     font-family: 'Open Sans Condensed';
@@ -83,7 +85,7 @@ export const CollectionItem = styled.div<ButtonNameProps>`
     height: fit-content;
     align-items: center;
     position: relative;
-    margin: 7% auto 0;
+    margin: 1% auto 5%;
     border: 2px solid ${creme};
     border-radius: 10px;
     box-shadow: 0px 0px 12px ${(props) => props.theme.border};

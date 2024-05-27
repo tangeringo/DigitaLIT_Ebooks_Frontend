@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import { BaseBackgroundContainer } from "../../styles/globalStyles.styles";
+import { darkWhite } from "../../styles/colors.styles";
 
 
 export const ContainerWrapper = styled(BaseBackgroundContainer)`
     height: fit-content;
+    width: 100%;
 `;
 
 
-type BookItemsWrapperContainerProps = {
+type BookItemsWrapperContainerProps = { 
     isSideBarOpen: boolean;
 }
 
@@ -36,5 +38,6 @@ export const SideBarSection = styled.div.attrs(() => ({
 `;
 
 export const NoMatchesText = styled.h2`
+    color: ${darkWhite};
     margin: 400px auto;
 `;

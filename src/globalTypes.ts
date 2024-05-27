@@ -55,11 +55,14 @@ export type CartItemInfo = {
 }
 
 // BOOK ITEM COMPONENT
-export interface MyBookProps {
-  book: BookItem,
-  buttonName: string,
+interface cartItemInfoAddition {
   cartItemInfo?: CartItemInfo | undefined,
   setCartItemInfo?: React.Dispatch<React.SetStateAction<CartItemInfo>> | undefined
+}
+
+export type MyBookProps = cartItemInfoAddition & {
+  book: BookItem,
+  buttonName: string,
 }
 
 // CHECKOUT ITEM COMPONENT
@@ -68,8 +71,13 @@ export type CheckouComponnetProps = {
 }
 
 // LIBRARY PAGE
+export type GenreBookObject = cartItemInfoAddition & {
+  genre: string;
+  books: BookItem[];
+}
+
 export type LibraryPageProps = RouteProps & {
-  filteredBooks: BookItem[], 
+  filteredBooks: GenreBookObject[], 
 }
 
 

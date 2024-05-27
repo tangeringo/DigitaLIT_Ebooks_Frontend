@@ -61,10 +61,10 @@ const CheckoutPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
                     </CheckoutItemsWrapper>
 
                     <BottomComponentsContainer>
-                        <SubmitButton onClick={onCheckoutSubmit} buttonType={BUTTON_TYPE_CLASS.checkout}>Proceed to Transaction</SubmitButton>
                         <TotalCountWrapper>
                             <Total>Total: ${cartTotal}</Total>
                         </TotalCountWrapper>
+                        <SubmitButton onClick={onCheckoutSubmit} buttonType={BUTTON_TYPE_CLASS.checkout}>Proceed to Transaction</SubmitButton>
                     </BottomComponentsContainer>
                     { !secret? null : <CheckoutCard theme={theme} secret={secret} /> }
                 </CheckoutContainer>
