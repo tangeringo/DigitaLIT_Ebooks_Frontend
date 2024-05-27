@@ -16,7 +16,7 @@ import LoginPage from './routes/login/Login';
 import CreateAccountPage from './routes/create-account/CreateAccount';
 import ProfilePage from './routes/profile/Profile';
 import ResetPasswordPage from './routes/reset-password/ResetPassword';
-// import MyBooksPage from './routes/my-books/MyBooks';
+import MyBooksPage from './routes/my-books/MyBooks';
 import LibraryPage from './routes/library/Library';
 import ThemeToggler from './components/theme-toggler/themeToggler.component';
 import PdfEditor from './routes/edit-pdf/EditPdf';
@@ -53,8 +53,7 @@ const App: React.FC = () => {
         <Route path={createAccountRoute} element={<CreateAccountPage theme={theme} setRoute={setRoute}/>} />
         <Route path={resetPasswordRoute} element={<ResetPasswordPage theme={theme} setRoute={setRoute}/>}/>
         <Route path={profileRoute} element={<ProfilePage theme={theme} setRoute={setRoute}/>} />
-        {/* <Route path={myBooksRoute} element={<MyBooksPage theme={theme} setRoute={setRoute}/>} /> */}
-        {/* change the array of my books */}
+        <Route path={myBooksRoute} element={<MyBooksPage theme={theme} setRoute={setRoute}/>} />
         <Route path={editPdfRoute} element={<PdfEditor theme={theme} setRoute={setRoute} />} />
         <Route path={libraryRoute} element={<LibraryPage theme={theme} filteredBooks={filteredBooks} setRoute={setRoute}/>} />
         <Route path={checkoutRoute} element={<CheckoutPage theme={theme} setRoute={setRoute}/>} />
