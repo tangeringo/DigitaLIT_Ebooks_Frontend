@@ -6,11 +6,12 @@ import { addToCart, moreInfo, showBook } from "../../variables";
 export const BookImage = styled.img.attrs(() => ({
     alt: ""
 }))`
-    width: 95%;
+    width: 100%;
     height: 350px;
     background-size: cover;
     background-position: center;
     margin-bottom: 5px;
+    // margin-top: 15px;
 `;
 
 const LibraryItemStyles = css`
@@ -79,13 +80,13 @@ const getCheckoutCollectionItemStyles = ({ buttonName }: ButtonNameProps): RuleS
 
 export const CollectionItem = styled.div<ButtonNameProps>`
     width: 300px;
-    padding: 10px;
+    padding: 8px;
     display: flex;
     flex-direction: column;
     height: fit-content;
     align-items: center;
     position: relative;
-    margin: 1% auto 5%;
+    margin: 0 auto 5%;
     border: 2px solid ${creme};
     border-radius: 10px;
     box-shadow: 0px 0px 12px ${(props) => props.theme.border};
@@ -118,6 +119,8 @@ export const ItemDescription = styled.div<ItemDescriptionProps>`
     font-size: 18px;
     background-color: ${creme};
     margin-top: 10px;
+    margin-bottom: ${({buttonTitle}) => buttonTitle === addToCart? "20px" : "0"};
+    padding: ${({buttonTitle}) => buttonTitle === addToCart? "10px 0" : "0"};
     padding-left: 5px;
 `;
 

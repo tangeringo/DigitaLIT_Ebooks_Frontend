@@ -40,9 +40,9 @@ export const CloseButtonStyles = styled(BaseButtonStyles)`
     min-width: 50px;
     display: flex;
     justify-content: center;
-    margin: 30px 30px 0 auto;
+    margin: 90px auto -70px 4px;
+    padding: 5px;
     font-size: 25px;
-
 `;
 
 

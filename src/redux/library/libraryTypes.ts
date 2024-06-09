@@ -8,6 +8,7 @@ export const BookItemObject = {
     imgSource: "",
     name: "",
     price: 0,
+    copyright: "",
     description: ""
 }
 
@@ -16,5 +17,6 @@ export type BookItem = {
     imgSource: string;
     name: string;
     price: number;
+    copyright: string;
     description: string;
 }

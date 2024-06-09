@@ -1,9 +1,6 @@
 import axios from "axios";
 
 export const appName = "DigitaLIT";
-export const apiUrl = "http://37.46.209.133/api";
-export const react_public_key = "pk_test_51KEX2rKDqxO1AAP3V4yuAGW0ZVqmNiAgK0VDAjTTNRN3kCMRI9bZGi2iTwXUhePayYSd5EmxBTdCXMNR0EPDHmoY00yERUY7vb";
-
 export const moreInfo = "...";
 export const closeButton = "x"
 export const addToCart = "Add to cart";
@@ -38,7 +35,7 @@ export const mediaPixelsWidth600 = "600px";
 
 
 export const axiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL ?? apiUrl
+    baseURL: process.env.REACT_APP_API_URL
 });
 
 

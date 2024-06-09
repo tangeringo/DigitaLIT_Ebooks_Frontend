@@ -29,12 +29,12 @@ type ShowBookProps = {
 export const SideBarSection = styled.div.attrs(() => ({
     className: "bg-dark"
 }))<ShowBookProps>`
-    width: 380px;
-    height: 95%;
+    width: 450px;
+    height: 100%;
     position: fixed;
-    top: 85px;
     transition: all .5s;
-    right: ${({ showBook }) => showBook ? "0%": "-380px"};
+    right: ${({ showBook }) => showBook ? "0%": "-450px"};
+    overflow: auto;
 `;
 
 export const NoMatchesText = styled.h2`

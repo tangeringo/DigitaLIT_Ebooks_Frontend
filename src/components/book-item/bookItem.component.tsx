@@ -25,7 +25,7 @@ const BookItemComponent = ({ book, buttonName, cartItemInfo, setCartItemInfo }: 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { id, imgSource, name, price, description } = book;
+    const { id, imgSource, name, price, copyright, description } = book;
     const cartItems = useSelector(selectCartItems);
 
     const buttonIconOnClick = (book: BookItem): void => {
@@ -46,18 +46,30 @@ const BookItemComponent = ({ book, buttonName, cartItemInfo, setCartItemInfo }: 
 
     return (
         <CollectionItem buttonName={buttonName}>
-            <BookImage src={imgSource}></BookImage>
-
-            <ItemDescription buttonTitle={buttonName}>
-                <span>name: <BookTitle>{name}</BookTitle></span>
-                { buttonName !== showBook? <BookPrice> ${price} </BookPrice> :null }
-            </ItemDescription>
 
             {buttonName === addToCart?
-                <ItemDescription buttonTitle={addToCart}>
-                    <span>description: <BookDescription>{description} </BookDescription></span>
-                </ItemDescription> 
-                :null
+                <div style={{width: "100%"}}>
+                    <ItemDescription buttonTitle={buttonName}>
+                        <BookTitle>{name}</BookTitle>
+                    </ItemDescription>
+                    <BookImage src={imgSource}></BookImage>
+                    <div style={{width: "100%"}}>
+                        <ItemDescription buttonTitle={addToCart}>
+                            <span>copyright info: <BookDescription>{copyright} </BookDescription></span>
+                        </ItemDescription> 
+                        <ItemDescription buttonTitle={addToCart}>
+                            <span>description: <BookDescription>{description} </BookDescription></span>
+                        </ItemDescription> 
+                    </div>
+                </div>
+                
+                :<div style={{width: "100%"}}>
+                    <BookImage src={imgSource}></BookImage>
+                    <ItemDescription buttonTitle={buttonName}>
+                        <span>name: <BookTitle>{name}</BookTitle></span>
+                        { buttonName !== showBook? <BookPrice> ${price} </BookPrice> :null }
+                    </ItemDescription>
+                </div>
             }
             
             <CartItemButton buttonName={buttonName} onClick={() => buttonIconOnClick(book)}>

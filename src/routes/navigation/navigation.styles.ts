@@ -29,6 +29,10 @@ export const NavBarImage = styled.img.attrs(() => ({
     padding: 5px;
 `;
 
+export const NavBarProfileImage = styled(NavBarImage)`
+    margin-left: 0;
+`;
+
 export const HamburgerMenuButton = styled.button.attrs(() => ({
     className: "navbar-toggler",
     type: "button",

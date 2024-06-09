@@ -4,13 +4,12 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
 import { CheckoutCardProps, StripeTypes } from '../../globalTypes';
-import { react_public_key } from "../../variables";
 
 import PaymentForm from "../payment-form/paymentForm.component";
 import { white } from "../../styles/colors.styles";
 
 
-const reactEnvKey: string = (process.env.REACT_PUBLISHABLE_KEY as string) ?? react_public_key;
+const reactEnvKey: string = (process.env.REACT_APP_PUBLISHABLE_KEY as string);
 const stripePromise = loadStripe(reactEnvKey);
 
 

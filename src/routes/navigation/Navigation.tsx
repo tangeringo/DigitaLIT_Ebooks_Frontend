@@ -22,7 +22,8 @@ import {
   RoutesContainer, 
   RouteLink, 
   FormSearch, 
-  InputSearch, 
+  InputSearch,
+  NavBarProfileImage, 
 } from "./navigation.styles";
 
 
@@ -66,7 +67,7 @@ const Navigation: React.FC<NavBarProps> = ({ brandName, route, setSearchTerm }) 
           
             <FormSearch>
               { route === editPdfRoute? <p style={{color: "white", margin: "10px 25px 0 0"}}>save button</p> : null }
-              { route === profileRoute? <NavBarImage src={profileImg}/> : null}
+              { route === profileRoute? <NavBarProfileImage src={profileImg}/> : null}
               { route === libraryRoute || route === myBooksRoute? <InputSearch onChange={(event) => setSearchTerm(event.target.value)} /> : null}
               <CartIcon />
             </FormSearch>

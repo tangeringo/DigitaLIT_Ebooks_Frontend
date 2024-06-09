@@ -4,6 +4,9 @@ import { RouteProps, TokenType } from "../../globalTypes";
 import { appName, createAccountRoute, loginRoute, resetPasswordRoute, defaultLoginFormFields } from '../../variables';
 import { useDispatch } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
+import { loginIntent } from '../../fetchUtils/login-intent';
+import axios from 'axios';            // DEVELOPMENT
+import { auth, facebook, login } from '../../firebase'
 
 import SubmitButton, { BUTTON_TYPE_CLASS } from '../../components/submit-button/submitButton.component';
 import FormInput from '../../components/form-input/formInput.component';
@@ -23,8 +26,7 @@ import {
     RememberCheckbox,
     RedirectionLink
 } from './login.styles';
-import { loginIntent } from '../../fetchUtils/login-intent';
-import axios from 'axios';
+
 
 
 
@@ -43,13 +45,26 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
         setFormFields(defaultLoginFormFields);
     }
 
+    const handleLoginWithFacebook = async() => { 
+        try {
+            const user = await login(auth, facebook);
+            if (user) {
+                console.log("User Logged In from Facebook: ", user);
+            } else {
+                console.log("Logging in from Facebook FAILED ");
+            }   
+        } catch (error) {
+            console.log("error while logging into FIREBASE facebook authentication")
+        }
+    }
+
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
         if (email.length && password.length) {
             try {
-                // const tokens: TokenType = await loginIntent(`/auth/login`, {email, password});
-                const res = await axios.post(`http://localhost:8000/api/auth/login`, { email, password });        // DEVELOPMENT
-                const { tokens } = await res.data;                                                                // DEVELOPMENT
+                const tokens: TokenType = await loginIntent(`/auth/login`, {email, password});
+                // const res = await axios.post(`http://localhost:8000/users/auth/login`, { email, password });        // DEVELOPMENT
+                // const { tokens } = await res.data;                                                                // DEVELOPMENT
                 setTokens({access: tokens.access, refresh: tokens.refresh})
                 // also set the user to loginPayload
                 // dispatch(emailSignInStart(email, password));
@@ -71,7 +86,7 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
                     <Headding>{appName} Login</Headding>
                     <ComponentsContainer>
                         <IconsContainer>
-                            <FontAwesomeIcon icon={faFacebook} size='2x' />
+                            <FontAwesomeIcon icon={faFacebook} size='2x' onClick={handleLoginWithFacebook}/>  {/* onClick={handleLoginWithFacebook} */}
                             <FontAwesomeIcon icon={faGoogle} size='2x' />
                             <FontAwesomeIcon icon={faInstagram} size='2x' />
                         </IconsContainer>

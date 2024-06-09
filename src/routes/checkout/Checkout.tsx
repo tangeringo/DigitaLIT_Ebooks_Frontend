@@ -22,7 +22,7 @@ import {
     TotalCountWrapper, Total, 
     CheckoutBackground 
 } from './checkout.styles';
-import axios from 'axios';
+import axios from 'axios';          // DEVELOPMENT
 
 
 
@@ -37,9 +37,9 @@ const CheckoutPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
     const onCheckoutSubmit = async() => {
         if (secretCalled) return;
         else try {
-            // const clientSecret: unknown = await paymentIntent(`/secret`, cartTotal)
-            const res = await axios.post(`http://localhost:8000/api/stripe/secret`, { amount: cartTotal * 100 })      // DEVELOPMENT
-            const { client_secret: clientSecret } = await res.data;                                                   // DEVELOPMENT
+            const clientSecret: unknown = await paymentIntent(`/stripe/secret`, cartTotal);
+            // const res = await axios.post(`http://localhost:8000/api/stripe/secret`, { amount: cartTotal * 100 })      // DEVELOPMENT
+            // const { client_secret: clientSecret } = await res.data;                                                   // DEVELOPMENT
             setSecret(clientSecret);
             setSecredCalled(true);
         } catch (error) {

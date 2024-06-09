@@ -26,6 +26,7 @@ type CartIconContainerProps = {
 }
 
 export const CartIconContainer = styled.div<CartIconContainerProps>`
+    margin: auto 0;
     width: 45px;
     height: 45px;
     position: relative;

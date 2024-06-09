@@ -28,6 +28,8 @@ const App: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [route, setRoute] = useState<RouteOptions>("/");
   const [themeTitle, setThemeTitle] = useLocalStorage('light', 'dark');
+  const navbarToggler = document.querySelector(".navbar-toggler");
+  const navbarCollapse = document.querySelector(".navbar-collapse");
 
   const theme = themeTitle === 'light'? lightTheme : darkTheme;
   const filteredBusinessBooks = businessBooks.filter(book => book.name.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -41,6 +43,11 @@ const App: React.FC = () => {
     { genre: "Technology", books: [...filteredItBooks] },
     { genre: "Physics", books: [...filteredPhysicsBooks] }
   ];
+
+
+  if (navbarCollapse?.classList.contains('show')) {
+    (navbarToggler as HTMLElement)?.click();
+  }
 
 
   return (
@@ -73,18 +80,11 @@ export default App;
 
 
 
-// BUSINESS STEPS  (SUPER IMPORTANT):
-
-// 3.) creating the database and adding to the purchased cloud
-// 3.1.) connecting server + database
-
-
 // BUSINESS STEPS  (not that important):
 
 // 4.) creating the overview for pdf pricing, suplier database
 // 5.) cold outreaching the supliers stores that have the literature
 // 6.) translating the book into a ".pdf" format and hosting on our server
-
 
 
 
