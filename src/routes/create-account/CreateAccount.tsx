@@ -1,5 +1,5 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
-import { RouteProps, TokenType } from "../../globalTypes";
+import { TokenType, RouteProps } from "../../globalTypes";
 import { appName, createAccountRoute, loginRoute, defaultCreateAccountFormFields } from '../../variables';
 
 import { useDispatch } from 'react-redux';
@@ -22,7 +22,7 @@ import axios from 'axios';          // DEVELOPMENT
   
   const CreateAccountPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
     const [formFields, setFormFields] = useState(defaultCreateAccountFormFields);
-    const [tokens, setTokens] = useState({ access: "", refresh: "" });
+    const [tokens, setTokens] = useState<TokenType>({ access: undefined, refresh: undefined });
     const { name, email, password, confirmPassword } = formFields;
     const dispatch = useDispatch();
   
@@ -42,14 +42,10 @@ import axios from 'axios';          // DEVELOPMENT
             const tokens: TokenType = await loginIntent(`/auth/register`, {name, email, password});
             // const res = await axios.post(`http://localhost:8000/users/auth/register`, { name, email, password });        // DEVELOPMENT
             // const { tokens } = await res.data;                                                                         // DEVELOPMENT
-            setTokens({access: tokens.access, refresh: tokens.refresh})
-            // dispatch(emailSignInStart(email, password));
-            // also set the user to loginPayload
+            setTokens({access: tokens.access, refresh: tokens.refresh});
             resetFormFields();
   
-          } catch(error) {
-              return console.log('Error while creating the user, ', error)
-          }
+          } catch(error) { throw new Error('Error while creating user') }
         }
       else return;
     }

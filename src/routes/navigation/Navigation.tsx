@@ -25,6 +25,7 @@ import {
   InputSearch,
   NavBarProfileImage, 
 } from "./navigation.styles";
+import { selectCurrentUserTokens } from "../../redux/user/user.selectors";
 
 
 interface NavBarProps {
@@ -34,8 +35,8 @@ interface NavBarProps {
 }
 
 const Navigation: React.FC<NavBarProps> = ({ brandName, route, setSearchTerm }) => {
+  const currentUserTokens = useSelector(selectCurrentUserTokens);
   const isCartOpen = useSelector(selectIsCartOpen);
-
 
   return (
       <NavigationContainer>
@@ -54,23 +55,29 @@ const Navigation: React.FC<NavBarProps> = ({ brandName, route, setSearchTerm }) 
               <RouteLink>
                 <Link className={route === loginRoute? "nav-link active fw-bold" : "nav-link"} to={loginRoute}>Login</Link>
               </RouteLink>
-              <RouteLink>
-                <Link className={route === profileRoute? "nav-link active fw-bold" : "nav-link"} to={profileRoute}>Profile</Link>
-              </RouteLink>
-              <RouteLink>
-                <Link className={route === myBooksRoute? "nav-link active fw-bold" : "nav-link"} to={myBooksRoute}>My Books</Link>
-              </RouteLink>
-              <RouteLink>
-                <Link className={route === libraryRoute? "nav-link active fw-bold" : "nav-link"} to={libraryRoute}>Library</Link>
-              </RouteLink>
+              { currentUserTokens?.access?
+                <>
+                  <RouteLink>
+                    <Link className={route === profileRoute? "nav-link active fw-bold" : "nav-link"} to={profileRoute}>Profile</Link>
+                  </RouteLink>
+                  <RouteLink>
+                    <Link className={route === myBooksRoute? "nav-link active fw-bold" : "nav-link"} to={myBooksRoute}>My Books</Link>
+                  </RouteLink>
+                  <RouteLink>
+                    <Link className={route === libraryRoute? "nav-link active fw-bold" : "nav-link"} to={libraryRoute}>Library</Link>
+                  </RouteLink>
+                </> : null
+              }
             </RoutesContainer>
           
+            { currentUserTokens?.access? 
             <FormSearch>
               { route === editPdfRoute? <p style={{color: "white", margin: "10px 25px 0 0"}}>save button</p> : null }
               { route === profileRoute? <NavBarProfileImage src={profileImg}/> : null}
               { route === libraryRoute || route === myBooksRoute? <InputSearch onChange={(event) => setSearchTerm(event.target.value)} /> : null}
               <CartIcon />
             </FormSearch>
+            : null }
             
             {isCartOpen && <CartDropdown />}
           </OuterRoutesContainer>

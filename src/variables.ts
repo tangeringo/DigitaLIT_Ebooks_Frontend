@@ -35,7 +35,7 @@ export const mediaPixelsWidth600 = "600px";
 
 
 export const axiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL
+    baseURL: process.env.REACT_APP_USERS_URL
 });
 
 

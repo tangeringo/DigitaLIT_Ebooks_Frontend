@@ -49,7 +49,7 @@ export interface ThemeTogglerProps {
 }
 
 // MY BOOK COMPONENT
-export type CartItemInfo = {
+export interface CartItemInfo {
   id: number;
   showBook: boolean;
 }
@@ -87,23 +87,37 @@ export type StripeTypes = {
     appearance: {
       theme: "stripe" | "night",
       variables: {
-        colorPrimary: string
+        colorPrimary: string;
       }
     }
   };
   
-  export type CheckoutCardProps = {
-    theme: ThemeType,
-    secret: any
-  }
+export interface CheckoutCardProps {
+  theme: ThemeType;
+  secret: any;
+}
 
-  export type LoginPayload = {
-    name?: string | undefined;
-    email: string;
-    password: string;
-  }
 
-  export type TokenType = {
-    access: string;
-    refresh: string;
-  }
+// LOGIN PAGE
+export interface LoginPayload {
+  name?: string | undefined;
+  email: string;
+  password: string;
+}
+
+export type TokenType = {
+  access: string | undefined;
+  refresh: string | undefined;
+}
+
+// LOGIN PAGE ~ FIREBASE
+export interface AdditionalInfo {
+  displayName?: string;
+  providerId?: string | null;
+}
+
+export interface UserData {
+  email: string | null;
+  displayName: string | null;
+  providerId: string;
+}
