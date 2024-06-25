@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { LibraryPageProps, CartItemInfo } from '../../globalTypes';
-import { addToCart, closeButton, libraryRoute, defaultCartItemInfoState } from '../../variables';
+import { addToCart, closeButton, libraryRoute, defaultCartItemInfoState, loginRoute } from '../../variables';
 
+import { useNavigate } from 'react-router-dom';
+import { selectCurrentUserTokens } from '../../redux/user/user.selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
 import { selectIsSideBarOpen, selectTargetBookItem } from '../../redux/library/librarySelectors';
@@ -21,16 +23,21 @@ import SubmitButton, { BUTTON_TYPE_CLASS } from '../../components/submit-button/
 import GenreRowComponent from '../../components/genre-row/genreRow.component';
 
 const LibraryPage = ({ theme, filteredBooks, setRoute }: LibraryPageProps): JSX.Element => {
-    const dispatch = useDispatch();
+    const [cartItemInfo, setCartItemInfo] = useState<CartItemInfo>(defaultCartItemInfoState);
     const selectedBook = useSelector(selectTargetBookItem);
     const isSideBarOpen = useSelector(selectIsSideBarOpen);
-    const [cartItemInfo, setCartItemInfo] = useState<CartItemInfo>(defaultCartItemInfoState);
+    const currentUserTokens = useSelector(selectCurrentUserTokens);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const closeSideWrapperContainer = () => {
         setCartItemInfo(defaultCartItemInfoState);
         dispatch(setOpenSideBar(false));
     }
 
+    useEffect(() => {
+        if (!currentUserTokens?.access && !currentUserTokens?.refresh) { navigate(loginRoute) }
+    }, [currentUserTokens?.access, currentUserTokens?.refresh, navigate]);
 
     useEffect(() => {
         dispatch(setIsCartOpen(false));

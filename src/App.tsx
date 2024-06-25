@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useLocalStorage from "use-local-storage";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -7,7 +7,7 @@ import { RouteOptions } from './globalTypes';
 import { darkTheme, lightTheme } from './styles/globalStyles.styles';
 
 
-import { Routes, Route } from 'react-router-dom'; 
+import { Routes, Route, Navigate } from 'react-router-dom'; 
 import { appName, homeRoute, loginRoute, createAccountRoute, resetPasswordRoute, profileRoute, myBooksRoute, libraryRoute, checkoutRoute, editPdfRoute } from './variables';
 
 import Navigation from './routes/navigation/Navigation';
@@ -21,6 +21,9 @@ import LibraryPage from './routes/library/Library';
 import ThemeToggler from './components/theme-toggler/themeToggler.component';
 import PdfEditor from './routes/edit-pdf/EditPdf';
 import CheckoutPage from './routes/checkout/Checkout';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCurrentUserTokens } from './redux/user/user.selectors';
+import { checkUserSession } from './redux/user/user.actions';
 
 
 
@@ -30,6 +33,8 @@ const App: React.FC = () => {
   const [themeTitle, setThemeTitle] = useLocalStorage('light', 'dark');
   const navbarToggler = document.querySelector(".navbar-toggler");
   const navbarCollapse = document.querySelector(".navbar-collapse");
+  const currentUserTokens = useSelector(selectCurrentUserTokens);
+  const dispatch = useDispatch();
 
   const theme = themeTitle === 'light'? lightTheme : darkTheme;
   const filteredBusinessBooks = businessBooks.filter(book => book.name.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -49,13 +54,21 @@ const App: React.FC = () => {
     (navbarToggler as HTMLElement)?.click();
   }
 
+  const isUserAuthenticated = () => { return (currentUserTokens?.access && currentUserTokens?.refresh) }
+
+
+// what does this do exactly?
+  useEffect(() => {
+    dispatch(checkUserSession());
+}, [dispatch]);
+
 
   return (
     <div>
       <Navigation brandName={appName} route={route} setSearchTerm={setSearchTerm}/>
       { route === editPdfRoute? null : <ThemeToggler themeTitle={themeTitle} setThemeTitle={setThemeTitle}/> }
       <Routes>
-        <Route index path={homeRoute} element={<HomePage theme={theme} setRoute={setRoute}/>}/>
+        <Route index path={homeRoute} element={isUserAuthenticated()? <HomePage theme={theme} setRoute={setRoute}/> : <Navigate to={loginRoute}/>} />
         <Route path={loginRoute} element={<LoginPage theme={theme} setRoute={setRoute}/>} />
         <Route path={createAccountRoute} element={<CreateAccountPage theme={theme} setRoute={setRoute}/>} />
         <Route path={resetPasswordRoute} element={<ResetPasswordPage theme={theme} setRoute={setRoute}/>}/>
@@ -73,10 +86,6 @@ export default App;
 
 
 
-
-
-
-// 6.) implement redux saga - exporting all the functions
 
 
 

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { RouteProps } from '../../globalTypes';
 
-import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { selectCurrentUserTokens } from '../../redux/user/user.selectors';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { PDFDocument } from 'pdf-lib';
-import { editPdfRoute } from '../../variables';
+import { editPdfRoute, loginRoute } from '../../variables';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
 
 import './editPdf.css'
@@ -13,8 +15,15 @@ import './editPdf.css'
 
 
 const PdfEditor: React.FC<RouteProps> = ({ theme, setRoute }) => {
-    const dispatch = useDispatch();
     const [pdfBytes, setPdfBytes] = useState<Uint8Array | null>(null);
+    const currentUserTokens = useSelector(selectCurrentUserTokens);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!currentUserTokens?.access && !currentUserTokens?.refresh) { navigate(loginRoute) }
+    }, [currentUserTokens?.access, currentUserTokens?.refresh, navigate]);
+
 
     const loadPdf = async () => {
         try {

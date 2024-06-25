@@ -1,12 +1,15 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import { TokenType, RouteProps } from "../../globalTypes";
-import { appName, createAccountRoute, loginRoute, defaultCreateAccountFormFields } from '../../variables';
+import { appName, createAccountRoute, loginRoute, defaultCreateAccountFormFields, homeRoute } from '../../variables';
 
-import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { selectCurrentUserTokens } from '../../redux/user/user.selectors';
+import { useDispatch, useSelector } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
 
 import SubmitButton, { BUTTON_TYPE_CLASS } from '../../components/submit-button/submitButton.component';
 import FormInput from '../../components/form-input/formInput.component';
+import { loginIntent } from '../../fetchUtils/login-intent';
 
 import { ThemeProvider } from 'styled-components';
 import { 
@@ -16,14 +19,14 @@ import {
     ComponentsContainer,
     RedirectionLink
 } from '../login/login.styles';
-import { loginIntent } from '../../fetchUtils/login-intent';
-import axios from 'axios';          // DEVELOPMENT
 
   
   const CreateAccountPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
     const [formFields, setFormFields] = useState(defaultCreateAccountFormFields);
     const [tokens, setTokens] = useState<TokenType>({ access: undefined, refresh: undefined });
     const { name, email, password, confirmPassword } = formFields;
+    const currentUserTokens = useSelector(selectCurrentUserTokens);
+    const navigate = useNavigate();
     const dispatch = useDispatch();
   
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -35,21 +38,22 @@ import axios from 'axios';          // DEVELOPMENT
       setFormFields(defaultCreateAccountFormFields);
     }
 
-      const handleSubmit = async (event: FormEvent) => {
-        event.preventDefault();
-        if (email.length && password.length) {
-          try {
-            const tokens: TokenType = await loginIntent(`/auth/register`, {name, email, password});
-            // const res = await axios.post(`http://localhost:8000/users/auth/register`, { name, email, password });        // DEVELOPMENT
-            // const { tokens } = await res.data;                                                                         // DEVELOPMENT
-            setTokens({access: tokens.access, refresh: tokens.refresh});
-            resetFormFields();
-  
-          } catch(error) { throw new Error('Error while creating user') }
-        }
-      else return;
+    const handleSubmit = async (event: FormEvent) => {
+      event.preventDefault();
+      if (email.length && password.length) {
+        try {
+          const tokens: TokenType = await loginIntent(`/auth/register`, {name, email, password});
+          setTokens({access: tokens.access, refresh: tokens.refresh});
+          // redux saga for manual token generation dispatch
+          resetFormFields();
+        } catch(error) { throw new Error('Error while creating user') }
+      } else return;
     }
-  
+
+    useEffect(() => {
+      if (currentUserTokens?.access && currentUserTokens?.refresh) { navigate(homeRoute) }
+  }, [currentUserTokens?.access, currentUserTokens?.refresh, navigate]);
+
     useEffect(() => {
       dispatch(setIsCartOpen(false));
       setRoute(createAccountRoute);

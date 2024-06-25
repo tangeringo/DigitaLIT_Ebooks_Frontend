@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { RouteProps } from '../../globalTypes';
-import { myBooksRoute, showBook } from '../../variables';
+import { loginRoute, myBooksRoute, showBook } from '../../variables';
 
 import { businessBooks } from '../../data/dummyData';  // later ALL the purchased books
 
-import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
+import { selectCurrentUserTokens } from '../../redux/user/user.selectors';
 
 import BookItemComponent from '../../components/book-item/bookItem.component';
 
@@ -14,9 +16,16 @@ import { ThemeProvider } from 'styled-components';
 
 
 
+
 const MyBooks: React.FC<RouteProps> = ({ theme, setRoute }) => {
-    const dispatch = useDispatch();
     const MyBooksData = businessBooks.filter((_, idx) => idx < 4);
+    const currentUserTokens = useSelector(selectCurrentUserTokens);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!currentUserTokens?.access && !currentUserTokens?.refresh) { navigate(loginRoute) }
+    }, [currentUserTokens?.access, currentUserTokens?.refresh, navigate]);
 
     useEffect(() => {
         dispatch(setIsCartOpen(false));

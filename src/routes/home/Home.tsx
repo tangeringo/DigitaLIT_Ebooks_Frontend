@@ -1,11 +1,6 @@
 import React, { useEffect } from "react";
-
 import BooksBg1 from '../../assets/HomePage/BooksBg1.jpg';
-// import BooksBg2 from '../../assets/HomePage/BooksBg2.jpg';
-// import BooksBg3 from '../../assets/HomePage/BooksBg3.jpg';
-// import BooksBg4 from '../../assets/HomePage/BooksBg4.jpg';
 import MyBooks1 from '../../assets/HomePage/myBooks1.jpg';
-// import MyBooks2 from '../../assets/HomePage/myBooks2.jpg';
 
 import { RouteProps } from "../../globalTypes";
 import { homeRoute, libraryRoute, myBooksRoute } from "../../variables";

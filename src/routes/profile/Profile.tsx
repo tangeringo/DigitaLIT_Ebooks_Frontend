@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { RouteProps } from '../../globalTypes';
-import { profileRoute } from '../../variables';
+import { loginRoute, profileRoute } from '../../variables';
 
-import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
+import { selectCurrentUserTokens } from '../../redux/user/user.selectors';
 
 import { ThemeProvider } from 'styled-components';
 import { 
@@ -23,7 +25,14 @@ import {
 
 
 const ProfilePage: React.FC<RouteProps> = ({ theme, setRoute }) => {
+    const currentUserTokens = useSelector(selectCurrentUserTokens);
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!currentUserTokens?.access && !currentUserTokens?.refresh) { navigate(loginRoute) }
+    }, [currentUserTokens?.access, currentUserTokens?.refresh, navigate]);
+
     useEffect(() => {
         dispatch(setIsCartOpen(false));
         setRoute(profileRoute);

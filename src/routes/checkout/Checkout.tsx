@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { RouteProps } from '../../globalTypes';
-import { checkoutRoute } from '../../variables';
+import { checkoutRoute, loginRoute } from '../../variables';
 
+import { useNavigate } from 'react-router-dom';
+import { selectCurrentUserTokens } from '../../redux/user/user.selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
 import { selectCartItems, selectCartTotal } from '../../redux/cart/cartSelectors';
@@ -29,7 +31,14 @@ const CheckoutPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
     const [secretCalled, setSecredCalled] = useState<boolean>(false);
     const cartItems = useSelector(selectCartItems);
     const cartTotal = useSelector(selectCartTotal);
+    const currentUserTokens = useSelector(selectCurrentUserTokens);
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!currentUserTokens?.access && !currentUserTokens?.refresh) { navigate(loginRoute) }
+    }, [currentUserTokens?.access, currentUserTokens?.refresh, navigate]);
+    
 
 
     const onCheckoutSubmit = async() => {

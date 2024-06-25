@@ -1,7 +1,9 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 
 import { RouteProps, TokenType } from "../../globalTypes";
-import { appName, createAccountRoute, loginRoute, resetPasswordRoute, defaultLoginFormFields } from '../../variables';
+import { appName, createAccountRoute, loginRoute, resetPasswordRoute, defaultLoginFormFields, homeRoute } from '../../variables';
+
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
 import { facebookSignInStart, googleSignInStart } from '../../redux/user/user.actions';
@@ -33,8 +35,9 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
     const [formFields, setFormFields] = useState(defaultLoginFormFields);
     const [tokens, setTokens] = useState<TokenType>({ access: undefined, refresh: undefined });
     const { email, password } = formFields;
-    const dispatch = useDispatch();
     const currentUserTokens = useSelector(selectCurrentUserTokens);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const signInWithGoogle = () => { dispatch(googleSignInStart()) }
     const signInWithFacebook = () => { dispatch(facebookSignInStart()) }
@@ -55,6 +58,10 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
             } catch(error) { throw new Error('Error while logging in') }
         } else return;
     }
+
+    useEffect(() => {
+        if (currentUserTokens?.access && currentUserTokens?.refresh) { navigate(homeRoute) }
+    }, [currentUserTokens?.access, currentUserTokens?.refresh, navigate]);
 
     useEffect(() => {
         setTokens({ access: currentUserTokens?.access, refresh: currentUserTokens?.refresh });
