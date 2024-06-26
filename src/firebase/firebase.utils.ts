@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { User, getAuth, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 import { QueryDocumentSnapshot, doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 import { AdditionalInfo, UserData } from "../globalTypes";
-import { facebookProvider, googleProvider } from "./authProviders";
+import { facebookProvider, googleProvider, twitterProvider } from "./authProviders";
 
 
 const firebaseConfig = {
@@ -21,6 +21,7 @@ const db = getFirestore(app);
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
 export const signInWithFacebookPopup = () => signInWithPopup(auth, facebookProvider);
+export const signInWithTwitterPopUp = () => signInWithPopup(auth, twitterProvider);   // client ID - q7gxxJqHOjSP7dcE2YJqffF8MGYwGqSoxFQmW2vRKyPke-OfZK
 export const signOutUser = async () =>  await signOut(auth);
 
 export const createUserDocFromAuth = async (

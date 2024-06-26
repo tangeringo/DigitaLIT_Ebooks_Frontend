@@ -18,6 +18,10 @@ export type FacebookSignInStart = Action<UserTypes.FACEBOOK_SIGN_IN_START>;
 export const facebookSignInStart = withMatcher((): FacebookSignInStart => 
     createAction(UserTypes.FACEBOOK_SIGN_IN_START));
 
+export type TwitterSignInStart = Action<UserTypes.TWITTER_SIGN_IN_START>;
+export const twitterSignInStart = withMatcher((): TwitterSignInStart => 
+    createAction(UserTypes.TWITTER_SIGN_IN_START));
+
 export type SignInSuccess = ActionWithPayload<UserTypes.SIGN_IN_SUCCESS, TokenType> 
 export const signInSuccess = withMatcher((tokens: TokenType & {id: string}): SignInSuccess => 
     createAction(UserTypes.SIGN_IN_SUCCESS, tokens));

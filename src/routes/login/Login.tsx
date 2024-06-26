@@ -6,7 +6,7 @@ import { appName, createAccountRoute, loginRoute, resetPasswordRoute, defaultLog
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
-import { facebookSignInStart, googleSignInStart } from '../../redux/user/user.actions';
+import { facebookSignInStart, googleSignInStart, twitterSignInStart } from '../../redux/user/user.actions';
 import { selectCurrentUserTokens } from '../../redux/user/user.selectors';
 import { loginIntent } from '../../fetchUtils/login-intent';
 
@@ -14,7 +14,7 @@ import SubmitButton, { BUTTON_TYPE_CLASS } from '../../components/submit-button/
 import FormInput from '../../components/form-input/formInput.component';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faFacebook, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { ThemeProvider } from 'styled-components';
 import { 
     AuthAppContainer, 
@@ -39,8 +39,9 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const signInWithGoogle = () => { dispatch(googleSignInStart()) }
     const signInWithFacebook = () => { dispatch(facebookSignInStart()) }
+    const signInWithGoogle = () => { dispatch(googleSignInStart()) }
+    const signInWithTwitter = () => { dispatch(twitterSignInStart()) }
     const resetFormFields = () => { setFormFields(defaultLoginFormFields) }
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -95,6 +96,7 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
                         <IconsContainer>
                             <FontAwesomeIcon icon={faFacebook} size='2x' onClick={signInWithFacebook}/>
                             <FontAwesomeIcon icon={faGoogle} size='2x' onClick={signInWithGoogle}/>
+                            <FontAwesomeIcon icon={faTwitter} size='2x' onClick={signInWithTwitter}/>
                         </IconsContainer>
                         <Divider><OrText>OR</OrText></Divider>
                         <form style={{width: "100%"}}>

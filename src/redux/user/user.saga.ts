@@ -1,9 +1,9 @@
 import { takeLatest, call, all, put } from 'typed-redux-saga/macro';
-import { FacebookAuthProvider, GoogleAuthProvider, User } from 'firebase/auth';
+import { FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, User } from 'firebase/auth';
 
 import { UserTypes } from './user.types';
 import { signInFailure, signInSuccess, signOutFailure, signOutSuccess } from './user.actions';
-import { getCurrentUser, createUserDocFromAuth, signInWithGooglePopup, signInWithFacebookPopup, signOutUser } from '../../firebase/firebase.utils';
+import { getCurrentUser, createUserDocFromAuth, signInWithGooglePopup, signInWithFacebookPopup, signOutUser, signInWithTwitterPopUp } from '../../firebase/firebase.utils';
 import { AdditionalInfo } from '../../globalTypes';
 
 
@@ -19,12 +19,24 @@ export function* signInWithGoogleSaga() {
   }
 }
 
-// Saga to handle sign in with Google
+// Saga to handle sign in with Facebook
 export function* signInWithFacebookSaga() {
   try {
     const userCredential = yield* call(signInWithFacebookPopup);
     const { user } = userCredential;
     const credential = FacebookAuthProvider.credentialFromResult(userCredential);
+    yield* call(getSnapshotFromUserAuth, user, credential?.accessToken);
+  } catch (error) {
+    yield* put(signInFailure(error as Error));
+  }
+}
+
+// Saga to handle sign in with Twitter
+export function* signInWithTwitterSaga() {
+  try {
+    const userCredential = yield* call(signInWithTwitterPopUp);
+    const { user } = userCredential;
+    const credential = TwitterAuthProvider.credentialFromResult(userCredential);
     yield* call(getSnapshotFromUserAuth, user, credential?.accessToken);
   } catch (error) {
     yield* put(signInFailure(error as Error));
@@ -84,6 +96,10 @@ export function* onFacebookSignInStart() {
   yield* takeLatest(UserTypes.FACEBOOK_SIGN_IN_START, signInWithFacebookSaga);
 }
 
+export function* onTwitterSignInStart() {
+  yield* takeLatest(UserTypes.TWITTER_SIGN_IN_START, signInWithTwitterSaga);
+}
+
 export function* onCheckUserSession() {
   yield* takeLatest(UserTypes.CHECK_USER_SESSION, isUserAuthenticatedSaga);
 }
@@ -98,6 +114,7 @@ export function* usersSaga() {
     call(onCheckUserSession),
     call(onGoogleSignInStart),
     call(onFacebookSignInStart),
+    call(onTwitterSignInStart),
     call(onSignOutStart),
   ]);
 }
