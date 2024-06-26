@@ -39,6 +39,7 @@ export function* signInWithTwitterSaga() {
     const credential = TwitterAuthProvider.credentialFromResult(userCredential);
     yield* call(getSnapshotFromUserAuth, user, credential?.accessToken);
   } catch (error) {
+    console.log("something went wrong while sign in with twitter: ", error)
     yield* put(signInFailure(error as Error));
   }
 }

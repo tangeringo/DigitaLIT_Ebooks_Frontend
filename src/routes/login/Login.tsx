@@ -79,7 +79,7 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
             try {
                 const newAccessToken = await user.getIdToken(true);
                 setTokens((prevTokens) => ({ ...prevTokens, access: newAccessToken }));
-            } catch (error) { throw new Error('Failed to refresh access token:') }
+            } catch (error) { throw new Error('Failed to refresh access token') }
         });
     
         return () => unsubscribe();
