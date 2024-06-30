@@ -10,9 +10,9 @@ export type SetCurrentUser = ActionWithPayload<UserTypes.SET_CURRENT_USER, Token
 export const setCurrentUser = withMatcher((tokens: TokenType): SetCurrentUser => (
     createAction(UserTypes.SET_CURRENT_USER, tokens)));
 
-export type ManualSignInStart = ActionWithPayload<UserTypes.MANUAL_SIGN_IN_START, TokenType>;
-export const manualSignInStart = withMatcher((tokens: TokenType): ManualSignInStart => 
-    createAction(UserTypes.MANUAL_SIGN_IN_START, tokens));
+export type EmailAndPasswordSignInStart = ActionWithPayload<UserTypes.EMAIL_AND_PASSWORD_SIGN_IN_START, {email: string, password: string}>
+export const emailAndPasswordSignInStart = withMatcher((email: string, password: string): EmailAndPasswordSignInStart => 
+    createAction(UserTypes.EMAIL_AND_PASSWORD_SIGN_IN_START, {email, password}));
 
 export type GoogleSignInStart = Action<UserTypes.GOOGLE_SIGN_IN_START>;
 export const googleSignInStart = withMatcher((): GoogleSignInStart => 
@@ -27,7 +27,7 @@ export const twitterSignInStart = withMatcher((): TwitterSignInStart =>
     createAction(UserTypes.TWITTER_SIGN_IN_START));
 
 export type SignInSuccess = ActionWithPayload<UserTypes.SIGN_IN_SUCCESS, TokenType> 
-export const signInSuccess = withMatcher((tokens: TokenType & {id: string}): SignInSuccess => 
+export const signInSuccess = withMatcher((tokens: TokenType & {id?: string | undefined}): SignInSuccess => 
     createAction(UserTypes.SIGN_IN_SUCCESS, tokens));
 
 export type SignInFailure = ActionWithPayload<UserTypes.SIGN_IN_FAILED, Error>

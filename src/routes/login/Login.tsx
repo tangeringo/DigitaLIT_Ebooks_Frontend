@@ -6,9 +6,10 @@ import { appName, createAccountRoute, loginRoute, resetPasswordRoute, defaultLog
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
-import { facebookSignInStart, googleSignInStart, twitterSignInStart } from '../../redux/user/user.actions';
+import { emailAndPasswordSignInStart, facebookSignInStart, googleSignInStart, twitterSignInStart } from '../../redux/user/user.actions';
 import { selectCurrentUserTokens } from '../../redux/user/user.selectors';
 import { loginIntent } from '../../fetchUtils/login-intent';
+import { auth } from '../../firebase/firebase.utils';
 
 import SubmitButton, { BUTTON_TYPE_CLASS } from '../../components/submit-button/submitButton.component';
 import FormInput from '../../components/form-input/formInput.component';
@@ -28,7 +29,6 @@ import {
     RememberCheckbox,
     RedirectionLink
 } from './login.styles';
-import { auth } from '../../firebase/firebase.utils';
 
 
 const LoginPage: React.FC<LoginProps> = ({ theme, setRoute, tokens, setTokens }) => {
@@ -54,6 +54,7 @@ const LoginPage: React.FC<LoginProps> = ({ theme, setRoute, tokens, setTokens })
             try {
                 const tokens: TokenType = await loginIntent(`/auth/login`, {email, password});
                 setTokens({access: tokens.access, refresh: tokens.refresh});
+                // dispatch(emailAndPasswordSignInStart(email, password));
                 resetFormFields();
             } catch(error) { throw new Error('Error while logging in') }
         } else return;
@@ -61,7 +62,7 @@ const LoginPage: React.FC<LoginProps> = ({ theme, setRoute, tokens, setTokens })
 
     useEffect(() => {
         if (currentUserTokens?.access && currentUserTokens?.refresh) { navigate(homeRoute) }
-    }, [currentUserTokens?.access, currentUserTokens?.refresh, navigate]);
+    }, [currentUserTokens, navigate]);
 
     useEffect(() => {
         setTokens({ access: currentUserTokens?.access, refresh: currentUserTokens?.refresh });
@@ -82,7 +83,7 @@ const LoginPage: React.FC<LoginProps> = ({ theme, setRoute, tokens, setTokens })
         });
     
         return () => unsubscribe();
-      }, [tokens.refresh, setTokens]);
+      }, [tokens, setTokens]);
 
 
     // console.log("tokens: ", tokens);

@@ -2,20 +2,25 @@ import { takeLatest, call, all, put } from 'typed-redux-saga/macro';
 import { FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, User } from 'firebase/auth';
 
 import { UserTypes } from './user.types';
-import { signInFailure, signInSuccess, signOutFailure, signOutSuccess } from './user.actions';
+import { EmailAndPasswordSignInStart, signInFailure, signInSuccess, signOutFailure, signOutSuccess } from './user.actions';
 import { getCurrentUser, createUserDocFromAuth, signInWithGooglePopup, signInWithFacebookPopup, signOutUser, signInWithTwitterPopUp } from '../../firebase/firebase.utils';
-import { AdditionalInfo } from '../../globalTypes';
+import { AdditionalInfo, TokenType } from '../../globalTypes';
+import { loginIntent } from '../../fetchUtils/login-intent';
 
 
-export function* signInWIthEmailAndPassword() {
+// Saga to handle sign in with Email and Password
+export function* signInWIthEmailAndPasswordSaga({payload: {email, password} }: EmailAndPasswordSignInStart) {
   try {
-    
+    const tokens: TokenType = yield loginIntent(`/auth/login`, {email, password});
+    yield* put(signInSuccess({
+      access: tokens.access,
+      refresh: tokens.refresh
+    }));
   } catch (error) {
-    
+    yield* put(signInFailure(error as Error));
   }
 }
 
-// something like "getSnapshotFromUserAuth"
 
 // Saga to handle sign in with Google
 export function* signInWithGoogleSaga() {
@@ -98,6 +103,10 @@ export function* getSnapshotFromUserAuth(user: User, accessToken?: string | unde
 }
 
 // Watcher sagas
+export function* onEmailAndPasswordSignInStart() {
+  yield* takeLatest(UserTypes.EMAIL_AND_PASSWORD_SIGN_IN_START, signInWIthEmailAndPasswordSaga);
+}
+
 export function* onGoogleSignInStart() {
   yield* takeLatest(UserTypes.GOOGLE_SIGN_IN_START, signInWithGoogleSaga);
 }
@@ -122,6 +131,7 @@ export function* onSignOutStart() {
 export function* usersSaga() {
   yield* all([
     call(onCheckUserSession),
+    call(onEmailAndPasswordSignInStart),
     call(onGoogleSignInStart),
     call(onFacebookSignInStart),
     call(onTwitterSignInStart),

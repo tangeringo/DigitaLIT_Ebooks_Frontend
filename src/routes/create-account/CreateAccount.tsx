@@ -19,7 +19,6 @@ import {
     ComponentsContainer,
     RedirectionLink
 } from '../login/login.styles';
-import axios from 'axios';
 
   
   const CreateAccountPage: React.FC<LoginProps> = ({ theme, setRoute, tokens, setTokens }) => {
