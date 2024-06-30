@@ -21,7 +21,7 @@ const db = getFirestore(app);
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
 export const signInWithFacebookPopup = () => signInWithPopup(auth, facebookProvider);
-export const signInWithTwitterPopUp = () => signInWithPopup(auth, twitterProvider);   // client ID - q7gxxJqHOjSP7dcE2YJqffF8MGYwGqSoxFQmW2vRKyPke-OfZK
+export const signInWithTwitterPopUp = () => signInWithPopup(auth, twitterProvider);
 export const signOutUser = async () =>  await signOut(auth);
 
 export const createUserDocFromAuth = async (

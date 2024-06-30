@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 
-import { RouteProps, TokenType } from "../../globalTypes";
+import { LoginProps, TokenType } from "../../globalTypes";
 import { appName, createAccountRoute, loginRoute, resetPasswordRoute, defaultLoginFormFields, homeRoute } from '../../variables';
 
 import { useNavigate } from 'react-router-dom';
@@ -31,9 +31,8 @@ import {
 import { auth } from '../../firebase/firebase.utils';
 
 
-const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
+const LoginPage: React.FC<LoginProps> = ({ theme, setRoute, tokens, setTokens }) => {
     const [formFields, setFormFields] = useState(defaultLoginFormFields);
-    const [tokens, setTokens] = useState<TokenType>({ access: undefined, refresh: undefined });
     const { email, password } = formFields;
     const currentUserTokens = useSelector(selectCurrentUserTokens);
     const navigate = useNavigate();
@@ -66,7 +65,7 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
 
     useEffect(() => {
         setTokens({ access: currentUserTokens?.access, refresh: currentUserTokens?.refresh });
-    }, [currentUserTokens]);
+    }, [currentUserTokens, setTokens]);
 
     useEffect(() => {
         dispatch(setIsCartOpen(false));
@@ -78,15 +77,15 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
             if (!user) return;
             try {
                 const newAccessToken = await user.getIdToken(true);
-                setTokens((prevTokens) => ({ ...prevTokens, access: newAccessToken }));
+                setTokens({ access: newAccessToken, refresh: tokens.refresh });
             } catch (error) { throw new Error('Failed to refresh access token') }
         });
     
         return () => unsubscribe();
-      }, []);
+      }, [tokens.refresh, setTokens]);
 
 
-    console.log("tokens: ", tokens);
+    // console.log("tokens: ", tokens);
     return (
         <ThemeProvider theme={theme}>
             <AuthAppContainer>
@@ -94,9 +93,9 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
                     <Headding>{appName} Login</Headding>
                     <ComponentsContainer>
                         <IconsContainer>
-                            <FontAwesomeIcon icon={faFacebook} size='2x' onClick={signInWithFacebook}/>
-                            <FontAwesomeIcon icon={faGoogle} size='2x' onClick={signInWithGoogle}/>
-                            <FontAwesomeIcon icon={faTwitter} size='2x' onClick={signInWithTwitter}/>
+                            <FontAwesomeIcon style={{cursor: "pointer"}} icon={faFacebook} size='2x' onClick={signInWithFacebook}/>
+                            <FontAwesomeIcon style={{cursor: "pointer"}} icon={faGoogle} size='2x' onClick={signInWithGoogle}/>
+                            <FontAwesomeIcon style={{cursor: "pointer"}} icon={faTwitter} size='2x' onClick={signInWithTwitter}/>
                         </IconsContainer>
                         <Divider><OrText>OR</OrText></Divider>
                         <form style={{width: "100%"}}>

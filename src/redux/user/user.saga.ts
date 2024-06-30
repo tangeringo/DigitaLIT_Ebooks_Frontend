@@ -7,6 +7,16 @@ import { getCurrentUser, createUserDocFromAuth, signInWithGooglePopup, signInWit
 import { AdditionalInfo } from '../../globalTypes';
 
 
+export function* signInWIthEmailAndPassword() {
+  try {
+    
+  } catch (error) {
+    
+  }
+}
+
+// something like "getSnapshotFromUserAuth"
+
 // Saga to handle sign in with Google
 export function* signInWithGoogleSaga() {
   try {
@@ -39,7 +49,6 @@ export function* signInWithTwitterSaga() {
     const credential = TwitterAuthProvider.credentialFromResult(userCredential);
     yield* call(getSnapshotFromUserAuth, user, credential?.accessToken);
   } catch (error) {
-    console.log("something went wrong while sign in with twitter: ", error)
     yield* put(signInFailure(error as Error));
   }
 }

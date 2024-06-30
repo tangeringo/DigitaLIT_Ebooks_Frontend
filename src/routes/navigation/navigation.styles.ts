@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { white } from '../../styles/colors.styles';
+import { grey, white } from '../../styles/colors.styles';
 import { editPdfRoute } from '../../variables';
 
 
@@ -56,6 +56,14 @@ export const RoutesContainer = styled.ul.attrs(() => ({
 export const RouteLink = styled.li.attrs(() => ({
     className: "nav-item"
 }))``;
+
+export const LogOutTag = styled.p`
+    color: ${grey};
+    font-weight: bold;
+    margin: -15px -15px 0 25px;
+    width: 70px;
+    cursor: pointer;
+`;
 
 export const FormSearch = styled.form.attrs(() => ({
     className: "d-flex me-3"

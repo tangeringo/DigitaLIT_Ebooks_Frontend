@@ -3,7 +3,7 @@ import useLocalStorage from "use-local-storage";
 import "bootstrap/dist/css/bootstrap.css";
 
 import { businessBooks, itBooks, physicsBooks, psychologyBooks } from './data/dummyData';
-import { RouteOptions } from './globalTypes';
+import { RouteOptions, TokenType } from './globalTypes';
 import { darkTheme, lightTheme } from './styles/globalStyles.styles';
 
 
@@ -31,6 +31,7 @@ const App: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [route, setRoute] = useState<RouteOptions>("/");
   const [themeTitle, setThemeTitle] = useLocalStorage('light', 'dark');
+  const [tokens, setTokens] = useState<TokenType>({ access: undefined, refresh: undefined });
   const navbarToggler = document.querySelector(".navbar-toggler");
   const navbarCollapse = document.querySelector(".navbar-collapse");
   const currentUserTokens = useSelector(selectCurrentUserTokens);
@@ -69,8 +70,8 @@ const App: React.FC = () => {
       { route === editPdfRoute? null : <ThemeToggler themeTitle={themeTitle} setThemeTitle={setThemeTitle}/> }
       <Routes>
         <Route index path={homeRoute} element={isUserAuthenticated()? <HomePage theme={theme} setRoute={setRoute}/> : <Navigate to={loginRoute}/>} />
-        <Route path={loginRoute} element={<LoginPage theme={theme} setRoute={setRoute}/>} />
-        <Route path={createAccountRoute} element={<CreateAccountPage theme={theme} setRoute={setRoute}/>} />
+        <Route path={loginRoute} element={<LoginPage theme={theme} setRoute={setRoute} tokens={tokens} setTokens={setTokens}/>} />
+        <Route path={createAccountRoute} element={<CreateAccountPage theme={theme} setRoute={setRoute} tokens={tokens} setTokens={setTokens}/>} />
         <Route path={resetPasswordRoute} element={<ResetPasswordPage theme={theme} setRoute={setRoute}/>}/>
         <Route path={profileRoute} element={<ProfilePage theme={theme} setRoute={setRoute}/>} />
         <Route path={myBooksRoute} element={<MyBooksPage theme={theme} setRoute={setRoute}/>} />
@@ -84,6 +85,7 @@ const App: React.FC = () => {
 
 export default App;
 
+// refreshing access token
 
 
 

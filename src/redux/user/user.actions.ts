@@ -10,6 +10,10 @@ export type SetCurrentUser = ActionWithPayload<UserTypes.SET_CURRENT_USER, Token
 export const setCurrentUser = withMatcher((tokens: TokenType): SetCurrentUser => (
     createAction(UserTypes.SET_CURRENT_USER, tokens)));
 
+export type ManualSignInStart = ActionWithPayload<UserTypes.MANUAL_SIGN_IN_START, TokenType>;
+export const manualSignInStart = withMatcher((tokens: TokenType): ManualSignInStart => 
+    createAction(UserTypes.MANUAL_SIGN_IN_START, tokens));
+
 export type GoogleSignInStart = Action<UserTypes.GOOGLE_SIGN_IN_START>;
 export const googleSignInStart = withMatcher((): GoogleSignInStart => 
     createAction(UserTypes.GOOGLE_SIGN_IN_START));

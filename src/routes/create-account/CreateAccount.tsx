@@ -1,5 +1,5 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
-import { TokenType, RouteProps } from "../../globalTypes";
+import { TokenType, LoginProps } from "../../globalTypes";
 import { appName, createAccountRoute, loginRoute, defaultCreateAccountFormFields, homeRoute } from '../../variables';
 
 import { useNavigate } from 'react-router-dom';
@@ -19,11 +19,11 @@ import {
     ComponentsContainer,
     RedirectionLink
 } from '../login/login.styles';
+import axios from 'axios';
 
   
-  const CreateAccountPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
+  const CreateAccountPage: React.FC<LoginProps> = ({ theme, setRoute, tokens, setTokens }) => {
     const [formFields, setFormFields] = useState(defaultCreateAccountFormFields);
-    const [tokens, setTokens] = useState<TokenType>({ access: undefined, refresh: undefined });
     const { name, email, password, confirmPassword } = formFields;
     const currentUserTokens = useSelector(selectCurrentUserTokens);
     const navigate = useNavigate();

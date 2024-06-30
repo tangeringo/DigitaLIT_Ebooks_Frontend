@@ -1,9 +1,11 @@
 import React from "react";
-import { RouteOptions } from "../../globalTypes";
+import { NavBarProps } from "../../globalTypes";
 import { editPdfRoute, homeRoute, libraryRoute, loginRoute, myBooksRoute, profileRoute } from "../../variables";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectIsCartOpen } from '../../redux/cart/cartSelectors';
+import { selectCurrentUserTokens } from "../../redux/user/user.selectors";
+import { signOutStart } from "../../redux/user/user.actions";
 
 import { Link } from "react-router-dom";
 import appLogo from '../../assets/AppLogo/ebook.png';
@@ -23,20 +25,16 @@ import {
   RouteLink, 
   FormSearch, 
   InputSearch,
-  NavBarProfileImage, 
+  NavBarProfileImage,
+  LogOutTag, 
 } from "./navigation.styles";
-import { selectCurrentUserTokens } from "../../redux/user/user.selectors";
 
-
-interface NavBarProps {
-  brandName: string;
-  route: RouteOptions;
-  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-}
 
 const Navigation: React.FC<NavBarProps> = ({ brandName, route, setSearchTerm }) => {
   const currentUserTokens = useSelector(selectCurrentUserTokens);
   const isCartOpen = useSelector(selectIsCartOpen);
+  const dispatch = useDispatch();
+  const logOut = () => { dispatch(signOutStart()) }
 
   return (
       <NavigationContainer>
@@ -52,11 +50,8 @@ const Navigation: React.FC<NavBarProps> = ({ brandName, route, setSearchTerm }) 
 
           <OuterRoutesContainer>
             <RoutesContainer>
-              <RouteLink>
-                <Link className={route === loginRoute? "nav-link active fw-bold" : "nav-link"} to={loginRoute}>Login</Link>
-              </RouteLink>
               { currentUserTokens?.access?
-                <>
+                <div style={{display: "flex", margin: "auto"}}>
                   <RouteLink>
                     <Link className={route === profileRoute? "nav-link active fw-bold" : "nav-link"} to={profileRoute}>Profile</Link>
                   </RouteLink>
@@ -66,18 +61,25 @@ const Navigation: React.FC<NavBarProps> = ({ brandName, route, setSearchTerm }) 
                   <RouteLink>
                     <Link className={route === libraryRoute? "nav-link active fw-bold" : "nav-link"} to={libraryRoute}>Library</Link>
                   </RouteLink>
-                </> : null
+                </div>
+                : <RouteLink>
+                  <Link className={route === loginRoute? "nav-link active fw-bold" : "nav-link"} to={loginRoute}>Login</Link>
+                </RouteLink>
               }
             </RoutesContainer>
           
             { currentUserTokens?.access? 
-            <FormSearch>
-              { route === editPdfRoute? <p style={{color: "white", margin: "10px 25px 0 0"}}>save button</p> : null }
-              { route === profileRoute? <NavBarProfileImage src={profileImg}/> : null}
-              { route === libraryRoute || route === myBooksRoute? <InputSearch onChange={(event) => setSearchTerm(event.target.value)} /> : null}
-              <CartIcon />
-            </FormSearch>
-            : null }
+              <FormSearch>
+                { route === editPdfRoute? <p style={{color: "white", margin: "10px 25px 0 0"}}>save button</p> : null }
+                { route === profileRoute? <NavBarProfileImage src={profileImg}/> : null}
+                { route === libraryRoute || route === myBooksRoute? <InputSearch onChange={(event) => setSearchTerm(event.target.value)} /> : null}
+                <CartIcon />
+                <RouteLink>
+                  <LogOutTag onClick={logOut}>Log OUT</LogOutTag>
+                </RouteLink>
+              </FormSearch>
+              : null 
+            }
             
             {isCartOpen && <CartDropdown />}
           </OuterRoutesContainer>

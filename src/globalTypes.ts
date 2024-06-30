@@ -42,10 +42,17 @@ export interface RouteProps {
   setRoute: (options: RouteOptions) => void
 }
 
+export interface NavBarProps {
+  brandName: string;
+  route: RouteOptions;
+  setSearchTerm: (searchTerm: string) => void;
+}
+
 // THEME TOGGLER COMPONENT
 export interface ThemeTogglerProps {
   themeTitle: string,
-  setThemeTitle: React.Dispatch<React.SetStateAction<string | undefined>>
+  setThemeTitle: (title: string | undefined) => void;
+
 }
 
 // MY BOOK COMPONENT
@@ -57,7 +64,7 @@ export interface CartItemInfo {
 // BOOK ITEM COMPONENT
 interface cartItemInfoAddition {
   cartItemInfo?: CartItemInfo | undefined,
-  setCartItemInfo?: React.Dispatch<React.SetStateAction<CartItemInfo>> | undefined
+  setCartItemInfo?: (cartInfo: CartItemInfo) => void | undefined
 }
 
 export type MyBookProps = cartItemInfoAddition & {
@@ -105,9 +112,14 @@ export interface LoginPayload {
   password: string;
 }
 
-export type TokenType = {
+export interface TokenType {
   access: string | undefined;
   refresh: string | undefined;
+}
+
+export type LoginProps = RouteProps & {
+  tokens: TokenType;
+  setTokens: (tokens: TokenType) => void;
 }
 
 // LOGIN PAGE ~ FIREBASE
