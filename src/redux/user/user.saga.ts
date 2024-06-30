@@ -2,7 +2,7 @@ import { takeLatest, call, all, put } from 'typed-redux-saga/macro';
 import { FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, User } from 'firebase/auth';
 
 import { UserTypes } from './user.types';
-import { EmailAndPasswordSignInStart, signInFailure, signInSuccess, signOutFailure, signOutSuccess } from './user.actions';
+import { EmailAndPasswordSignInStart, SignUpStart, SignUpSuccess, signInFailure, signInSuccess, signOutFailure, signOutSuccess, signUpFailure, signUpSuccess } from './user.actions';
 import { getCurrentUser, createUserDocFromAuth, signInWithGooglePopup, signInWithFacebookPopup, signOutUser, signInWithTwitterPopUp } from '../../firebase/firebase.utils';
 import { AdditionalInfo, TokenType } from '../../globalTypes';
 import { loginIntent } from '../../fetchUtils/login-intent';
@@ -70,6 +70,18 @@ export function* isUserAuthenticatedSaga() {
   }
 }
 
+export function* signUp({ payload: { email, password, displayName } }: SignUpStart) {
+  try {
+    const tokens: TokenType = yield loginIntent(`/auth/register`, {displayName, email, password});
+    yield* put(signUpSuccess({
+      access: tokens.access,
+      refresh: tokens.refresh
+    }));
+  } catch (error) {
+    yield* put(signUpFailure(error as Error));
+  }
+}
+
 // Saga to handle sign out
 export function* signOutSaga() {
   try {
@@ -119,6 +131,10 @@ export function* onTwitterSignInStart() {
   yield* takeLatest(UserTypes.TWITTER_SIGN_IN_START, signInWithTwitterSaga);
 }
 
+export function* onSignUpStart() {
+  yield* takeLatest(UserTypes.SIGN_UP_START, signUp);
+}
+
 export function* onCheckUserSession() {
   yield* takeLatest(UserTypes.CHECK_USER_SESSION, isUserAuthenticatedSaga);
 }
@@ -135,6 +151,7 @@ export function* usersSaga() {
     call(onGoogleSignInStart),
     call(onFacebookSignInStart),
     call(onTwitterSignInStart),
+    call(onSignUpStart),
     call(onSignOutStart),
   ]);
 }

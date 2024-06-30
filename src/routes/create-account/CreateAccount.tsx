@@ -9,7 +9,7 @@ import { setIsCartOpen } from '../../redux/cart/cartActions';
 
 import SubmitButton, { BUTTON_TYPE_CLASS } from '../../components/submit-button/submitButton.component';
 import FormInput from '../../components/form-input/formInput.component';
-import { loginIntent } from '../../fetchUtils/login-intent';
+// import { loginIntent } from '../../fetchUtils/login-intent';
 
 import { ThemeProvider } from 'styled-components';
 import { 
@@ -19,11 +19,12 @@ import {
     ComponentsContainer,
     RedirectionLink
 } from '../login/login.styles';
+import { signUpStart } from '../../redux/user/user.actions';
 
   
   const CreateAccountPage: React.FC<LoginProps> = ({ theme, setRoute, tokens, setTokens }) => {
     const [formFields, setFormFields] = useState(defaultCreateAccountFormFields);
-    const { name, email, password, confirmPassword } = formFields;
+    const { displayName, email, password, confirmPassword } = formFields;
     const currentUserTokens = useSelector(selectCurrentUserTokens);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -41,9 +42,9 @@ import {
       event.preventDefault();
       if (email.length && password.length) {
         try {
-          const tokens: TokenType = await loginIntent(`/auth/register`, {name, email, password});
-          setTokens({access: tokens.access, refresh: tokens.refresh});
-          // redux saga for manual token generation dispatch
+          // const tokens: TokenType = await loginIntent(`/auth/register`, {displayName, email, password});
+          // setTokens({access: tokens.access, refresh: tokens.refresh});
+          dispatch(signUpStart(email, password, displayName))
           resetFormFields();
         } catch(error) { throw new Error('Error while creating user') }
       } else return;
@@ -51,7 +52,12 @@ import {
 
     useEffect(() => {
       if (currentUserTokens?.access && currentUserTokens?.refresh) { navigate(homeRoute) }
-  }, [currentUserTokens?.access, currentUserTokens?.refresh, navigate]);
+    }, [currentUserTokens?.access, currentUserTokens?.refresh, navigate]);
+
+    useEffect(() => {
+      setTokens({ access: currentUserTokens?.access, refresh: currentUserTokens?.refresh });
+    }, [currentUserTokens, setTokens]);
+
 
     useEffect(() => {
       dispatch(setIsCartOpen(false));
@@ -66,7 +72,7 @@ import {
                 <p>Create an account to get access to latest educational digital literature</p>
                 <ComponentsContainer>
                     <form style={{width: "100%"}}>
-                        <FormInput type="text" name="name" value={name}
+                        <FormInput type="text" name="displayName" value={displayName}
                             onChange={handleChange} label="Name" required
                         />
                         <FormInput type="email" name="email" value={email}

@@ -19,7 +19,7 @@ const CartIcon: React.FC = () => {
 
     return (
         <CartIconContainer canIconPulse={canIconPulse} onClick={toggle}>
-            <ShoppingIcon style={{ width: "35px", height: "35px" }}/>
+            <ShoppingIcon style={{ width: "45px", height: "45px" }}/>
             <ItemsInCart>{cartCount}</ItemsInCart>
         </CartIconContainer>
     );

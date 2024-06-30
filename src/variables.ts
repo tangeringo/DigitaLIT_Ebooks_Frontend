@@ -30,6 +30,7 @@ export const mediaPixelsWidth1600 = "1600px";
 export const mediaPixelsWidth1400 = "1400px";
 export const mediaPixelsWidth1200 = "1200px";
 export const mediaPixelsWidth910 = "910px";
+export const mediaPixelsWidth770 = "770px";
 export const mediaPixelsWidth720 = "720px";
 export const mediaPixelsWidth600 = "600px";
 
@@ -49,7 +50,7 @@ export const defaultLoginFormFields = {
 
 // INITIAL CREATE ACCOUNT STATE
 export const defaultCreateAccountFormFields = {
-    name: '',
+    displayName: '',
     email: '',
     password: '',
     confirmPassword: ''

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 
-import { LoginProps, TokenType } from "../../globalTypes";
+import { LoginProps } from "../../globalTypes";
 import { appName, createAccountRoute, loginRoute, resetPasswordRoute, defaultLoginFormFields, homeRoute } from '../../variables';
 
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
 import { emailAndPasswordSignInStart, facebookSignInStart, googleSignInStart, twitterSignInStart } from '../../redux/user/user.actions';
 import { selectCurrentUserTokens } from '../../redux/user/user.selectors';
-import { loginIntent } from '../../fetchUtils/login-intent';
 import { auth } from '../../firebase/firebase.utils';
 
 import SubmitButton, { BUTTON_TYPE_CLASS } from '../../components/submit-button/submitButton.component';
@@ -52,9 +51,7 @@ const LoginPage: React.FC<LoginProps> = ({ theme, setRoute, tokens, setTokens })
         event.preventDefault();
         if (email.length && password.length) {
             try {
-                const tokens: TokenType = await loginIntent(`/auth/login`, {email, password});
-                setTokens({access: tokens.access, refresh: tokens.refresh});
-                // dispatch(emailAndPasswordSignInStart(email, password));
+                dispatch(emailAndPasswordSignInStart(email, password));
                 resetFormFields();
             } catch(error) { throw new Error('Error while logging in') }
         } else return;

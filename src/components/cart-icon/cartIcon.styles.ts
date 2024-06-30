@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { creme, white } from '../../styles/colors.styles';
+import { mediaPixelsWidth770 } from '../../variables';
 
 
 const onClickAnimationStyles = css`
@@ -27,8 +28,8 @@ type CartIconContainerProps = {
 
 export const CartIconContainer = styled.div<CartIconContainerProps>`
     margin: auto 0;
-    width: 45px;
-    height: 45px;
+    width: 56px;
+    height: 56px;
     position: relative;
     display: flex;
     align-items: center;
@@ -36,6 +37,11 @@ export const CartIconContainer = styled.div<CartIconContainerProps>`
     cursor: pointer;
     background-color: ${white};
     border-radius: 15px;
+
+    @media (max-width: ${mediaPixelsWidth770}) {
+        margin: 0;
+    }
+
     ${({ canIconPulse }) => canIconPulse && onClickAnimationStyles};
 `;
 
@@ -43,5 +49,5 @@ export const ItemsInCart = styled.span`
     position: absolute;
     font-size: 10px;
     font-weight: bold;
-    bottom: 18px;
+    bottom: 24px;
 `;

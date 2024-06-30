@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { grey, white } from '../../styles/colors.styles';
-import { editPdfRoute } from '../../variables';
+import { editPdfRoute, mediaPixelsWidth770 } from '../../variables';
 
 
 export const NavigationContainer = styled.nav.attrs(() => ({
@@ -52,6 +52,14 @@ export const RoutesContainer = styled.ul.attrs(() => ({
     className: "navbar-nav me-auto mb-2 mb-md-1"
 }))``;
 
+export const RoutesContainerAfterAuth = styled.div`
+    display: flex;
+    
+    @media (max-width: ${mediaPixelsWidth770}) {
+        margin: 0 auto 0 0;
+        flex-direction: column;
+    }
+`;
 
 export const RouteLink = styled.li.attrs(() => ({
     className: "nav-item"
@@ -60,14 +68,22 @@ export const RouteLink = styled.li.attrs(() => ({
 export const LogOutTag = styled.p`
     color: ${grey};
     font-weight: bold;
-    margin: -15px -15px 0 25px;
+    margin: -15px 15px 0 25px;
     width: 70px;
     cursor: pointer;
+
+    @media (max-width: ${mediaPixelsWidth770}) {
+        margin: 0 15px 15px 0;
+    }
 `;
 
 export const FormSearch = styled.form.attrs(() => ({
     className: "d-flex me-3"
-}))``;
+}))`
+    @media (max-width: ${mediaPixelsWidth770}) {
+        flex-direction: column;
+    }
+`;
 
 
 export const RightComponentsWeapperContainer = styled.div`
@@ -81,7 +97,9 @@ export const InputSearch = styled.input.attrs(() => ({
     type: "search",
     placeholder: "Search",
     ariaLabel: "Search"
-}))``;
+}))`
+    display: flex;
+`;
 
 
 export const SearchButton = styled.button.attrs(() => ({

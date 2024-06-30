@@ -26,7 +26,8 @@ import {
   FormSearch, 
   InputSearch,
   NavBarProfileImage,
-  LogOutTag, 
+  LogOutTag,
+  RoutesContainerAfterAuth, 
 } from "./navigation.styles";
 
 
@@ -51,7 +52,7 @@ const Navigation: React.FC<NavBarProps> = ({ brandName, route, setSearchTerm }) 
           <OuterRoutesContainer>
             <RoutesContainer>
               { currentUserTokens?.access?
-                <div style={{display: "flex", margin: "auto"}}>
+                <RoutesContainerAfterAuth>
                   <RouteLink>
                     <Link className={route === profileRoute? "nav-link active fw-bold" : "nav-link"} to={profileRoute}>Profile</Link>
                   </RouteLink>
@@ -61,7 +62,7 @@ const Navigation: React.FC<NavBarProps> = ({ brandName, route, setSearchTerm }) 
                   <RouteLink>
                     <Link className={route === libraryRoute? "nav-link active fw-bold" : "nav-link"} to={libraryRoute}>Library</Link>
                   </RouteLink>
-                </div>
+                </RoutesContainerAfterAuth>
                 : <RouteLink>
                   <Link className={route === loginRoute? "nav-link active fw-bold" : "nav-link"} to={loginRoute}>Login</Link>
                 </RouteLink>
@@ -70,13 +71,15 @@ const Navigation: React.FC<NavBarProps> = ({ brandName, route, setSearchTerm }) 
           
             { currentUserTokens?.access? 
               <FormSearch>
-                { route === editPdfRoute? <p style={{color: "white", margin: "10px 25px 0 0"}}>save button</p> : null }
-                { route === profileRoute? <NavBarProfileImage src={profileImg}/> : null}
-                { route === libraryRoute || route === myBooksRoute? <InputSearch onChange={(event) => setSearchTerm(event.target.value)} /> : null}
-                <CartIcon />
                 <RouteLink>
                   <LogOutTag onClick={logOut}>Log OUT</LogOutTag>
                 </RouteLink>
+                <div style={{display: "flex"}}>
+                  { route === editPdfRoute? <p style={{color: "white", margin: "10px 25px 0 0"}}>save button</p> : null }
+                  { route === profileRoute? <NavBarProfileImage src={profileImg}/> : null}
+                  { route === libraryRoute? <InputSearch onChange={(event) => setSearchTerm(event.target.value)} /> : null}
+                  <CartIcon />
+                </div>
               </FormSearch>
               : null 
             }

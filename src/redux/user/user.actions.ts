@@ -1,6 +1,6 @@
 import { createAction, withMatcher, Action, ActionWithPayload } from "../redux.utils";
 import { UserTypes } from "./user.types";
-import { TokenType } from "../../globalTypes";
+import { AdditionalInfo, TokenType } from "../../globalTypes";
 
 export type CheckUserSession = Action<UserTypes.CHECK_USER_SESSION>;
 export const checkUserSession = withMatcher((): CheckUserSession => 
@@ -36,6 +36,17 @@ export const signInFailure = withMatcher((
 ): SignInFailure => 
     createAction(UserTypes.SIGN_IN_FAILED, error));
 
+export type SignUpStart = ActionWithPayload <UserTypes.SIGN_UP_START, {email: string, password: string, displayName: string}>
+export const signUpStart = withMatcher((email: string, password: string, displayName: string): SignUpStart => 
+    createAction(UserTypes.SIGN_UP_START, { email, password, displayName }));
+
+export type SignUpSuccess = ActionWithPayload<UserTypes.SIGN_UP_SUCCESS, TokenType>
+export const signUpSuccess = withMatcher((tokens: TokenType): SignUpSuccess => 
+    createAction(UserTypes.SIGN_UP_SUCCESS, tokens));
+
+export type SignUpFailure = ActionWithPayload<UserTypes.SIGN_UP_FAILED, Error>
+export const signUpFailure = withMatcher((error: Error): SignUpFailure => 
+    createAction(UserTypes.SIGN_UP_FAILED, error));
     
 
 export type SignOutStart = Action<UserTypes.SIGN_OUT_START>

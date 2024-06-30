@@ -107,7 +107,7 @@ export interface CheckoutCardProps {
 
 // LOGIN PAGE
 export interface LoginPayload {
-  name?: string | undefined;
+  displayName?: string | undefined;
   email: string;
   password: string;
 }
