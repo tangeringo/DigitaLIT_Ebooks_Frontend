@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { black, creme, darkCreme, grey, lightBlack, transparentGrey, white } from "./colors.styles";
+import { black, creme, darkCreme, grey, lightBlack, transparentGrey, white, darkBlue, darkWhite } from "./colors.styles";
 
 
 export const lightTheme = {
@@ -8,7 +8,8 @@ export const lightTheme = {
     textPrimary: black,
     textSecondary: lightBlack,
     border: lightBlack,
-    formBackground: white
+    formBackground: white,
+    cursive: darkWhite
 }
 
 export const darkTheme = {
@@ -17,7 +18,8 @@ export const darkTheme = {
     textPrimary: white,
     textSecondary: creme,
     border: grey,
-    formBackground: transparentGrey
+    formBackground: transparentGrey,
+    cursive: darkBlue
 }
 
 export const BaseBackgroundContainer = styled.div`

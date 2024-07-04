@@ -25,9 +25,14 @@ import {
 
 
 const ProfilePage: React.FC<RouteProps> = ({ theme, setRoute }) => {
+    const navbarToggler = document.querySelector(".navbar-toggler");
     const currentUserTokens = useSelector(selectCurrentUserTokens);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        (navbarToggler as HTMLElement)?.click();
+      }, [navbarToggler]);
 
     useEffect(() => {
         if (!currentUserTokens?.access && !currentUserTokens?.refresh) { navigate(loginRoute) }

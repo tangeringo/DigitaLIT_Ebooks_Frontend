@@ -2,7 +2,7 @@ import { takeLatest, call, all, put } from 'typed-redux-saga/macro';
 import { FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, User } from 'firebase/auth';
 
 import { UserTypes } from './user.types';
-import { EmailAndPasswordSignInStart, SignUpStart, SignUpSuccess, signInFailure, signInSuccess, signOutFailure, signOutSuccess, signUpFailure, signUpSuccess } from './user.actions';
+import { EmailAndPasswordSignInStart, SignUpStart, signInFailure, signInSuccess, signOutFailure, signOutSuccess, signUpFailure, signUpSuccess } from './user.actions';
 import { getCurrentUser, createUserDocFromAuth, signInWithGooglePopup, signInWithFacebookPopup, signOutUser, signInWithTwitterPopUp } from '../../firebase/firebase.utils';
 import { AdditionalInfo, TokenType } from '../../globalTypes';
 import { loginIntent } from '../../fetchUtils/login-intent';

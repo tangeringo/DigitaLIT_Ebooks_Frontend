@@ -2,7 +2,10 @@ import axios from "axios";
 
 export const appName = "DigitaLIT";
 export const moreInfo = "...";
-export const closeButton = "x"
+export const closeButton = "x";
+export const scrollDown = "⬇";
+export const scrollUp = "⬆";
+export const dropdownScroll = scrollDown || scrollUp;
 export const addToCart = "Add to cart";
 export const showBook = "Show book";
 
@@ -16,6 +19,7 @@ export const myBooksRoute = "/my-books";
 export const displayBookInfoRoute = "/display-book-info";
 export const viewPdfRoute = "/view-pdf";
 export const editPdfRoute = "/edit-pdf"
+export const uploadBookRoute = "/upload-book"
 export const libraryRoute = "/library";
 export const checkoutRoute = "/checkout";
 
@@ -66,3 +70,23 @@ export const defaultResetPasswordFormFields = {
 export const defaultCartItemInfoState = {
     id: 0, showBook: false
 };
+
+export const defaultUploadFormFields = {
+    // how to store the front image and the entire pdf?
+    title: '',
+    author: '',
+    description: '',
+    isbn: '',
+    frontImage: "",
+    pdfBook: "",
+    price: 0,
+    availability: 0,
+    condition: '',
+    paymentMethods: [],
+    shipping: {
+        cost: 0,
+        delivery: '',
+        tracking: [],
+        policies: ''
+    }
+}

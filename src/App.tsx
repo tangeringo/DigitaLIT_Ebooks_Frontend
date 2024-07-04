@@ -8,7 +8,10 @@ import { darkTheme, lightTheme } from './styles/globalStyles.styles';
 
 
 import { Routes, Route, Navigate } from 'react-router-dom'; 
-import { appName, homeRoute, loginRoute, createAccountRoute, resetPasswordRoute, profileRoute, myBooksRoute, libraryRoute, checkoutRoute, editPdfRoute } from './variables';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCurrentUserTokens } from './redux/user/user.selectors';
+import { checkUserSession } from './redux/user/user.actions';
+import { appName, homeRoute, loginRoute, createAccountRoute, resetPasswordRoute, profileRoute, myBooksRoute, libraryRoute, checkoutRoute, editPdfRoute, uploadBookRoute } from './variables';
 
 import Navigation from './routes/navigation/Navigation';
 import HomePage from './routes/home/Home';
@@ -20,10 +23,8 @@ import MyBooksPage from './routes/my-books/MyBooks';
 import LibraryPage from './routes/library/Library';
 import ThemeToggler from './components/theme-toggler/themeToggler.component';
 import PdfEditor from './routes/edit-pdf/EditPdf';
+import UploadBook from './routes/upload-book/UploadBook';
 import CheckoutPage from './routes/checkout/Checkout';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentUserTokens } from './redux/user/user.selectors';
-import { checkUserSession } from './redux/user/user.actions';
 
 
 
@@ -32,9 +33,8 @@ const App: React.FC = () => {
   const [route, setRoute] = useState<RouteOptions>("/");
   const [themeTitle, setThemeTitle] = useLocalStorage('light', 'dark');
   const [tokens, setTokens] = useState<TokenType>({ access: undefined, refresh: undefined });
-  const navbarToggler = document.querySelector(".navbar-toggler");
-  const navbarCollapse = document.querySelector(".navbar-collapse");
   const currentUserTokens = useSelector(selectCurrentUserTokens);
+  const isUserAuthenticated = () => (currentUserTokens?.access && currentUserTokens?.refresh);
   const dispatch = useDispatch();
 
   const theme = themeTitle === 'light'? lightTheme : darkTheme;
@@ -50,15 +50,6 @@ const App: React.FC = () => {
     { genre: "Physics", books: [...filteredPhysicsBooks] }
   ];
 
-
-  if (navbarCollapse?.classList.contains('show')) {
-    (navbarToggler as HTMLElement)?.click();
-  }
-
-  const isUserAuthenticated = () => { return (currentUserTokens?.access && currentUserTokens?.refresh) }
-
-
-// what does this do exactly?
   useEffect(() => {
     dispatch(checkUserSession());
 }, [dispatch]);
@@ -76,6 +67,7 @@ const App: React.FC = () => {
         <Route path={profileRoute} element={<ProfilePage theme={theme} setRoute={setRoute}/>} />
         <Route path={myBooksRoute} element={<MyBooksPage theme={theme} setRoute={setRoute}/>} />
         <Route path={editPdfRoute} element={<PdfEditor theme={theme} setRoute={setRoute} />} />
+        <Route path={uploadBookRoute} element={<UploadBook theme={theme} setRoute={setRoute} />} />
         <Route path={libraryRoute} element={<LibraryPage theme={theme} filteredBooks={filteredBooks} setRoute={setRoute}/>} />
         <Route path={checkoutRoute} element={<CheckoutPage theme={theme} setRoute={setRoute}/>} />
       </Routes>

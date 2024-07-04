@@ -81,8 +81,8 @@ export const TitleHeadding = styled(Headding)`
 `;
 
 export const ExplanationParagraph = styled.p`
-    width: 90%;
-    margin: 30px auto;
+    margin: 20px;
+    justify-content: left;
     letter-spacing: .7px;
 `;
 

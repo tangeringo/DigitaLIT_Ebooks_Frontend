@@ -1,6 +1,6 @@
 import styled, { RuleSet, css } from "styled-components";
 import { black, creme } from "../../styles/colors.styles";
-import { addToCart, moreInfo, showBook } from "../../variables";
+import { addToCart, dropdownScroll, moreInfo, showBook } from "../../variables";
 
 
 export const BookImage = styled.img.attrs(() => ({
@@ -27,6 +27,19 @@ const LibraryItemStyles = css`
     transform: rotate(-90.0deg);
 `;
 
+const UploadBookItemStyles = css`
+    display: flex;
+    border-radius: 50px;
+    padding: 0;
+    line-height: 35px;
+    font-size: 25px;
+    position: static;
+    background-color: white;
+    margin: 10px 0 0;
+    height: 35px;
+    width: 35px;
+`;
+
 
 type ButtonNameProps = {
     buttonName: string;
@@ -34,12 +47,11 @@ type ButtonNameProps = {
 
 
 const getButtonItemStyles = ({ buttonName }: ButtonNameProps): RuleSet<object> | undefined => {
-    if (buttonName === moreInfo)
-        return LibraryItemStyles;
+    if (buttonName === moreInfo) return LibraryItemStyles;
+    if (buttonName === dropdownScroll) return UploadBookItemStyles;
 }
 
 export const CartItemButton = styled.button<ButtonNameProps>`
-    width: 80%;
     opacity: 0.7;
     position: absolute;
     top: 360px;
@@ -62,7 +74,7 @@ export const CartItemButton = styled.button<ButtonNameProps>`
 `;
 
 export const ButtonTitle = styled.strong<ButtonNameProps>`
-    font-size: ${({buttonName}) => buttonName === moreInfo? "25px" : "15px"};
+    font-size: ${({buttonName}) => (buttonName === moreInfo) || (buttonName === dropdownScroll)? "25px" : "15px"};
 `;
 
 

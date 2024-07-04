@@ -11,3 +11,5 @@ export const darkCreme = "#CC9544";
 export const grey = "#808080";
 export const darkGrey = "#747264";
 export const transparentGrey = "#191919";
+export const navy = "#00818A";
+export const darkBlue = "#293462";

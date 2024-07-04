@@ -20,8 +20,13 @@ import { ThemeProvider } from 'styled-components';
 const MyBooks: React.FC<RouteProps> = ({ theme, setRoute }) => {
     const MyBooksData = businessBooks.filter((_, idx) => idx < 4);
     const currentUserTokens = useSelector(selectCurrentUserTokens);
+    const navbarToggler = document.querySelector(".navbar-toggler");
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        (navbarToggler as HTMLElement)?.click();
+      }, [navbarToggler]);
 
     useEffect(() => {
         if (!currentUserTokens?.access && !currentUserTokens?.refresh) { navigate(loginRoute) }

@@ -1,15 +1,15 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
-import { TokenType, LoginProps } from "../../globalTypes";
+import { LoginProps } from "../../globalTypes";
 import { appName, createAccountRoute, loginRoute, defaultCreateAccountFormFields, homeRoute } from '../../variables';
 
 import { useNavigate } from 'react-router-dom';
 import { selectCurrentUserTokens } from '../../redux/user/user.selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cartActions';
+import { signUpStart } from '../../redux/user/user.actions';
 
 import SubmitButton, { BUTTON_TYPE_CLASS } from '../../components/submit-button/submitButton.component';
 import FormInput from '../../components/form-input/formInput.component';
-// import { loginIntent } from '../../fetchUtils/login-intent';
 
 import { ThemeProvider } from 'styled-components';
 import { 
@@ -19,7 +19,6 @@ import {
     ComponentsContainer,
     RedirectionLink
 } from '../login/login.styles';
-import { signUpStart } from '../../redux/user/user.actions';
 
   
   const CreateAccountPage: React.FC<LoginProps> = ({ theme, setRoute, tokens, setTokens }) => {
@@ -42,9 +41,7 @@ import { signUpStart } from '../../redux/user/user.actions';
       event.preventDefault();
       if (email.length && password.length) {
         try {
-          // const tokens: TokenType = await loginIntent(`/auth/register`, {displayName, email, password});
-          // setTokens({access: tokens.access, refresh: tokens.refresh});
-          dispatch(signUpStart(email, password, displayName))
+          dispatch(signUpStart(email, password, displayName));
           resetFormFields();
         } catch(error) { throw new Error('Error while creating user') }
       } else return;

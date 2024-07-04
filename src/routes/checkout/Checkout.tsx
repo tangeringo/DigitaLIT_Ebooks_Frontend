@@ -32,8 +32,13 @@ const CheckoutPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
     const cartItems = useSelector(selectCartItems);
     const cartTotal = useSelector(selectCartTotal);
     const currentUserTokens = useSelector(selectCurrentUserTokens);
+    const navbarToggler = document.querySelector(".navbar-toggler");
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        (navbarToggler as HTMLElement)?.click();
+      }, [navbarToggler]);
 
     useEffect(() => {
         if (!currentUserTokens?.access && !currentUserTokens?.refresh) { navigate(loginRoute) }

@@ -24,6 +24,7 @@ import GenreRowComponent from '../../components/genre-row/genreRow.component';
 
 const LibraryPage = ({ theme, filteredBooks, setRoute }: LibraryPageProps): JSX.Element => {
     const [cartItemInfo, setCartItemInfo] = useState<CartItemInfo>(defaultCartItemInfoState);
+    // const navbarToggler = document.querySelector(".navbar-toggler");   // in case you want to close the navigation popup
     const selectedBook = useSelector(selectTargetBookItem);
     const isSideBarOpen = useSelector(selectIsSideBarOpen);
     const currentUserTokens = useSelector(selectCurrentUserTokens);
@@ -34,6 +35,11 @@ const LibraryPage = ({ theme, filteredBooks, setRoute }: LibraryPageProps): JSX.
         setCartItemInfo(defaultCartItemInfoState);
         dispatch(setOpenSideBar(false));
     }
+
+    // in case you want to close the navigation popup
+    // useEffect(() => {
+    //     (navbarToggler as HTMLElement)?.click();
+    //   }, [navbarToggler]);
 
     useEffect(() => {
         if (!currentUserTokens?.access && !currentUserTokens?.refresh) { navigate(loginRoute) }

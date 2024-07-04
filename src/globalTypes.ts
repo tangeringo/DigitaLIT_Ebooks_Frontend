@@ -12,7 +12,8 @@ import {
     libraryRoute, 
     checkoutRoute, 
     viewPdfRoute,
-    editPdfRoute
+    editPdfRoute,
+    uploadBookRoute
 } from './variables';
 
 export type RouteOptions = 
@@ -25,6 +26,7 @@ typeof myBooksRoute |
 typeof displayBookInfoRoute | 
 typeof viewPdfRoute | 
 typeof editPdfRoute | 
+typeof uploadBookRoute |
 typeof libraryRoute | 
 typeof checkoutRoute;
 

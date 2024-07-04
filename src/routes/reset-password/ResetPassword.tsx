@@ -86,7 +86,7 @@ const ResetPasswordPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
                     </form>
                     <ProgresBarStatusText>strength: {passwordStrength[strengthCounter]}</ProgresBarStatusText>
                     <ProgressBar passwordlength={newPassword.length}></ProgressBar>
-                    <SubmitButton onClick={() => {console.log("Reset Password")}} buttonType={BUTTON_TYPE_CLASS.base}>Reset Password:</SubmitButton>
+                    <SubmitButton onClick={() => {console.log("Reset Password")}}>Reset Password:</SubmitButton>
                 </ResetPasswordCotntainer>
             </BaseBackgroundContainer>
         </ThemeProvider>

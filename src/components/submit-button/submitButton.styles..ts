@@ -6,13 +6,16 @@ export const BaseButtonStyles = styled.button`
     background-color: ${grey};
     border: 1px solid ${black};
     color: ${white};
-    margin: 16px 0;
+    display: flex;
+    justify-content: center;
+    margin: 16px auto;
     padding: 10px;
     border-radius: 10px;
     font-weight: 600;
     width: 100%;
     min-width: 200px;
     cursor: pointer;
+    width: 50%;
 
     &:hover {
         background-color: ${darkGrey};
