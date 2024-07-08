@@ -2,16 +2,18 @@ import ProfilePicture from '../../assets/ProfilePage/profileDefault.png';
 import styled from "styled-components";
 import { black, creme } from "../../styles/colors.styles";
 import { mediaPixelsWidth1200, mediaPixelsWidth1400 } from '../../variables';
-import { BaseBackgroundContainer } from '../../styles/globalStyles.styles';
 
-
-export const ProfileBaseBackgroundContainer = styled(BaseBackgroundContainer)`
-    padding-bottom: 30px;
+export const ProfileBaseBackgroundContainer = styled.div`
+    background-color: ${(props) => props.theme.background};
+    transition: all .5s;
+    display: flex;
+    min-height: 100vh;
+    padding-bottom: 150px;
     @media (max-width: ${mediaPixelsWidth1400}) {
-        height: 110vh;
+        height: 125vh;
     }
     @media (max-width: ${mediaPixelsWidth1200}) {
-        height: 150vh;
+        height: 165vh;
     }
 `;
 

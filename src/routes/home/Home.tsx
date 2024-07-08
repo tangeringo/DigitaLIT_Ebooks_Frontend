@@ -10,8 +10,8 @@ import { setIsCartOpen } from '../../redux/cart/cartActions';
 
 import { ThemeProvider } from "styled-components";
 import { CheckoutProductImage } from "../../components/checkout-item/checkoutItem.styles";
-import { 
-    HomeBaseBackgroundContainer,
+import { BaseBackgroundContainer } from "../../styles/globalStyles.styles";
+import {
     HomeBaseContainer,
     SquareWrapper,
     ExplanationContainerWrapper,
@@ -32,7 +32,7 @@ const HomePage: React.FC<RouteProps> = ({ theme, setRoute }) => {
 
     return (
         <ThemeProvider theme={theme}>
-            <HomeBaseBackgroundContainer>
+            <BaseBackgroundContainer>
                 <HomeBaseContainer>
                     <SquareWrapper>
                         <TitleHeadding>Dive into digital learning with ease</TitleHeadding>
@@ -73,7 +73,7 @@ const HomePage: React.FC<RouteProps> = ({ theme, setRoute }) => {
                         </ExplanationContainerWrapper>
                     </div>
                 </HomeBaseContainer>
-            </HomeBaseBackgroundContainer>
+            </BaseBackgroundContainer>
         </ThemeProvider>
     );
 }

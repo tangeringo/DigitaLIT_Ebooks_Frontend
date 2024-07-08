@@ -5,14 +5,7 @@ import { DescriptionWrapperContainer } from "../../components/checkout-item/chec
 import { Headding, RedirectionLink } from "../login/login.styles";
 
 import { mediaPixelsWidth1600, mediaPixelsWidth910 } from "../../variables";
-import { BaseBackgroundContainer } from "../../styles/globalStyles.styles";
 
-
-export const HomeBaseBackgroundContainer = styled(BaseBackgroundContainer)`
-    @media (max-width: ${mediaPixelsWidth1600}) {
-        height: 100%;
-    }
-`;
 
 export const HomeBaseContainer = styled.div`
     background-color: ${creme};
@@ -20,7 +13,7 @@ export const HomeBaseContainer = styled.div`
     width: fit-content;
     width: 80%;
     height: fit-content;
-    margin: auto;
+    margin: 120px auto;
     padding: 10px;
     display: flex;
     justify-content: center;
@@ -73,7 +66,6 @@ export const DescriptionLabelContainer = styled.div`
 
 export const TitleHeadding = styled(Headding)`
     border-bottom: 2px solid ${lightBlack};
-    width: 90%;
     margin: 0 auto;
     color: ${lightBlack};
     letter-spacing: .7px;

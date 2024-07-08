@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { black, creme, darkCreme, grey, lightBlack, transparentGrey, white, darkBlue, darkWhite } from "./colors.styles";
+import { mediaPixelsWidth1600 } from "../variables";
 
 
 export const lightTheme = {
@@ -25,6 +26,9 @@ export const darkTheme = {
 export const BaseBackgroundContainer = styled.div`
     background-color: ${(props) => props.theme.background};
     transition: all .5s;
-    height: 100vh;
     display: flex;
+
+    @media (min-width: ${mediaPixelsWidth1600}) {
+        height: 100vh;
+    }
 `;

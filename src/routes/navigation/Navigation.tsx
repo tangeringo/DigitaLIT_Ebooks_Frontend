@@ -1,6 +1,6 @@
 import React from "react";
 import { NavBarProps } from "../../globalTypes";
-import { editPdfRoute, homeRoute, libraryRoute, loginRoute, myBooksRoute, profileRoute } from "../../variables";
+import { editPdfRoute, homeRoute, libraryRoute, loginRoute, myBooksRoute, profileRoute, uploadBookRoute } from "../../variables";
 
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsCartOpen } from '../../redux/cart/cartSelectors';
@@ -61,6 +61,9 @@ const Navigation: React.FC<NavBarProps> = ({ brandName, route, setSearchTerm }) 
                   </RouteLink>
                   <RouteLink>
                     <Link className={route === libraryRoute? "nav-link active fw-bold" : "nav-link"} to={libraryRoute}>Library</Link>
+                  </RouteLink>
+                  <RouteLink>
+                    <Link className={route === uploadBookRoute? "nav-link active fw-bold" : "nav-link"} to={uploadBookRoute}>Upload Book</Link>
                   </RouteLink>
                 </RoutesContainerAfterAuth>
                 : <RouteLink>
