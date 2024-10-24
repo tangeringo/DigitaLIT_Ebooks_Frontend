@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
-import { CheckoutCardProps, StripeTypes } from '../../globalTypes';
+import { CheckoutCardProps, StripeTypes } from '../../data/types/types.global';
 
 import PaymentForm from "../payment-form/paymentForm.component";
-import { white } from "../../styles/colors.styles";
+import { white } from "../../styles/styles.colrs";
 
 
 const reactEnvKey: string = (process.env.REACT_APP_PUBLISHABLE_KEY as string);

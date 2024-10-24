@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { darkWhite } from "../../styles/colors.styles";
+import { darkWhite } from "../../styles/styles.colrs";
 
 export const GenreOutlineWrapper = styled.div`
     border-top: 2px solid ${darkWhite};

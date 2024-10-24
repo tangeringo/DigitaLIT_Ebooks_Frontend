@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { creme } from "../../styles/colors.styles";
-import { BaseBackgroundContainer } from "../../styles/globalStyles.styles";
-import { mediaPixelsWidth600 } from "../../variables";
+import { creme } from "../../styles/styles.colrs";
+import { BaseBackgroundContainer } from "../../styles/styles.global";
+import variables from "../../data/variables/variables.static.json";
 
 type CheckoutBackgroundProps = {
     secret: unknown;
@@ -28,7 +28,7 @@ export const BottomComponentsContainer = styled.div`
     margin: 15px auto 0;
     display: flex;
 
-    @media (max-width: ${mediaPixelsWidth600}) {
+    @media (max-width: ${variables.mediaPixels.width600}) {
         display: block;
     }    
 `;
@@ -39,7 +39,7 @@ export const TotalCountWrapper = styled.div`
     box-shadow: 0px 0px 16px ${(props) => props.theme.border};
     padding: 4px;
 
-    @media (max-width: ${mediaPixelsWidth600}) {
+    @media (max-width: ${variables.mediaPixels.width600}) {
         margin: 30px auto;
     }  
 `;

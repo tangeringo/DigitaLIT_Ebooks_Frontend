@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { grey, white } from '../../styles/colors.styles';
-import { editPdfRoute, mediaPixelsWidth770 } from '../../variables';
+import { grey, white } from '../../styles/styles.colrs';
+import variables from '../../data/variables/variables.static.json';
 
 
 export const NavigationContainer = styled.nav.attrs(() => ({
@@ -23,7 +23,7 @@ export const NavBarImage = styled.img.attrs(() => ({
     height: "60",
 }))<NavBarImageProps>`
     margin-right: 15px;
-    margin-left: ${({route}) => route === editPdfRoute? "0": "100px"};
+    margin-left: ${({route}) => route === variables.routes.editPdf? "0": "100px"};
     background-color: ${white};
     border-radius: 20px;
     padding: 5px;
@@ -55,7 +55,7 @@ export const RoutesContainer = styled.ul.attrs(() => ({
 export const RoutesContainerAfterAuth = styled.div`
     display: flex;
     
-    @media (max-width: ${mediaPixelsWidth770}) {
+    @media (max-width: ${variables.mediaPixels.width770}) {
         margin: 0 auto 0 0;
         flex-direction: column;
     }
@@ -72,7 +72,7 @@ export const LogOutTag = styled.p`
     width: 70px;
     cursor: pointer;
 
-    @media (max-width: ${mediaPixelsWidth770}) {
+    @media (max-width: ${variables.mediaPixels.width770}) {
         margin: 0 15px 15px 0;
     }
 `;
@@ -80,7 +80,7 @@ export const LogOutTag = styled.p`
 export const FormSearch = styled.form.attrs(() => ({
     className: "d-flex me-3"
 }))`
-    @media (max-width: ${mediaPixelsWidth770}) {
+    @media (max-width: ${variables.mediaPixels.width770}) {
         flex-direction: column;
     }
 `;

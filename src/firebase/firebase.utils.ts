@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { User, getAuth, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 import { QueryDocumentSnapshot, doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
-import { AdditionalInfo, UserData } from "../globalTypes";
+import { AdditionalInfo, UserData } from "../data/types/types.global";
 import { facebookProvider, googleProvider, twitterProvider } from "./authProviders";
 
 

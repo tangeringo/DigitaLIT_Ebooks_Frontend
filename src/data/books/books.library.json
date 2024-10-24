@@ -1,0 +1,32 @@
+{
+    "business": [
+        {"id": 1, "img": "freeTimeBook.jpg", "name": "Business Analysis", "price": 20, "copyright": "copyright 1", "description": "abcdabcd V lineárnom programovaní sa hovorí, že bázické riešenie úlohy lineárneho programovania (ÚLP) je degenerované, ak niektoré z bázických premenných majú hodnotu nula. Konkrétne, degenerované riešenie nastáva, keď aspoň jedna zo základných premenných v bázickom riešení nie je kladná, ale rovná nule. V kontexte simplexovej metódy to znamená, že aj keď riešenie môže byť bázické, obsahuje redundantné alebo nadbytočné obmedzenia, ktoré vedú k nulovým hodnotám v základných premenných. Jednoduchšie povedané: Ak má bázické riešenie aspoň jednu základnú premennú rovnu nule, nazýva sa degenerované."},
+        {"id": 2, "img": "orangeDiary.jpg", "name": "Structures", "price": 24, "copyright": "copyright 1", "description": "efghefgh"},
+        {"id": 3, "img": "nightRead.jpg", "name": "IT Development & Deployment", "price": 22, "copyright": "copyright 1", "description": "ijklijkl"},
+        {"id": 4, "img": "notebook.jpg", "name": "Psychology", "price": 30, "copyright": "copyright 1", "description": "mnopmnop"},
+        {"id": 5, "img": "explorersBook.jpg", "name": "Business Analysis", "price": 20, "copyright": "copyright 1", "description": "abcdabcd"}
+    ],
+    "psychology": [
+        {"id": 6, "img": "orangeDiary.jpg", "name": "Structures", "price": 24, "copyright": "copyright 2", "description": "efghefgh"},
+        {"id": 7, "img": "nightRead.jpg", "name": "IT Development & Deployment", "price": 22, "copyright": "copyright 2", "description": "ijklijkl"},
+        {"id": 8, "img": "notebook.jpg", "name": "Psychology", "price": 30, "copyright": "copyright 2", "description": "mnopmnop"},
+        {"id": 9, "img": "freeTimeBook.jpg", "name": "Business Analysis", "price": 20, "copyright": "copyright 2", "description": "abcdabcd"},
+        {"id": 10, "img": "explorersBook.jpg", "name": "Structures", "price": 24, "copyright": "copyright 2", "description": "efghefgh"}
+    ],
+    "technology": [
+        {"id": 11, "img": "nightRead.jpg", "name": "IT Development & Deployment", "price": 22, "copyright": "copyright 3", "description": "ijklijkl"},
+        {"id": 12, "img": "explorersBook.jpg", "name": "Psychology", "price": 30, "copyright": "copyright 3", "description": "mnopmnop"},
+        {"id": 13, "img": "notebook.jpg", "name": "Business Analysis", "price": 20, "copyright": "copyright 3", "description": "abcdabcd"},
+        {"id": 14, "img": "orangeDiary.jpg", "name": "Structures", "price": 24, "copyright": "copyright 3", "description": "efghefgh"},
+        {"id": 15, "img": "freeTimeBook.jpg", "name": "IT Development & Deployment", "price": 22, "copyright": "copyright 3", "description": "ijklijkl"}
+    ],
+    "physics": [
+        {"id": 16, "img": "notebook.jpg", "name": "Psychology", "price": 30, "copyright": "copyright 4", "description": "mnopmnop"},
+        {"id": 17, "img": "freeTimeBook.jpg", "name": "Business Analysis", "price": 20, "copyright": "copyright 4", "description": "abcdabcd"},
+        {"id": 18, "img": "orangeDiary.jpg", "name": "Structures", "price": 24, "copyright": "copyright 4", "description": "efghefgh"},
+        {"id": 19, "img": "nightRead.jpg", "name": "IT Development & Deployment", "price": 22, "copyright": "copyright 4", "description": "ijklijkl"},
+        {"id": 20, "img": "explorersBook.jpg", "name": "Psychology", "price": 30, "copyright": "copyright 4", "description": "mnopmnop"}
+    ]
+}
+
+

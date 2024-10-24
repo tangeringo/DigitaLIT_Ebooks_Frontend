@@ -1,0 +1,7 @@
+[
+    {"id": 1, "img": "freeTimeBook.jpg", "name": "Business Analysis", "price": 20, "copyright": "copyright 1", "description": "abcdabcd V lineárnom programovaní sa hovorí, že bázické riešenie úlohy lineárneho programovania (ÚLP) je degenerované, ak niektoré z bázických premenných majú hodnotu nula. Konkrétne, degenerované riešenie nastáva, keď aspoň jedna zo základných premenných v bázickom riešení nie je kladná, ale rovná nule. V kontexte simplexovej metódy to znamená, že aj keď riešenie môže byť bázické, obsahuje redundantné alebo nadbytočné obmedzenia, ktoré vedú k nulovým hodnotám v základných premenných. Jednoduchšie povedané: Ak má bázické riešenie aspoň jednu základnú premennú rovnu nule, nazýva sa degenerované."},
+    {"id": 2, "img": "orangeDiary.jpg", "name": "Structures", "price": 24, "copyright": "copyright 1", "description": "efghefgh"},
+    {"id": 3, "img": "nightRead.jpg", "name": "IT Development & Deployment", "price": 22, "copyright": "copyright 1", "description": "ijklijkl"},
+    {"id": 4, "img": "notebook.jpg", "name": "Psychology", "price": 30, "copyright": "copyright 1", "description": "mnopmnop"},
+    {"id": 5, "img": "explorersBook.jpg", "name": "Business Analysis", "price": 20, "copyright": "copyright 1", "description": "abcdabcd"}
+]

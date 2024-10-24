@@ -1,6 +1,7 @@
 import styled, { RuleSet, css } from "styled-components";
-import { black, creme } from "../../styles/colors.styles";
-import { addToCart, dropdownScroll, moreInfo, showBook } from "../../variables";
+import { black, creme } from "../../styles/styles.colrs";
+import variables from '../../data/variables/variables.static.json';
+import { dropdownScroll } from "../../data/variables/variables.dynamic";
 
 
 export const BookImage = styled.img.attrs(() => ({
@@ -47,7 +48,7 @@ type ButtonNameProps = {
 
 
 const getButtonItemStyles = ({ buttonName }: ButtonNameProps): RuleSet<object> | undefined => {
-    if (buttonName === moreInfo) return LibraryItemStyles;
+    if (buttonName === variables.buttons.moreInfo) return LibraryItemStyles;
     if (buttonName === dropdownScroll) return UploadBookItemStyles;
 }
 
@@ -74,7 +75,7 @@ export const CartItemButton = styled.button<ButtonNameProps>`
 `;
 
 export const ButtonTitle = styled.strong<ButtonNameProps>`
-    font-size: ${({buttonName}) => (buttonName === moreInfo) || (buttonName === dropdownScroll)? "25px" : "15px"};
+    font-size: ${({buttonName}) => (buttonName === variables.buttons.moreInfo) || (buttonName === dropdownScroll)? "25px" : "15px"};
 `;
 
 
@@ -85,7 +86,7 @@ const CheckoutCollectionItemStyles = css`
 `;
 
 const getCheckoutCollectionItemStyles = ({ buttonName }: ButtonNameProps): RuleSet<object> | undefined => {
-    if (buttonName === addToCart) {
+    if (buttonName === variables.buttons.addToCart) {
         return CheckoutCollectionItemStyles;
     }
 }
@@ -127,12 +128,12 @@ export const ItemDescription = styled.div<ItemDescriptionProps>`
     height: fit-content;
     display: flex;
     text-align: center;
-    justify-content: ${({buttonTitle}) => buttonTitle === showBook? "center" : "space-between"};
+    justify-content: ${({buttonTitle}) => buttonTitle === variables.buttons.showBook? "center" : "space-between"};
     font-size: 18px;
     background-color: ${creme};
     margin-top: 10px;
-    margin-bottom: ${({buttonTitle}) => buttonTitle === addToCart? "20px" : "0"};
-    padding: ${({buttonTitle}) => buttonTitle === addToCart? "10px 0" : "0"};
+    margin-bottom: ${({buttonTitle}) => buttonTitle === variables.buttons.addToCart? "20px" : "0"};
+    padding: ${({buttonTitle}) => buttonTitle === variables.buttons.addToCart? "10px 0" : "0"};
     padding-left: 5px;
 `;
 

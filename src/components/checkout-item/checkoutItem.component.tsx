@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { CheckouComponnetProps } from '../../globalTypes';
-import { addItemToCart, clearItemFromCart, removeItemFromCart } from '../../redux/cart/cartActions';
-import { selectCartItems } from '../../redux/cart/cartSelectors';
+import { CheckouComponnetProps } from '../../data/types/types.global';
+import { addItemToCart, clearItemFromCart, removeItemFromCart } from '../../redux/cart/cart.actions';
+import { selectCartItems } from '../../redux/cart/cart.selectors';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 
-import { creme } from '../../styles/colors.styles';
+import { creme } from '../../styles/styles.colrs';
 import { 
     SectionWrapperUnderline,
     SectionWeapper, 
@@ -22,7 +22,7 @@ import {
 
 
 const CheckoutItemComponent: React.FC<CheckouComponnetProps> = ({ cartItem }) => {
-    const { imgSource, name, price, quantity, description } = cartItem;
+    const { img, name, price, quantity, description } = cartItem;
 
     const dispatch = useDispatch();
     const cartItems = useSelector(selectCartItems);
@@ -34,7 +34,7 @@ const CheckoutItemComponent: React.FC<CheckouComponnetProps> = ({ cartItem }) =>
     return (
         <SectionWrapperUnderline>
             <SectionWeapper>
-                <CheckoutProductImage src={imgSource} />
+                <CheckoutProductImage src={img} />
                     <DescriptionWrapperContainer>
                         <WrapperContainer>
                             <ProductItemTitle>{name}</ProductItemTitle>

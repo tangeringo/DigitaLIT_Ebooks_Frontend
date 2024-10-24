@@ -1,10 +1,9 @@
 import styled from "styled-components";
 
-import { creme, lightBlack } from "../../styles/colors.styles";
+import variables from "../../data/variables/variables.static.json";
+import { creme, lightBlack } from "../../styles/styles.colrs";
 import { DescriptionWrapperContainer } from "../../components/checkout-item/checkoutItem.styles";
 import { Headding, RedirectionLink } from "../login/login.styles";
-
-import { mediaPixelsWidth1600, mediaPixelsWidth910 } from "../../variables";
 
 
 export const HomeBaseContainer = styled.div`
@@ -19,7 +18,7 @@ export const HomeBaseContainer = styled.div`
     justify-content: center;
     align-items: center;
 
-    @media (max-width: ${mediaPixelsWidth1600}) {
+    @media (max-width: ${variables.mediaPixels.width1600}) {
         margin-top: 180px;
         display: block;
     }
@@ -31,7 +30,7 @@ export const SquareWrapper = styled.div`
     box-shadow: 0px 0px 16px ${(props) => props.theme.border};
     margin-right: 10px;
     
-    @media (max-width: ${mediaPixelsWidth1600}) {
+    @media (max-width: ${variables.mediaPixels.width1600}) {
         width: 100%;
         padding-bottom: 15px;
     }
@@ -41,7 +40,7 @@ export const ExplanationContainerWrapper = styled(DescriptionWrapperContainer)`
     width: 100%;
     margin: 10px 0 0;
 
-    @media (max-width: ${mediaPixelsWidth910}) {
+    @media (max-width: ${variables.mediaPixels.width910}) {
         display: block;
         text-align: center;
     }
@@ -54,12 +53,12 @@ export const DescriptionLabelContainer = styled.div`
     background-color: ${creme};
     box-shadow: 0px 0px 6px ${(props) => props.theme.border};
     
-    @media (max-width: ${mediaPixelsWidth1600}) {
+    @media (max-width: ${variables.mediaPixels.width1600}) {
         width: 75%;
         padding-bottom: 15px;
     }
 
-    @media (max-width: ${mediaPixelsWidth910}) {
+    @media (max-width: ${variables.mediaPixels.width910}) {
         margin: 30px auto;
     }
 `;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { creme, darkCreme } from "../../styles/colors.styles";
+import { creme, darkCreme } from "../../styles/styles.colrs";
 
 export const Headding = styled.h2`
     text-align: center;

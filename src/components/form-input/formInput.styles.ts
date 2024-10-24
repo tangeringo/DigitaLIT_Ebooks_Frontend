@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { black, grey, white } from '../../styles/colors.styles';
 
 const shrinkLabelStyles = css`
   top: -20px;

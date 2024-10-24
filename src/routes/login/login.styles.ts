@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { creme, darkCreme } from "../../styles/colors.styles";
-import { mediaPixelsWidth600 } from "../../variables";
-
-
+import { creme, darkCreme } from "../../styles/styles.colrs";
+import variables from "../../data/variables/variables.static.json";
 
 export const AuthAppContainer = styled.div`
     background-color: ${(props) => props.theme.background};
@@ -61,7 +59,7 @@ export const ComponentsContainer = styled.div`
     border-radius: 8px;
     background-color: ${(props) => props.theme.formBackground};
   
-    @media (max-width: ${mediaPixelsWidth600}) {
+    @media (max-width: ${variables.mediaPixels.width600}) {
         width: 70%;
     }
 `;
@@ -91,7 +89,7 @@ export const BottomComponnetsContainer = styled.div`
     width: 100%;
     font-size: .8rem;
 
-    @media (max-width: ${mediaPixelsWidth600}) {
+    @media (max-width: ${variables.mediaPixels.width600}) {
         display: block;
     }
 `;

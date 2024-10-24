@@ -1,5 +1,7 @@
 import React from 'react';
-import { ThemeTogglerProps } from '../../globalTypes';
+import { setTheme } from '../../redux/theme/theme.actions';
+import { useDispatch } from 'react-redux';
+import { ThemeTogglerProps } from '../../data/types/types.global';
 
 import {  
     ThemeToggleContainer, 
@@ -7,19 +9,18 @@ import {
 } from './themeToggler.styles';
 
 
-const ThemeToggler: React.FC<ThemeTogglerProps> = ({ themeTitle, setThemeTitle }) => {
+const ThemeToggler: React.FC<ThemeTogglerProps> = ({ currentTheme }) => {
 
-    const switchTheme = () => {
-        const newThemeTitle = themeTitle === 'light' ? 'dark' : 'light';
-        setThemeTitle(newThemeTitle)
-    }
+    const dispatch = useDispatch();
+    const newTheme = (): string => currentTheme === "light"? "dark": "light";
+    const theme = newTheme();
     
     return (
         <ThemeToggleContainer>
-            {themeTitle === "light" ? (
-                <ThemeButton onClick={switchTheme}>🌙</ThemeButton>
+            {currentTheme === "light" ? (
+                <ThemeButton onClick={() => dispatch(setTheme(theme))}>🌙</ThemeButton>
             ) : (
-                <ThemeButton onClick={switchTheme}>☀️</ThemeButton>
+                <ThemeButton onClick={() => dispatch(setTheme(theme))}>☀️</ThemeButton>
             )}
         </ThemeToggleContainer>
     );

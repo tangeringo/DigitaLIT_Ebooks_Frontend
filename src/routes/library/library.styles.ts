@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { BaseBackgroundContainer } from "../../styles/globalStyles.styles";
-import { darkWhite } from "../../styles/colors.styles";
+import { BaseBackgroundContainer } from "../../styles/styles.global";
+import { darkWhite } from "../../styles/styles.colrs";
 
 
 export const ContainerWrapper = styled(BaseBackgroundContainer)`

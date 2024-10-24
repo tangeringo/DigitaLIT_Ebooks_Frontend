@@ -4,8 +4,8 @@ import { FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, User } f
 import { UserTypes } from './user.types';
 import { EmailAndPasswordSignInStart, SignUpStart, signInFailure, signInSuccess, signOutFailure, signOutSuccess, signUpFailure, signUpSuccess } from './user.actions';
 import { getCurrentUser, createUserDocFromAuth, signInWithGooglePopup, signInWithFacebookPopup, signOutUser, signInWithTwitterPopUp } from '../../firebase/firebase.utils';
-import { AdditionalInfo, TokenType } from '../../globalTypes';
-import { loginIntent } from '../../fetchUtils/login-intent';
+import { AdditionalInfo, TokenType } from '../../data/types/types.global';
+import { loginIntent } from '../../requests/loginIntent';
 
 
 // Saga to handle sign in with Email and Password
@@ -30,6 +30,7 @@ export function* signInWithGoogleSaga() {
     const credential = GoogleAuthProvider.credentialFromResult(userCredential);
     yield* call(getSnapshotFromUserAuth, user, credential?.accessToken);
   } catch (error) {
+    console.log("google authentication error: ", error);
     yield* put(signInFailure(error as Error));
   }
 }
@@ -70,6 +71,7 @@ export function* isUserAuthenticatedSaga() {
   }
 }
 
+// Saga to create an account for a new user
 export function* signUp({ payload: { email, password, displayName } }: SignUpStart) {
   try {
     const tokens: TokenType = yield loginIntent(`/auth/register`, {displayName, email, password});

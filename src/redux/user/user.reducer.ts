@@ -1,5 +1,5 @@
 import { Action } from "@reduxjs/toolkit";
-import { TokenType } from '../../globalTypes';
+import { TokenType } from '../../data/types/types.global';
 
 import { signInSuccess, signInFailure, signOutSuccess, signOutFailure, signUpFailure, signUpSuccess } from './user.actions';
 

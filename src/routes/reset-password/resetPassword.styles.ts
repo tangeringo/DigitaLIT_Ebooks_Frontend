@@ -1,6 +1,6 @@
 import styled, { css, RuleSet } from "styled-components";
-import { red, orange, yellow, green } from "../../styles/colors.styles";
-import { mediaPixelsWidth600 } from "../../variables";
+import { red, orange, yellow, green } from "../../styles/styles.colrs";
+import variables from "../../data/variables/variables.static.json";
 
 
 export const ResetPasswordCotntainer = styled.div`
@@ -18,7 +18,7 @@ export const ResetPasswordCotntainer = styled.div`
     background-color: ${props => props.theme.background};
     border: none; 
     
-    @media (max-width: ${mediaPixelsWidth600}) {
+    @media (max-width: ${variables.mediaPixels.width600}) {
         width: 70%;
     }
 `;

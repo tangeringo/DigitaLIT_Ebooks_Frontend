@@ -1,6 +1,6 @@
 import { createAction, withMatcher, Action, ActionWithPayload } from "../redux.utils";
 import { UserTypes } from "./user.types";
-import { TokenType } from "../../globalTypes";
+import { TokenType } from "../../data/types/types.global";
 
 export type CheckUserSession = Action<UserTypes.CHECK_USER_SESSION>;
 export const checkUserSession = withMatcher((): CheckUserSession => 

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { white, grey, darkGrey, black, creme, darkCreme } from "../../styles/colors.styles";
+import { white, grey, darkGrey, black, creme, darkCreme } from "../../styles/styles.colrs";
 import { SpinnerContainer } from "../loading-spinner/loadingSpinner.styles";
 
 export const BaseButtonStyles = styled.button`

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { white } from '../../styles/colors.styles';
+import { white } from '../../styles/styles.colrs';
 
 
 export const DropdownContainer = styled.div.attrs(() => ({

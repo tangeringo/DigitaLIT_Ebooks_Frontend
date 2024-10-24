@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
-import { creme, white } from '../../styles/colors.styles';
-import { mediaPixelsWidth770 } from '../../variables';
+import { creme, white } from '../../styles/styles.colrs';
+import variables from '../../data/variables/variables.static.json';
 
 
 const onClickAnimationStyles = css`
@@ -38,7 +38,7 @@ export const CartIconContainer = styled.div<CartIconContainerProps>`
     background-color: ${white};
     border-radius: 15px;
 
-    @media (max-width: ${mediaPixelsWidth770}) {
+    @media (max-width: ${variables.mediaPixels.width770}) {
         margin: 0;
     }
 

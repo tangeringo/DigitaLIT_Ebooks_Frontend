@@ -1,0 +1,72 @@
+{
+    "appName": "DigitaLIT",
+    "routes": {
+        "home": "/",
+        "login": "/login",
+        "createAccount": "/create-account",
+        "resetPassword": "/reset-password",
+        "profile": "/profile",
+        "myBooks": "/my-books",
+        "displayBookInfo": "/display-book-info",
+        "viewPdf": "/view-pdf",
+        "editPdf": "/edit-pdf",
+        "uploadBook": "/upload-book",
+        "library": "/library",
+        "checkout": "/checkout"
+    },
+    "buttons": {
+        "moreInfo": "...",
+        "close": "x",
+        "scrollDown": "⬇",
+        "scrollUp": "⬆",
+        "addToCart": "Add to cart",
+        "showBook": "Show book"
+    },
+    "genres": {
+        "business": "Business",
+        "psychology": "Psychology",
+        "technology": "Technology",
+        "physics": "Physics"
+    },
+    "mediaPixels": {
+        "width1600": "1600px",
+        "width1400": "1400px",
+        "width1200": "1200px",
+        "width910": "910px",
+        "width770": "770px",
+        "width720": "720px",
+        "width600": "600px"
+    },
+    "defaultStates": {
+        "loginForm": { "email": "", "password": "" },
+        "createAccount": {
+            "displayName": "",
+            "email": "",
+            "password": "",
+            "confirmPassword": ""
+        },
+        "resetPassword": { "newPassword": "", "confirmPassword": "" },
+        "cartItemInfo": { "id": 0, "showBook": false },
+        
+        "uploadBook": {
+            "title": "",
+            "author": "",
+            "description": "",
+            "isbn": "",
+            "frontImage": "",
+            "pdfBook": "",
+            "price": 0,
+            "availability": 0,
+            "condition": "",
+            "paymentMethods": [],
+            "shipping": {
+                "cost": 0,
+                "delivery": "",
+                "tracking": [],
+                "policies": ""
+            }
+        }
+
+    }
+
+}

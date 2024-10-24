@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import { black } from "../../styles/colors.styles";
-import { mediaPixelsWidth1400, mediaPixelsWidth600 } from "../../variables";
+import { black } from "../../styles/styles.colrs";
+import variables from "../../data/variables/variables.static.json";
 
 
 export const SectionWrapperUnderline = styled.div`
@@ -15,7 +15,7 @@ export const SectionWeapper = styled.div`
     display: flex;
     text-align: center;
 
-    @media (max-width: ${mediaPixelsWidth1400}) {
+    @media (max-width: ${variables.mediaPixels.width1400}) {
         display: block;
     }
 `;
@@ -30,7 +30,7 @@ export const CheckoutProductImage = styled.img.attrs(() => ({
     border: 1.5px solid ${(props) => props.theme.textPrimary};
     box-shadow: 0px 0px 16px ${(props) => props.theme.border};
 
-    @media (max-width: ${mediaPixelsWidth600}) {
+    @media (max-width: ${variables.mediaPixels.width600}) {
         width: 70%;
     }
 `;
@@ -52,7 +52,7 @@ export const DescriptionWrapperContainer = styled.div.attrs((props) => (props.th
     flex-direction: row;
     text-align: left;
 
-    @media (max-width: ${mediaPixelsWidth1400}) {
+    @media (max-width: ${variables.mediaPixels.width1400}) {
         width: 100%;
     }
 `;

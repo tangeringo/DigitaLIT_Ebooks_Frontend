@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { creme, darkBlue } from '../../styles/colors.styles';
+import { creme, darkBlue } from '../../styles/styles.colrs';
 
 interface OpenDropdownProps {
     openDropdown: boolean

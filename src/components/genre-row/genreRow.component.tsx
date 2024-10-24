@@ -1,5 +1,5 @@
-import { GenreBookObject } from '../../globalTypes';
-import { moreInfo } from '../../variables';
+import { GenreBookObject } from '../../data/types/types.global';
+import variables from '../../data/variables/variables.static.json';
 import BookItemComponent from '../book-item/bookItem.component';
 
 import { 
@@ -15,12 +15,12 @@ const GenreRowComponent = ({ genre, books, cartItemInfo, setCartItemInfo }: Genr
     return (
         <GenreOutlineWrapper>
             <Genre>{genre}</Genre>
-            <BookCounter>({books.length} books found)</BookCounter>
+            <BookCounter>({books.length} books total)</BookCounter>
             <BooksWraper>
                 {firstXBooks.map(book => (
                     <BookItemComponent 
                         key={book.id} book={book} 
-                        buttonName={moreInfo} 
+                        buttonName={variables.buttons.moreInfo} 
                         cartItemInfo={cartItemInfo} 
                         setCartItemInfo={setCartItemInfo}
                     />

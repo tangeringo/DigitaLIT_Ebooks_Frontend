@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
-import { selectCartItems } from '../../redux/cart/cartSelectors';
+import { selectCartItems } from '../../redux/cart/cart.selectors';
 
 import CartItemComponent from '../cart-item/cartItem.component';
 import SubmitButton, { BUTTON_TYPE_CLASS } from '../submit-button/submitButton.component';

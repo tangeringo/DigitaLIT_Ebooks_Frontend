@@ -1,7 +1,7 @@
 import ProfilePicture from '../../assets/ProfilePage/profileDefault.png';
 import styled from "styled-components";
-import { black, creme } from "../../styles/colors.styles";
-import { mediaPixelsWidth1200, mediaPixelsWidth1400 } from '../../variables';
+import { black, creme } from "../../styles/styles.colrs";
+import variables from '../../data/variables/variables.static.json';
 
 export const ProfileBaseBackgroundContainer = styled.div`
     background-color: ${(props) => props.theme.background};
@@ -9,10 +9,10 @@ export const ProfileBaseBackgroundContainer = styled.div`
     display: flex;
     min-height: 100vh;
     padding-bottom: 150px;
-    @media (max-width: ${mediaPixelsWidth1400}) {
+    @media (max-width: ${variables.mediaPixels.width1400}) {
         height: 125vh;
     }
-    @media (max-width: ${mediaPixelsWidth1200}) {
+    @media (max-width: ${variables.mediaPixels.width1200}) {
         height: 165vh;
     }
 `;
@@ -40,7 +40,7 @@ export const StraitLineContainer = styled.div`
     position: absolute;
     top: 10%;
 
-    @media (max-width: ${mediaPixelsWidth1200}) {
+    @media (max-width: ${variables.mediaPixels.width1200}) {
         display: block;
     }
 `;
@@ -57,7 +57,7 @@ export const ProfilePictureContainer = styled.div.attrs((props) => (props.theme.
     justify-content: center;
     align-items: center;
 
-    @media (max-width: ${mediaPixelsWidth1200}) {
+    @media (max-width: ${variables.mediaPixels.width1200}) {
         margin: 5px auto;
     }
 `;
@@ -90,7 +90,7 @@ export const MyContainers = styled.div`
     padding: 24px;
 
 
-    @media (max-width: ${mediaPixelsWidth1400}) {
+    @media (max-width: ${variables.mediaPixels.width1400}) {
         display: block;
     }
 `;
@@ -107,7 +107,7 @@ const MyContainerBase = styled.div.attrs((props) => (props.theme.background === 
     align-items: center;
     margin-top: 4px;
 
-    @media (max-width: ${mediaPixelsWidth1200}) {
+    @media (max-width: ${variables.mediaPixels.width1200}) {
         width: 100%;
         // margin: 4px 0 0;
     }
@@ -117,7 +117,7 @@ const MyContainerBase = styled.div.attrs((props) => (props.theme.background === 
 export const MyStoryContainer = styled(MyContainerBase)`
     margin-right: 2px;
 
-    @media (max-width: ${mediaPixelsWidth1200}) {
+    @media (max-width: ${variables.mediaPixels.width1200}) {
         margin-right: 0;
     }
 `;
@@ -126,7 +126,7 @@ export const MyStoryContainer = styled(MyContainerBase)`
 export const MyInfoContainer = styled(MyContainerBase)`
     margin-left: 2px;
 
-    @media (max-width: ${mediaPixelsWidth1200}) {
+    @media (max-width: ${variables.mediaPixels.width1200}) {
         margin-left: 0;
     }
 `;
