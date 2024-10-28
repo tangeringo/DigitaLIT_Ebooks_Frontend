@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { creme, white } from '../../styles/styles.colrs';
 import variables from '../../data/variables/variables.static.json';
 
 
@@ -9,14 +8,14 @@ const onClickAnimationStyles = css`
     @keyframes pulse {
         0% {
           transform: scaleX(1.5) scaleY(1.5);
-          background-color: ${creme};
+          background-color: ${variables.colors.creme};
         }
         50% {
           transform: scale3d(1.05, 1.05, 1.05);
-          background-color: ${white};
+          background-color: ${variables.colors.white};
         }
         to {
-            background-color: ${creme};
+            background-color: ${variables.colors.creme};
             transform: scaleX(1.5) scaleY(1.5)
         }
       }
@@ -35,7 +34,7 @@ export const CartIconContainer = styled.div<CartIconContainerProps>`
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    background-color: ${white};
+    background-color: ${variables.colors.white};
     border-radius: 15px;
 
     @media (max-width: ${variables.mediaPixels.width770}) {

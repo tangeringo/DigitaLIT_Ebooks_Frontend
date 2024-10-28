@@ -3,7 +3,7 @@ import { LibraryPageProps, CartItemInfo } from '../../data/types/types.global';
 import variables from '../../data/variables/variables.static.json';
 
 import { useNavigate } from 'react-router-dom';
-import { selectCurrentUserTokens } from '../../redux/user/user.selectors';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cart.actions';
 import { selectIsSideBarOpen, selectTargetBookItem } from '../../redux/library/library.selectors';
@@ -27,7 +27,7 @@ const LibraryPage = ({ theme, filteredBooks, setRoute }: LibraryPageProps): JSX.
     // const navbarToggler = document.querySelector(".navbar-toggler");   // in case you want to close the navigation popup
     const selectedBook = useSelector(selectTargetBookItem);
     const isSideBarOpen = useSelector(selectIsSideBarOpen);
-    const currentUserTokens = useSelector(selectCurrentUserTokens);
+    const currentUser = useSelector(selectCurrentUser);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -42,12 +42,12 @@ const LibraryPage = ({ theme, filteredBooks, setRoute }: LibraryPageProps): JSX.
     //   }, [navbarToggler]);
 
     useEffect(() => {
-        if (!currentUserTokens?.access && !currentUserTokens?.refresh) { navigate(variables.routes.login) }
-    }, [currentUserTokens?.access, currentUserTokens?.refresh, navigate]);
+        if (!currentUser?.accessToken && !currentUser?.refreshToken) { navigate(variables.routes.login) }
+    }, [currentUser?.accessToken, currentUser?.refreshToken, navigate]);
 
     useEffect(() => {
         dispatch(setIsCartOpen(false));
-        setRoute(variables.routes.login);
+        setRoute(variables.routes.library);
     }, [dispatch, setRoute]);
 
     return (

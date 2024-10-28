@@ -1,28 +1,39 @@
 import { Action } from "@reduxjs/toolkit";
-import { TokenType } from '../../data/types/types.global';
+import { CurrentUserType } from '../../data/types/types.global';
 
 import { signInSuccess, signInFailure, signOutSuccess, signOutFailure, signUpFailure, signUpSuccess } from './user.actions';
 
 export type UserState = {
-    readonly userTokens: TokenType | null;
-    readonly isLoading: boolean;
+    readonly currentUser: CurrentUserType | null;
+    readonly isCurrentUserLoading: boolean;
     readonly error: Error | null;
 }
 
 const USER_INITIAL_STATE: UserState = {
-    userTokens: null,
-    isLoading: false,
+    currentUser: null,
+    isCurrentUserLoading: false,
     error: null,
 }
+
+
+const updateTokens = (state: UserState, user: CurrentUserType): UserState => ({
+    ...state,
+    currentUser: {
+        ...state.currentUser,
+        id: user.id,
+        accessToken: user.accessToken,
+        refreshToken: user.refreshToken || state.currentUser?.refreshToken
+    }
+});
 
 export const userReducer = (state = USER_INITIAL_STATE, action: Action) => {
 
     if (signInSuccess.match(action))
-        return { ...state, userTokens: action.payload }
+        return updateTokens(state, action.payload);
     if (signUpSuccess.match(action))
-        return { ...state, userTokens: action.payload }
+        return updateTokens(state, action.payload);
     if (signOutSuccess.match(action))
-        return { ...state, userTokens: null }
+        return { ...state, currentUser: null }
     if (
         signInFailure.match(action) ||
         signUpFailure.match(action) ||  

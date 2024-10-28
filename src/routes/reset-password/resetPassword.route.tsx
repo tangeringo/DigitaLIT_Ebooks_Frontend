@@ -12,7 +12,6 @@ import SubmitButton from '../../components/submit-button/submitButton.component'
 import FormInput from '../../components/form-input/formInput.component';
 
 import { ThemeProvider } from 'styled-components';
-import { green, grey } from '../../styles/styles.colrs';
 import { BaseBackgroundContainer } from '../../styles/styles.global';
 import { 
     ResetPasswordCotntainer, 
@@ -68,7 +67,7 @@ const ResetPasswordPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
         <ThemeProvider theme={theme}>
             <BaseBackgroundContainer>
                 <ResetPasswordCotntainer>
-                    <FontAwesomeIcon icon={faLock} color={grey} size='3x' />
+                    <FontAwesomeIcon icon={faLock} color={variables.colors.grey} size='3x' />
                     <PageTitle>Reset Password</PageTitle>
 
                     <form style={{width: "100%"}} onSubmit={handleSubmit}>
@@ -79,7 +78,7 @@ const ResetPasswordPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
                             onChange={handleChange} label="Confirm Password" required
                         />
                         {newPassword.length && confirmPassword.length && newPassword === confirmPassword?
-                            <FontAwesomeIcon icon={faCheckSquare} color={green} size='2x' />
+                            <FontAwesomeIcon icon={faCheckSquare} color={variables.colors.green} size='2x' />
                             :null
                         }
                     </form>

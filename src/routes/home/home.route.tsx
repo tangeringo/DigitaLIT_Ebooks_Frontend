@@ -79,3 +79,6 @@ const HomePage: React.FC<RouteProps> = ({ theme, setRoute }) => {
 }
 
 export default HomePage;
+
+
+// text paragraphs into JSON

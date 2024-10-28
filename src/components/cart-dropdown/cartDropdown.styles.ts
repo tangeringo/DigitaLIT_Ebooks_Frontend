@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { white } from '../../styles/styles.colrs';
+import variables from '../../data/variables/variables.static.json';
 
 
 export const DropdownContainer = styled.div.attrs(() => ({
@@ -28,5 +28,5 @@ export const CartItemsContainer = styled.div`
 export const EmptyMessage = styled.span`
   font-size: 18px;
   margin: 50px auto;
-  color: ${white};
+  color: ${variables.colors.white};
 `;

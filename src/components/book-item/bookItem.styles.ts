@@ -1,5 +1,4 @@
 import styled, { RuleSet, css } from "styled-components";
-import { black, creme } from "../../styles/styles.colrs";
 import variables from '../../data/variables/variables.static.json';
 import { dropdownScroll } from "../../data/variables/variables.dynamic";
 
@@ -63,7 +62,7 @@ export const CartItemButton = styled.button<ButtonNameProps>`
     letter-spacing: 1.5px;
     line-height: 50px;
     padding: 0 35px 0 35px;
-    color: ${black};
+    color: ${variables.colors.black};
     text-transform: uppercase;
     font-family: 'Open Sans Condensed';
     font-weight: bolder;
@@ -100,7 +99,7 @@ export const CollectionItem = styled.div<ButtonNameProps>`
     align-items: center;
     position: relative;
     margin: 0 auto 5%;
-    border: 2px solid ${creme};
+    border: 2px solid ${variables.colors.creme};
     border-radius: 10px;
     box-shadow: 0px 0px 12px ${(props) => props.theme.border};
 
@@ -130,7 +129,7 @@ export const ItemDescription = styled.div<ItemDescriptionProps>`
     text-align: center;
     justify-content: ${({buttonTitle}) => buttonTitle === variables.buttons.showBook? "center" : "space-between"};
     font-size: 18px;
-    background-color: ${creme};
+    background-color: ${variables.colors.creme};
     margin-top: 10px;
     margin-bottom: ${({buttonTitle}) => buttonTitle === variables.buttons.addToCart? "20px" : "0"};
     padding: ${({buttonTitle}) => buttonTitle === variables.buttons.addToCart? "10px 0" : "0"};

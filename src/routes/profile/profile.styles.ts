@@ -1,6 +1,5 @@
 import ProfilePicture from '../../assets/ProfilePage/profileDefault.png';
 import styled from "styled-components";
-import { black, creme } from "../../styles/styles.colrs";
 import variables from '../../data/variables/variables.static.json';
 
 export const ProfileBaseBackgroundContainer = styled.div`
@@ -17,14 +16,14 @@ export const ProfileBaseBackgroundContainer = styled.div`
     }
 `;
 
-export const ProfileBaseContainer = styled.div.attrs((props) => (props.theme.background === black? {className: "bg-dark"} : {}))`
+export const ProfileBaseContainer = styled.div.attrs((props) => (props.theme.background === variables.colors.black? {className: "bg-dark"} : {}))`
     background-color: ${(props) => props.theme.background};
     padding-top: 30%;
     display: flex;
     margin: 150px auto 0;
     width: 80%;
     position: relative;
-    border: 4px solid ${creme};
+    border: 4px solid ${variables.colors.creme};
     box-shadow: 0px 0px 16px ${(props) => props.theme.border};
 `;
 
@@ -35,7 +34,7 @@ export const StraitLineContainer = styled.div`
     align-items: center;
     width: 100%;
     height: fit-content;
-    background-color: ${creme};
+    background-color: ${variables.colors.creme};
     box-shadow: 0px 0px 8px ${(props) => props.theme.border};
     position: absolute;
     top: 10%;
@@ -46,7 +45,7 @@ export const StraitLineContainer = styled.div`
 `;
 
 
-export const ProfilePictureContainer = styled.div.attrs((props) => (props.theme.background === black? {className: "bg-dark"}: {}))`
+export const ProfilePictureContainer = styled.div.attrs((props) => (props.theme.background === variables.colors.black? {className: "bg-dark"}: {}))`
     background-color: ${(props) => props.theme.background};
     box-shadow: 0px 0px 4px ${(props) => props.theme.border};
     display: flex;
@@ -71,7 +70,7 @@ export const ProfilePictureImg = styled.img.attrs(() => ({
 `;
 
 
-export const ProfileNameContainer = styled.div.attrs((props) => (props.theme.background === black? {className: "bg-dark"} : {}))`
+export const ProfileNameContainer = styled.div.attrs((props) => (props.theme.background === variables.colors.black? {className: "bg-dark"} : {}))`
     background-color: ${(props) => props.theme.background};
     box-shadow: 0px 0px 4px ${(props) => props.theme.border};
     height: 8vh;
@@ -96,7 +95,7 @@ export const MyContainers = styled.div`
 `;
 
 
-const MyContainerBase = styled.div.attrs((props) => (props.theme.background === black? {className: "bg-dark"} : {}))`
+const MyContainerBase = styled.div.attrs((props) => (props.theme.background === variables.colors.black? {className: "bg-dark"} : {}))`
     background-color: ${(props) => props.theme.background};
     box-shadow: 0px 0px 4px ${(props) => props.theme.border};
     display: flex;
@@ -139,7 +138,7 @@ export const StraitLineInfoContainer = styled.div`
     width: 100%;
     height: 50px;
     height: 12vh;
-    background-color: ${creme};
+    background-color: ${variables.colors.creme};
     z-index: 1;
     box-shadow: 0px 0px 8px ${(props) => props.theme.border};
     position: absolute;

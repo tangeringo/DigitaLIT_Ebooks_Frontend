@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { RouteProps } from '../../data/types/types.global';
 
 import { useNavigate } from 'react-router-dom';
-import { selectCurrentUserTokens } from '../../redux/user/user.selectors';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { PDFDocument } from 'pdf-lib';
@@ -16,13 +16,13 @@ import './editPdf.styles.css'
 
 const PdfEditor: React.FC<RouteProps> = ({ theme, setRoute }) => {
     const [pdfBytes, setPdfBytes] = useState<Uint8Array | null>(null);
-    const currentUserTokens = useSelector(selectCurrentUserTokens);
+    const currentUser = useSelector(selectCurrentUser);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!currentUserTokens?.access && !currentUserTokens?.refresh) { navigate(variables.routes.login) }
-    }, [currentUserTokens?.access, currentUserTokens?.refresh, navigate]);
+        if (!currentUser?.accessToken && !currentUser?.refreshToken) { navigate(variables.routes.login) }
+    }, [currentUser?.accessToken, currentUser?.refreshToken, navigate]);
 
 
     const loadPdf = async () => {

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { creme, darkBlue } from '../../styles/styles.colrs';
+import variables from '../../data/variables/variables.static.json';
 
 interface OpenDropdownProps {
     openDropdown: boolean
@@ -12,7 +12,7 @@ export const UploadBaseBackgroundContainer = styled.div`
 `;
 
 export const UploadedBackgroundWrapperOutline = styled.div`
-    background-color: ${creme};
+    background-color: ${variables.colors.creme};
     box-shadow: 0px 0px 16px ${(props) => props.theme.border};
     min-height: 40vh;
     margin: 30vh auto;
@@ -23,11 +23,11 @@ export const UploadedBackgroundWrapperOutline = styled.div`
 `;
 
 export const SquareWrapper = styled.div`
-    background-color: ${creme};
+    background-color: ${variables.colors.creme};
     box-shadow: 0px 0px 26px ${(props) => props.theme.border};
 `;
 
-export const BottomScrollDownWrapper = styled.div.attrs((props) => (props.theme.cursive === darkBlue? {className: "bg-dark"} : {}))<OpenDropdownProps>`
+export const BottomScrollDownWrapper = styled.div.attrs((props) => (props.theme.cursive === variables.colors.darkBlue? {className: "bg-dark"} : {}))<OpenDropdownProps>`
     background: ${(props) => props.theme.cursive};
     box-shadow: 0px 0px 26px ${(props) => props.theme.border};
     border-radius: 12px;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
+import variables from "../../data/variables/variables.static.json";
 import { BaseBackgroundContainer } from "../../styles/styles.global";
-import { darkWhite } from "../../styles/styles.colrs";
 
 
 export const ContainerWrapper = styled(BaseBackgroundContainer)`
@@ -38,6 +38,6 @@ export const SideBarSection = styled.div.attrs(() => ({
 `;
 
 export const NoMatchesText = styled.h2`
-    color: ${darkWhite};
+    color: ${variables.colors.darkWhite};
     margin: 400px auto;
 `;

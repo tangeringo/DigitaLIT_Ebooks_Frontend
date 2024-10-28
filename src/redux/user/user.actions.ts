@@ -57,3 +57,7 @@ export const signOutSuccess = withMatcher((): SignOutSuccess => createAction(Use
 
 export type SignOutFailure = ActionWithPayload<UserTypes.SIGN_OUT_FAILED, Error>
 export const signOutFailure = withMatcher((error: Error): SignOutFailure => createAction(UserTypes.SIGN_OUT_FAILED, error));
+
+export type RefreshAccessToken = ActionWithPayload<UserTypes.REFRESH_TOKEN, TokenType>;
+export const refreshAccessToken = withMatcher((tokens: TokenType): RefreshAccessToken => 
+    createAction(UserTypes.REFRESH_TOKEN, tokens));

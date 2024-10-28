@@ -5,7 +5,7 @@ import variables from '../../data/variables/variables.static.json';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cart.actions';
-import { selectCurrentUserTokens } from '../../redux/user/user.selectors';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 import { ThemeProvider } from 'styled-components';
 import { 
@@ -26,7 +26,7 @@ import {
 
 const ProfilePage: React.FC<RouteProps> = ({ theme, setRoute }) => {
     const navbarToggler = document.querySelector(".navbar-toggler");
-    const currentUserTokens = useSelector(selectCurrentUserTokens);
+    const currentUser = useSelector(selectCurrentUser);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -35,8 +35,8 @@ const ProfilePage: React.FC<RouteProps> = ({ theme, setRoute }) => {
       }, [navbarToggler]);
 
     useEffect(() => {
-        if (!currentUserTokens?.access && !currentUserTokens?.refresh) { navigate(variables.routes.login) }
-    }, [currentUserTokens?.access, currentUserTokens?.refresh, navigate]);
+        if (!currentUser?.accessToken && !currentUser?.refreshToken) { navigate(variables.routes.login) }
+    }, [currentUser?.accessToken, currentUser?.refreshToken, navigate]);
 
     useEffect(() => {
         dispatch(setIsCartOpen(false));

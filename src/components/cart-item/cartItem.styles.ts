@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { white } from '../../styles/styles.colrs';
+import variables from '../../data/variables/variables.static.json';
 
 
 export const CartItemContainer = styled.div`
@@ -20,5 +20,5 @@ export const CartItemDescribtion = styled.div`
   align-items: flex-start;
   justify-content: center;
   padding: 10px 20px;
-  color: ${white};
+  color: ${variables.colors.white};
 `;  

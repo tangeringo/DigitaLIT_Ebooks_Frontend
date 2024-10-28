@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { white, grey, darkGrey, black, creme, darkCreme } from "../../styles/styles.colrs";
+import variables from "../../data/variables/variables.static.json";
 import { SpinnerContainer } from "../loading-spinner/loadingSpinner.styles";
 
 export const BaseButtonStyles = styled.button`
-    background-color: ${grey};
-    border: 1px solid ${black};
-    color: ${white};
+    background-color: ${variables.colors.grey};
+    border: 1px solid ${variables.colors.black};
+    color: ${variables.colors.white};
     display: flex;
     justify-content: center;
     margin: 16px auto;
@@ -18,8 +18,8 @@ export const BaseButtonStyles = styled.button`
     width: 50%;
 
     &:hover {
-        background-color: ${darkGrey};
-        border: 1px solid ${black};
+        background-color: ${variables.colors.darkGrey};
+        border: 1px solid ${variables.colors.black};
     }
 `;
 
@@ -31,10 +31,10 @@ export const CheckoutButtonStyles = styled(BaseButtonStyles)`
 `;
 
 export const DropdownButtonStyles = styled(BaseButtonStyles)`
-    background-color: ${creme};
+    background-color: ${variables.colors.creme};
 
     &:hover {
-        background-color: ${darkCreme};
+        background-color: ${variables.colors.darkCreme};
     }
 `;
 

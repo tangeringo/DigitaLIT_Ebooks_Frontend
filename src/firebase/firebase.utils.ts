@@ -59,10 +59,19 @@ export const getCurrentUser = (): Promise<User | null> => {
   })
 };
 
-export const refreshAccessToken = async (): Promise<string> => {
-  try {
-    const user = auth.currentUser;
-    if (!user) { throw new Error("No user is currently signed in.") }
-    return await user.getIdToken(true);
-  } catch (error) { throw new Error("Failed to refresh access token.") }
+
+export const updatedTokenPayload = async (): Promise<{ id: string, accessToken: string }> => {
+  const auth = getAuth();
+
+  return new Promise((resolve, reject) => {
+    onAuthStateChanged(auth, async(user) => {
+      if (user) {
+        try {
+          const accessToken = await user.getIdToken(true); // Force refresh the token
+          const payload = { id: user.uid, accessToken: accessToken };
+          resolve(payload);
+        } catch (error) { reject(error) }
+      } else { reject(new Error('No user is signed in')) }
+    });
+  });
 };

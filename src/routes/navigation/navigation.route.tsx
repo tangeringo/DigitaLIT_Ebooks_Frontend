@@ -4,7 +4,7 @@ import variables from "../../data/variables/variables.static.json";
 
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsCartOpen } from '../../redux/cart/cart.selectors';
-import { selectCurrentUserTokens } from "../../redux/user/user.selectors";
+import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { signOutStart } from "../../redux/user/user.actions";
 
 import { Link } from "react-router-dom";
@@ -32,7 +32,7 @@ import {
 
 
 const Navigation: React.FC<NavBarProps> = ({ brandName, route, setSearchTerm }) => {
-  const currentUserTokens = useSelector(selectCurrentUserTokens);
+  const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
   const dispatch = useDispatch();
   const logOut = () => { dispatch(signOutStart()) }
@@ -51,7 +51,7 @@ const Navigation: React.FC<NavBarProps> = ({ brandName, route, setSearchTerm }) 
 
           <OuterRoutesContainer>
             <RoutesContainer>
-              { currentUserTokens?.access?
+              { currentUser?.accessToken?
                 <RoutesContainerAfterAuth>
                   <RouteLink>
                     <Link className={route === variables.routes.profile? "nav-link active fw-bold" : "nav-link"} to={variables.routes.profile}>Profile</Link>
@@ -72,7 +72,7 @@ const Navigation: React.FC<NavBarProps> = ({ brandName, route, setSearchTerm }) 
               }
             </RoutesContainer>
           
-            { currentUserTokens?.access? 
+            { currentUser?.accessToken? 
               <FormSearch>
                 <RouteLink>
                   <LogOutTag onClick={logOut}>Log OUT</LogOutTag>
@@ -95,3 +95,6 @@ const Navigation: React.FC<NavBarProps> = ({ brandName, route, setSearchTerm }) 
 }
 
 export default Navigation;
+
+
+// on refresh the accessToken token gets removed, but the "id" and "refresh token" stay .. refresh the accessToken token on refresh if the refresh token still exists.

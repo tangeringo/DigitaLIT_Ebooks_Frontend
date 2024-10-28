@@ -3,15 +3,15 @@ import "bootstrap/dist/css/bootstrap.css";
 
 import variables from './data/variables/variables.static.json';
 import books from './data/books/books.library.json';
-import { RouteOptions, TokenType } from './data/types/types.global';
+import { RouteOptions, TokenType, BooksLibrary } from './data/types/types.global';
 import { darkTheme, lightTheme } from './styles/styles.global';
 
 
 import { Routes, Route, Navigate } from 'react-router-dom'; 
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentUserTokens } from './redux/user/user.selectors';
+import { selectCurrentUser } from './redux/user/user.selectors';
 import { selectCurrentTheme } from './redux/theme/theme.selectors';
-import { checkUserSession } from './redux/user/user.actions';
+import { checkUserSession, refreshAccessToken } from './redux/user/user.actions';
 
 import Navigation from './routes/navigation/navigation.route';
 import HomePage from './routes/home/home.route';
@@ -25,44 +25,59 @@ import ThemeToggler from './components/theme-toggler/themeToggler.component';
 import PdfEditor from './routes/edit-pdf/editPdf.route';
 import UploadBook from './routes/upload-book/uploadBook.route';
 import CheckoutPage from './routes/checkout/checkout.route';
-
+import LoadingSpinner from './components/loading-spinner/loadingSpinner.component';
 
 
 const App: React.FC = () => {
-  const [tokens, setTokens] = useState<TokenType>({ access: undefined, refresh: undefined });
+  const [tokens, setTokens] = useState<TokenType>({ accessToken: undefined, refreshToken: undefined });
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [route, setRoute] = useState<RouteOptions>("/");
-  const currentUserTokens = useSelector(selectCurrentUserTokens);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const currentUser = useSelector(selectCurrentUser);
   const currentTheme = useSelector(selectCurrentTheme);
-  const theme = currentTheme === 'light'? lightTheme : darkTheme;  // throw to redux
-  const isUserAuthenticated = () => (currentUserTokens?.access && currentUserTokens?.refresh);
+  const theme = currentTheme === 'light'? lightTheme : darkTheme;
+  const currentUserInfo = !!(currentUser?.accessToken && currentUser?.refreshToken);
+  const filterBooksByCategory = (category: keyof BooksLibrary) => books[category].filter(book => book.name.toLowerCase().includes(searchTerm.toLowerCase()));
   const dispatch = useDispatch();
 
-  // OPTIMALIZATION NECESSARY
-  const filteredBusinessBooks = books.business.filter(book => book.name.toLowerCase().includes(searchTerm.toLowerCase()));
-  const filteredPsychologyBooks = books.psychology.filter(book => book.name.toLowerCase().includes(searchTerm.toLowerCase()));
-  const filteredItBooks = books.technology.filter(book => book.name.toLowerCase().includes(searchTerm.toLowerCase()));
-  const filteredPhysicsBooks = books.physics.filter(book => book.name.toLowerCase().includes(searchTerm.toLowerCase()));
-  
-  const filteredBooks = [ 
-    { genre: "Business", books: [...filteredBusinessBooks] },
-    { genre: "Psychology", books: [...filteredPsychologyBooks] },
-    { genre: "Technology", books: [...filteredItBooks] },
-    { genre: "Physics", books: [...filteredPhysicsBooks] }
-  ];
-  // OPTIMALIZATION NECESSARY
+  const filteredBooks = Object.keys(books).map(category => {
+    const genre = category as keyof BooksLibrary;
+    return {
+      genre: genre.charAt(0).toUpperCase() + genre.slice(1),
+      books: filterBooksByCategory(genre)
+    };
+  });
+
 
   useEffect(() => {
-    dispatch(checkUserSession());
-}, [dispatch]);
+    const checkTokensAndSession = () => {
+      if (!currentUser) {
+        dispatch(checkUserSession());
+      } else if (currentUser.refreshToken && !currentUser.accessToken) {
+        setIsLoading(true); // Show spinner when refreshing token
+        dispatch(refreshAccessToken({ accessToken: undefined, refreshToken: currentUser.refreshToken }));
+        setIsLoading(false); // Hide spinner after tokens are updated
+      } else {
+        setIsLoading(false); // Hide spinner if tokens are already present
+      }
+    };
 
+    checkTokensAndSession();
+  }, [dispatch, currentUser]);
+
+  // console.log(`currentUser: ${JSON.stringify( currentUser)}`);
+  // console.log("route: ", route);
 
   return (
     <div>
       <Navigation brandName={variables.appName} route={route} setSearchTerm={setSearchTerm}/>
       { route === variables.routes.editPdf? null : <ThemeToggler currentTheme={currentTheme}/> }
       <Routes>
-        <Route index path={variables.routes.home} element={isUserAuthenticated()? <HomePage theme={theme} setRoute={setRoute}/> : <Navigate to={variables.routes.login}/>} />
+        <Route index path={variables.routes.home} element={
+          currentUserInfo? (
+            isLoading ? <LoadingSpinner theme={theme} /> : <HomePage theme={theme} setRoute={setRoute} />
+          ) : <Navigate to={variables.routes.login} />
+        } />
         <Route path={variables.routes.login} element={<LoginPage theme={theme} setRoute={setRoute} tokens={tokens} setTokens={setTokens}/>} />
         <Route path={variables.routes.createAccount} element={<CreateAccountPage theme={theme} setRoute={setRoute} tokens={tokens} setTokens={setTokens}/>} />
         <Route path={variables.routes.resetPassword} element={<ResetPasswordPage theme={theme} setRoute={setRoute}/>}/>
@@ -79,11 +94,6 @@ const App: React.FC = () => {
 
 export default App;
 
-// refreshing access token
-
-
-
-
 
 // BUSINESS STEPS  (not that important):
 
@@ -93,3 +103,5 @@ export default App;
 
 
 
+
+// git commit -m"adding colors into static json, merging categories and ..."

@@ -3,7 +3,7 @@ import { LoginProps } from "../../data/types/types.global";
 import variables from '../../data/variables/variables.static.json';
 
 import { useNavigate } from 'react-router-dom';
-import { selectCurrentUserTokens } from '../../redux/user/user.selectors';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cart.actions';
 import { signUpStart } from '../../redux/user/user.actions';
@@ -24,7 +24,7 @@ import {
   const CreateAccountPage: React.FC<LoginProps> = ({ theme, setRoute, tokens, setTokens }) => {
     const [formFields, setFormFields] = useState(variables.defaultStates.createAccount);
     const { displayName, email, password, confirmPassword } = formFields;
-    const currentUserTokens = useSelector(selectCurrentUserTokens);
+    const currentUser = useSelector(selectCurrentUser);
     const navigate = useNavigate();
     const dispatch = useDispatch();
   
@@ -48,12 +48,12 @@ import {
     }
 
     useEffect(() => {
-      if (currentUserTokens?.access && currentUserTokens?.refresh) { navigate(variables.routes.home) }
-    }, [currentUserTokens?.access, currentUserTokens?.refresh, navigate]);
+      if (currentUser?.accessToken && currentUser?.refreshToken) { navigate(variables.routes.home) }
+    }, [currentUser?.accessToken, currentUser?.refreshToken, navigate]);
 
     useEffect(() => {
-      setTokens({ access: currentUserTokens?.access, refresh: currentUserTokens?.refresh });
-    }, [currentUserTokens, setTokens]);
+      setTokens({ accessToken: currentUser?.accessToken, refreshToken: currentUser?.refreshToken });
+    }, [currentUser, setTokens]);
 
 
     useEffect(() => {
@@ -66,7 +66,7 @@ import {
         <AuthAppContainer>
             <LoginContainer>
                 <Headding>{variables.appName}</Headding>
-                <p>Create an account to get access to latest educational digital literature</p>
+                <p>Create an account to get accessToken to latest educational digital literature</p>
                 <ComponentsContainer>
                     <form style={{width: "100%"}}>
                         <FormInput type="text" name="displayName" value={displayName}

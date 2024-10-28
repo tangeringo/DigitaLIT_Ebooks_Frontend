@@ -1,6 +1,4 @@
 import styled from "styled-components";
-
-import { black } from "../../styles/styles.colrs";
 import variables from "../../data/variables/variables.static.json";
 
 
@@ -41,7 +39,7 @@ export const WrapperContainer = styled.div`
 `;
 
 
-export const DescriptionWrapperContainer = styled.div.attrs((props) => (props.theme.background === black? {className: "bg-dark"} : {}))`
+export const DescriptionWrapperContainer = styled.div.attrs((props) => (props.theme.background === variables.colors.black? {className: "bg-dark"} : {}))`
     background-color: ${(props) => props.theme.background};
     border: 1.5px solid ${(props) => props.theme.textPrimary};
     box-shadow: 0px 0px 16px ${(props) => props.theme.border};

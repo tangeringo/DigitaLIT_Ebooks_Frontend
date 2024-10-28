@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { creme } from "../../styles/styles.colrs";
 import { BaseBackgroundContainer } from "../../styles/styles.global";
 import variables from "../../data/variables/variables.static.json";
 
@@ -20,7 +19,7 @@ export const CheckoutContainer = styled.div`
 export const CheckoutItemsWrapper = styled.div`
     overflow: auto;
     height: 60vh;
-    background-color: ${creme};
+    background-color: ${variables.colors.creme};
     box-shadow: 0px 0px 16px ${(props) => props.theme.border};
 `;
 
@@ -35,7 +34,7 @@ export const BottomComponentsContainer = styled.div`
 
 export const TotalCountWrapper = styled.div`
     width: fit-content;
-    background-color: ${creme};
+    background-color: ${variables.colors.creme};
     box-shadow: 0px 0px 16px ${(props) => props.theme.border};
     padding: 4px;
 

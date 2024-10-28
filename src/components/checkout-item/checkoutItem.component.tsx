@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { CheckouComponnetProps } from '../../data/types/types.global';
+import variables from '../../data/variables/variables.static.json';
 import { addItemToCart, clearItemFromCart, removeItemFromCart } from '../../redux/cart/cart.actions';
 import { selectCartItems } from '../../redux/cart/cart.selectors';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 
-import { creme } from '../../styles/styles.colrs';
 import { 
     SectionWrapperUnderline,
     SectionWeapper, 
@@ -41,9 +41,9 @@ const CheckoutItemComponent: React.FC<CheckouComponnetProps> = ({ cartItem }) =>
                             <ProductLabel>{description}</ProductLabel>
                             <div>
                                 <BottomLinkLabel onClick={clearItem}>Delete</BottomLinkLabel>
-                                <FontAwesomeIcon onClick={addItem} icon={faPlus} color={creme} size='1x' style={{marginLeft: "7px"}}/>
+                                <FontAwesomeIcon onClick={addItem} icon={faPlus} color={variables.colors.creme} size='1x' style={{marginLeft: "7px"}}/>
                                 <ProductLabel>Quantity: {quantity}</ProductLabel>
-                                <FontAwesomeIcon onClick={removeItem} icon={faMinus} color={creme} size='1x' style={{marginLeft: "7px"}}/>
+                                <FontAwesomeIcon onClick={removeItem} icon={faMinus} color={variables.colors.creme} size='1x' style={{marginLeft: "7px"}}/>
                             </div>
                         </WrapperContainer>
                         <ProductItemPrice>${price}</ProductItemPrice>

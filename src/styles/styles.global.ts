@@ -1,26 +1,25 @@
 import styled from "styled-components";
-import { black, creme, darkCreme, grey, lightBlack, transparentGrey, white, darkBlue, darkWhite } from "./styles.colrs";
 import variables from "../data/variables/variables.static.json";
 
 
 export const lightTheme = {
-    background: white,
-    backgroundSecondary: darkCreme,
-    textPrimary: black,
-    textSecondary: lightBlack,
-    border: lightBlack,
-    formBackground: white,
-    cursive: darkWhite
+    background: variables.colors.white,
+    backgroundSecondary: variables.colors.darkCreme,
+    textPrimary: variables.colors.black,
+    textSecondary: variables.colors.lightBlack,
+    border: variables.colors.lightBlack,
+    formBackground: variables.colors.white,
+    cursive: variables.colors.darkWhite
 }
 
 export const darkTheme = {
-    background: black,
-    backgroundSecondary: creme,
-    textPrimary: white,
-    textSecondary: creme,
-    border: grey,
-    formBackground: transparentGrey,
-    cursive: darkBlue
+    background: variables.colors.black,
+    backgroundSecondary: variables.colors.creme,
+    textPrimary: variables.colors.white,
+    textSecondary: variables.colors.creme,
+    border: variables.colors.grey,
+    formBackground: variables.colors.transparentGrey,
+    cursive: variables.colors.darkBlue
 }
 
 export const BaseBackgroundContainer = styled.div`

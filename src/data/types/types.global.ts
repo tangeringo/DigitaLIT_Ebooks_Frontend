@@ -17,6 +17,23 @@ typeof variables.routes.uploadBook |
 typeof variables.routes.library | 
 typeof variables.routes.checkout;
 
+// APP
+interface Book {
+  id: number;
+  img: string;
+  name: string;
+  price: number;
+  copyright: string;
+  description: string;
+}
+
+export interface BooksLibrary {
+  business: Book[];
+  psychology: Book[];
+  technology: Book[];
+  physics: Book[];
+}
+
 export type ThemeType = {
     background: string,
     backgroundSecondary: string
@@ -98,8 +115,12 @@ export interface LoginPayload {
 }
 
 export interface TokenType {
-  access: string | undefined;
-  refresh: string | undefined;
+  accessToken: string | undefined;
+  refreshToken: string | undefined;
+}
+
+export type CurrentUserType = TokenType & {
+  id?: string | undefined;
 }
 
 export type LoginProps = RouteProps & {

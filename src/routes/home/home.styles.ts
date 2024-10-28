@@ -1,13 +1,12 @@
 import styled from "styled-components";
 
 import variables from "../../data/variables/variables.static.json";
-import { creme, lightBlack } from "../../styles/styles.colrs";
 import { DescriptionWrapperContainer } from "../../components/checkout-item/checkoutItem.styles";
 import { Headding, RedirectionLink } from "../login/login.styles";
 
 
 export const HomeBaseContainer = styled.div`
-    background-color: ${creme};
+    background-color: ${variables.colors.creme};
     box-shadow: 0px 0px 16px ${(props) => props.theme.border};
     width: fit-content;
     width: 80%;
@@ -50,7 +49,7 @@ export const DescriptionLabelContainer = styled.div`
     margin: 30px;
     width: 21vw; 
     height: fit-content;
-    background-color: ${creme};
+    background-color: ${variables.colors.creme};
     box-shadow: 0px 0px 6px ${(props) => props.theme.border};
     
     @media (max-width: ${variables.mediaPixels.width1600}) {
@@ -64,9 +63,9 @@ export const DescriptionLabelContainer = styled.div`
 `;
 
 export const TitleHeadding = styled(Headding)`
-    border-bottom: 2px solid ${lightBlack};
+    border-bottom: 2px solid ${variables.colors.lightBlack};
     margin: 0 auto;
-    color: ${lightBlack};
+    color: ${variables.colors.lightBlack};
     letter-spacing: .7px;
     font-family: roboto;
 `;

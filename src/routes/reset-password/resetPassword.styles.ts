@@ -1,5 +1,4 @@
 import styled, { css, RuleSet } from "styled-components";
-import { red, orange, yellow, green } from "../../styles/styles.colrs";
 import variables from "../../data/variables/variables.static.json";
 
 
@@ -35,22 +34,22 @@ color: ${props => props.theme.textPrimary};
 
 
 const progressBar25percent = css`
-    background-color: ${red};
+    background-color: ${variables.colors.red};
     width: 25%;
 `;
 
 const progressBar50percent = css`
-    background-color: ${orange};
+    background-color: ${variables.colors.orange};
     width: 50%;
 `;
 
 const progressBar75percent = css`
-    background-color: ${yellow};
+    background-color: ${variables.colors.yellow};
     width: 75%;
 `;
 
 const progressBar100percent = css`
-    background-color: ${green};
+    background-color: ${variables.colors.green};
     width: 100%;
 `;
 

@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cart.actions';
 import { emailAndPasswordSignInStart, facebookSignInStart, googleSignInStart, twitterSignInStart } from '../../redux/user/user.actions';
-import { selectCurrentUserTokens } from '../../redux/user/user.selectors';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { auth } from '../../firebase/firebase.utils';
 
 import SubmitButton, { BUTTON_TYPE_CLASS } from '../../components/submit-button/submitButton.component';
@@ -33,7 +33,7 @@ import {
 const LoginPage: React.FC<LoginProps> = ({ theme, setRoute, tokens, setTokens }) => {
     const [formFields, setFormFields] = useState(variables.defaultStates.loginForm);
     const { email, password } = formFields;
-    const currentUserTokens = useSelector(selectCurrentUserTokens);
+    const currentUser = useSelector(selectCurrentUser);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -58,12 +58,12 @@ const LoginPage: React.FC<LoginProps> = ({ theme, setRoute, tokens, setTokens })
     }
 
     useEffect(() => {
-        if (currentUserTokens?.access && currentUserTokens?.refresh) { navigate(variables.routes.home) }
-    }, [currentUserTokens, navigate]);
+        if (currentUser?.accessToken && currentUser?.refreshToken) { navigate(variables.routes.home) }
+    }, [currentUser, navigate]);
 
     useEffect(() => {
-        setTokens({ access: currentUserTokens?.access, refresh: currentUserTokens?.refresh });
-    }, [currentUserTokens, setTokens]);
+        setTokens({ accessToken: currentUser?.accessToken, refreshToken: currentUser?.refreshToken });
+    }, [currentUser, setTokens]);
 
     useEffect(() => {
         dispatch(setIsCartOpen(false));
@@ -75,8 +75,8 @@ const LoginPage: React.FC<LoginProps> = ({ theme, setRoute, tokens, setTokens })
             if (!user) return;
             try {
                 const newAccessToken = await user.getIdToken(true);
-                setTokens({ access: newAccessToken, refresh: tokens.refresh });
-            } catch (error) { throw new Error('Failed to refresh access token') }
+                setTokens({ accessToken: newAccessToken, refreshToken: tokens.refreshToken });
+            } catch (error) { throw new Error('Failed to update access token') }
         });
     
         return () => unsubscribe();

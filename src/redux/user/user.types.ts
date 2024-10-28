@@ -13,4 +13,5 @@ export enum UserTypes {
     SIGN_OUT_START = 'user/SIGN_OUT_START',
     SIGN_OUT_FAILED = 'user/SIGN_OUT_FAILED',
     SIGN_OUT_SUCCESS = 'user/SIGN_OUT_SUCCESS',
+    REFRESH_TOKEN = 'user/REFRESH_TOKEN',
 }

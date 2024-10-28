@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { grey, white } from '../../styles/styles.colrs';
 import variables from '../../data/variables/variables.static.json';
 
 
@@ -24,7 +23,7 @@ export const NavBarImage = styled.img.attrs(() => ({
 }))<NavBarImageProps>`
     margin-right: 15px;
     margin-left: ${({route}) => route === variables.routes.editPdf? "0": "100px"};
-    background-color: ${white};
+    background-color: ${variables.colors.white};
     border-radius: 20px;
     padding: 5px;
 `;
@@ -66,7 +65,7 @@ export const RouteLink = styled.li.attrs(() => ({
 }))``;
 
 export const LogOutTag = styled.p`
-    color: ${grey};
+    color: ${variables.colors.grey};
     font-weight: bold;
     margin: -15px 15px 0 25px;
     width: 70px;

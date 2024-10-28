@@ -1,10 +1,11 @@
-import { takeLatest, call, all, put } from 'typed-redux-saga/macro';
+import { takeLatest, call, all, select, put } from 'typed-redux-saga/macro';
 import { FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, User } from 'firebase/auth';
-
-import { UserTypes } from './user.types';
-import { EmailAndPasswordSignInStart, SignUpStart, signInFailure, signInSuccess, signOutFailure, signOutSuccess, signUpFailure, signUpSuccess } from './user.actions';
-import { getCurrentUser, createUserDocFromAuth, signInWithGooglePopup, signInWithFacebookPopup, signOutUser, signInWithTwitterPopUp } from '../../firebase/firebase.utils';
 import { AdditionalInfo, TokenType } from '../../data/types/types.global';
+
+import { EmailAndPasswordSignInStart, SignUpStart, signInFailure, signInSuccess, signOutFailure, signOutSuccess, signUpFailure, signUpSuccess } from './user.actions';
+import { getCurrentUser, createUserDocFromAuth, signInWithGooglePopup, signInWithFacebookPopup, signOutUser, signInWithTwitterPopUp, updatedTokenPayload } from '../../firebase/firebase.utils';
+import { selectCurrentUser } from './user.selectors';
+import { UserTypes } from './user.types';
 import { loginIntent } from '../../requests/loginIntent';
 
 
@@ -13,8 +14,8 @@ export function* signInWIthEmailAndPasswordSaga({payload: {email, password} }: E
   try {
     const tokens: TokenType = yield loginIntent(`/auth/login`, {email, password});
     yield* put(signInSuccess({
-      access: tokens.access,
-      refresh: tokens.refresh
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken
     }));
   } catch (error) {
     yield* put(signInFailure(error as Error));
@@ -76,8 +77,8 @@ export function* signUp({ payload: { email, password, displayName } }: SignUpSta
   try {
     const tokens: TokenType = yield loginIntent(`/auth/register`, {displayName, email, password});
     yield* put(signUpSuccess({
-      access: tokens.access,
-      refresh: tokens.refresh
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken
     }));
   } catch (error) {
     yield* put(signUpFailure(error as Error));
@@ -107,12 +108,36 @@ export function* getSnapshotFromUserAuth(user: User, accessToken?: string | unde
     if (userSnapshot) {
       yield* put(signInSuccess({
         id: userSnapshot.id, 
-        access: accessToken,
-        refresh: user.refreshToken
+        accessToken: accessToken,
+        refreshToken: user.refreshToken
       }));
     }
   } catch (error) {
     yield* put(signInFailure(error as Error));
+  }
+}
+
+// Function that refreshes the access token
+export function* refreshTokenSaga() {
+  try {
+    const tokens = yield* select(selectCurrentUser);
+    if (tokens && tokens.accessToken) return;
+    else {
+      const payload = yield* call(updatedTokenPayload);
+
+      console.log(`persisted ID: ${JSON.stringify(payload.id)}`);
+      console.log(`New Access Token: ${JSON.stringify(payload.accessToken)}`);
+      console.log(`Refresh Token: ${tokens?.refreshToken}`);
+
+      yield* put(signInSuccess({ 
+        id: payload.id, 
+        accessToken: payload.accessToken, 
+        refreshToken: tokens?.refreshToken 
+      }));
+    }  
+  } catch (error) {
+    console.error('Error refreshing token:', error);
+    yield* put(signInFailure(error as Error)); // Handle error by dispatching failure action
   }
 }
 
@@ -145,6 +170,10 @@ export function* onSignOutStart() {
   yield* takeLatest(UserTypes.SIGN_OUT_START, signOutSaga);
 }
 
+export function* onRefreshTokens() {
+  yield* takeLatest(UserTypes.REFRESH_TOKEN, refreshTokenSaga)
+}
+
 // Root saga to combine all sagas
 export function* usersSaga() {
   yield* all([
@@ -155,5 +184,6 @@ export function* usersSaga() {
     call(onTwitterSignInStart),
     call(onSignUpStart),
     call(onSignOutStart),
+    call(onRefreshTokens)
   ]);
 }

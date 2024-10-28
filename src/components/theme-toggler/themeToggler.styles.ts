@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { creme, darkCreme } from "../../styles/styles.colrs";
+import variables from "../../data/variables/variables.static.json";
 
 export const Headding = styled.h2`
     text-align: center;
@@ -18,8 +18,8 @@ export const ThemeToggleContainer = styled.div`
 export const ThemeButton = styled.button.attrs(() => ({
     className: "bg-dark"
 }))`
-    background-color: ${creme};
-    border: 1px solid ${darkCreme};
+    background-color: ${variables.colors.creme};
+    border: 1px solid ${variables.colors.darkCreme};
     color: #fff;
     margin: 16px 8px;
     padding: 10px;

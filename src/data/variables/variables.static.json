@@ -28,15 +28,6 @@
         "technology": "Technology",
         "physics": "Physics"
     },
-    "mediaPixels": {
-        "width1600": "1600px",
-        "width1400": "1400px",
-        "width1200": "1200px",
-        "width910": "910px",
-        "width770": "770px",
-        "width720": "720px",
-        "width600": "600px"
-    },
     "defaultStates": {
         "loginForm": { "email": "", "password": "" },
         "createAccount": {
@@ -67,6 +58,31 @@
             }
         }
 
+    },
+    "mediaPixels": {
+        "width1600": "1600px",
+        "width1400": "1400px",
+        "width1200": "1200px",
+        "width910": "910px",
+        "width770": "770px",
+        "width720": "720px",
+        "width600": "600px"
+    },
+    "colors": {
+        "black": "#000",
+        "lightBlack": "#333",
+        "white": "#fff",
+        "darkWhite": "#D1D1D1",
+        "red": "red",
+        "orange": "orange",
+        "yellow": "yellow",
+        "green": "green",
+        "creme": "burlywood",
+        "darkCreme": "#CC9544",
+        "grey": "#808080",
+        "darkGrey": "#747264",
+        "transparentGrey": "#191919",
+        "navy": "#00818A",
+        "darkBlue": "#293462"
     }
-
 }

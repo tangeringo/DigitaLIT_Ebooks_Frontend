@@ -6,7 +6,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { CheckoutCardProps, StripeTypes } from '../../data/types/types.global';
 
 import PaymentForm from "../payment-form/paymentForm.component";
-import { white } from "../../styles/styles.colrs";
+import variables from '../../data/variables/variables.static.json';
 
 
 const reactEnvKey: string = (process.env.REACT_APP_PUBLISHABLE_KEY as string);
@@ -25,7 +25,7 @@ const CheckoutCard: React.FC<CheckoutCardProps> = ({ theme, secret }) => {
     const options: StripeTypes = {
       clientSecret: secret,
       appearance: {
-        theme: theme.background === white? "stripe" : "night",
+        theme: theme.background === variables.colors.white? "stripe" : "night",
         variables: {
           colorPrimary: '#262626',
         }
