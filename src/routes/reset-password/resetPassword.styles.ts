@@ -28,46 +28,60 @@ export const PageTitle = styled.h1`
 `;
        
 export const ProgresBarStatusText = styled.p`
-color: ${props => props.theme.textPrimary};
-    margin: 20px auto 10px 0;
+    color: ${props => props.theme.textPrimary};
+    margin-top: 20px;
 `;
 
 
-const progressBar25percent = css`
+const progressBar25Percent = css`
     background-color: ${variables.colors.red};
     width: 25%;
 `;
 
-const progressBar50percent = css`
+const progressBar50Percent = css`
     background-color: ${variables.colors.orange};
     width: 50%;
 `;
 
-const progressBar75percent = css`
+const progressBar75Percent = css`
     background-color: ${variables.colors.yellow};
     width: 75%;
 `;
 
-const progressBar100percent = css`
+const progressBar100Percent = css`
     background-color: ${variables.colors.green};
     width: 100%;
 `;
 
 type passwordLengthProps = {
-    passwordlength: number;
+    strengthLevel: string;
 }
 
-const getProgressBarStyles = ({ passwordlength }: passwordLengthProps): RuleSet<object> => {
-    if (passwordlength <= 4) return progressBar25percent;
-    else if (passwordlength <= 7 ) return progressBar50percent;
-    else if (passwordlength <= 10 ) return progressBar75percent;
-    else return progressBar100percent;
+const getProgressBarStyles = ({strengthLevel}: passwordLengthProps): RuleSet<object> => {
+    if (strengthLevel === variables.passwordStrength.strong) 
+        return progressBar100Percent;
+    else if (strengthLevel === variables.passwordStrength.medium ) 
+        return progressBar75Percent;
+    else if (strengthLevel === variables.passwordStrength.good ) 
+        return progressBar50Percent;
+    else return progressBar25Percent;
 }
 
+export const ProgressBarOutline = styled.div`
+    border: 2px solid ${props => props.theme.textPrimary};
+    height: 25px;
+    width: 100%;
+    border-radius: 15px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    
+`;
 
 export const ProgressBar = styled.div<passwordLengthProps>`
-    height: 10px;
-    margin: 0 auto 40px 0;
+    height: 17px;
+    border-radius: 15px;
+    margin: 0 2.5px;
 
     ${(props) => getProgressBarStyles(props)};
 `;

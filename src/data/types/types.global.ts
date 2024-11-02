@@ -137,3 +137,15 @@ export interface UserData {
   displayName: string | null;
   providerId: string;
 }
+
+
+// RESET-PASSWORD PAGE
+export type PasswordStrengthTypes = 
+  typeof variables.passwordStrength.weak | 
+  typeof variables.passwordStrength.good | 
+  typeof variables.passwordStrength.medium | 
+  typeof variables.passwordStrength.strong
+
+export type ResetPasswordPayload = CurrentUserType & {
+  newPassword: string;
+}

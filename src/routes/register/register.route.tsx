@@ -66,16 +66,16 @@ import {
                 <ComponentsContainer>
                     <form style={{width: "100%"}}>
                         <FormInput type="text" name="displayName" value={displayName}
-                            onChange={handleChange} label="Name" required
+                          onChange={handleChange} label="Name" required
                         />
                         <FormInput type="email" name="email" value={email}
-                            onChange={handleChange} label="Email" required
+                          onChange={handleChange} label="Email" required
                         />
                         <FormInput type="password" name="password" value={password}
-                            onChange={handleChange} label="Password" required
+                          eyeColor={theme.textPrimary} onChange={handleChange} label="Password" required
                         />
                         <FormInput type="password" name="confirmPassword" value={confirmPassword}
-                            onChange={handleChange} label="Confirm Password" required
+                          eyeColor={theme.textPrimary} onChange={handleChange} label="Confirm Password" required
                         />
                         <SubmitButton onClick={handleSubmit} buttonType={BUTTON_TYPE_CLASS.dropdown}>Register</SubmitButton>
                     </form>

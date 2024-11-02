@@ -50,3 +50,13 @@ export const Group = styled.div`
     letter-spacing: 0.3em;
   }
 `;
+
+export const ToggleButton = styled.button`
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+`;

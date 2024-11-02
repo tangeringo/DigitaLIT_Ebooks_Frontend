@@ -7,7 +7,7 @@ import { selectIsCartOpen } from '../../redux/cart/cart.selectors';
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { signOutStart } from "../../redux/user/user.actions";
 
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import appLogo from '../../assets/AppLogo/ebook.png';
 import profileImg from '../../assets/ProfilePage/profileDefault.png';
 
@@ -65,10 +65,11 @@ const Navigation: React.FC<NavBarProps> = ({ brandName, route, setSearchTerm }) 
                   <RouteLink>
                     <Link className={route === variables.routes.uploadBook? "nav-link active fw-bold" : "nav-link"} to={variables.routes.uploadBook}>Upload Book</Link>
                   </RouteLink>
+                  <RouteLink>
+                    <Link className={route === variables.routes.resetPassword? "nav-link active fw-bold" : "nav-link"} to={variables.routes.resetPassword}>Reset Password</Link>
+                  </RouteLink>
                 </RoutesContainerAfterAuth>
-                : <RouteLink>
-                  <Link className={route === variables.routes.login? "nav-link active fw-bold" : "nav-link"} to={variables.routes.login}>Login</Link>
-                </RouteLink>
+                :<Navigate to={variables.routes.login} />
               }
             </RoutesContainer>
           
@@ -95,6 +96,3 @@ const Navigation: React.FC<NavBarProps> = ({ brandName, route, setSearchTerm }) 
 }
 
 export default Navigation;
-
-
-// on refresh the accessToken token gets removed, but the "id" and "refresh token" stay .. refresh the accessToken token on refresh if the refresh token still exists.

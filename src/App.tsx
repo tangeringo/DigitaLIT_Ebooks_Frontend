@@ -95,4 +95,4 @@ export default App;
 // 6.) translating the book into a ".pdf" format and hosting on our server
 
 
-// TODO: change password and validate password strongness
+// TODO: reset password and validate password strongness

@@ -38,7 +38,6 @@
         },
         "resetPassword": { "newPassword": "", "confirmPassword": "" },
         "cartItemInfo": { "id": 0, "showBook": false },
-        
         "uploadBook": {
             "title": "",
             "author": "",
@@ -58,6 +57,12 @@
             }
         }
 
+    },
+    "passwordStrength": {
+        "weak": "weak",
+        "good": "good",
+        "medium": "medium",
+        "strong": "strong"
     },
     "mediaPixels": {
         "width1600": "1600px",

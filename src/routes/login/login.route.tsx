@@ -63,10 +63,6 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
         if (currentUser?.accessToken && currentUser?.refreshToken) { navigate(variables.routes.home) }
     }, [currentUser, navigate]);
 
-    // useEffect(() => {
-    //     setTokens({ accessToken: currentUser?.accessToken, refreshToken: currentUser?.refreshToken });
-    // }, [currentUser, setTokens]);
-
     useEffect(() => {
         dispatch(setIsCartOpen(false));
         setRoute(variables.routes.login);
@@ -89,7 +85,7 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
                                 onChange={handleChange} label="Email" required
                             />
                             <FormInput type="password" name="password" value={password}
-                                onChange={handleChange} label="Password" required
+                                eyeColor={theme.textPrimary} onChange={handleChange} label="Password" required
                             />
                             <SubmitButton onClick={handleSubmit} buttonType={BUTTON_TYPE_CLASS.dropdown}>Log In</SubmitButton>
                         </form>
@@ -98,7 +94,6 @@ const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
                                 <RememberCheckbox id='checkbox' onClick={toggle} checked={rememberMe}/>
                                 <label htmlFor='checkbox'><p style={{marginLeft: '7px'}}>Remember Me</p></label>
                             </RememberContainer>
-                            <RedirectionLink to={variables.routes.resetPassword}><p>Reset password</p></RedirectionLink>
                         </BottomComponnetsContainer>
                         <RedirectionLink to={variables.routes.register}>Register</RedirectionLink>
                     </ComponentsContainer>
