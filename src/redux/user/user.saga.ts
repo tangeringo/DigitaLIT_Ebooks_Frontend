@@ -1,18 +1,30 @@
 import { takeLatest, call, all, select, put } from 'typed-redux-saga/macro';
 import { FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, User } from 'firebase/auth';
 import { AdditionalInfo, TokenType } from '../../data/types/types.global';
-
-import { EmailAndPasswordSignInStart, SignUpStart, signInFailure, signInSuccess, signOutFailure, signOutSuccess, signUpFailure, signUpSuccess } from './user.actions';
-import { getCurrentUser, createUserDocFromAuth, signInWithGooglePopup, signInWithFacebookPopup, signOutUser, signInWithTwitterPopUp, updatedTokenPayload } from '../../firebase/firebase.utils';
+import { 
+  EmailAndPasswordSignInStart, 
+  SignUpStart, signInFailure, 
+  signInSuccess, signOutFailure, 
+  signOutSuccess, signUpFailure, 
+  signUpSuccess, updateAccessTokenFailure, 
+  updateAccessTokenSuccess 
+} from './user.actions';
+import { 
+  getCurrentUser, createUserDocFromAuth, 
+  signInWithGooglePopup, 
+  signInWithFacebookPopup, 
+  signOutUser, signInWithTwitterPopUp, 
+  getNewAccessTokenFromFirebase 
+} from '../../firebase/firebase.utils';
 import { selectCurrentUser } from './user.selectors';
 import { UserTypes } from './user.types';
-import { loginIntent } from '../../requests/loginIntent';
+import { authenticateUser } from '../../requests/auth.request';
 
 
 // Saga to handle sign in with Email and Password
 export function* signInWIthEmailAndPasswordSaga({payload: {email, password} }: EmailAndPasswordSignInStart) {
   try {
-    const tokens: TokenType = yield loginIntent(`/auth/login`, {email, password});
+    const tokens: TokenType = yield authenticateUser(`/auth/login`, {email, password});
     yield* put(signInSuccess({
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken
@@ -21,7 +33,6 @@ export function* signInWIthEmailAndPasswordSaga({payload: {email, password} }: E
     yield* put(signInFailure(error as Error));
   }
 }
-
 
 // Saga to handle sign in with Google
 export function* signInWithGoogleSaga() {
@@ -73,9 +84,9 @@ export function* isUserAuthenticatedSaga() {
 }
 
 // Saga to create an account for a new user
-export function* signUp({ payload: { email, password, displayName } }: SignUpStart) {
+export function* signUpSaga({ payload: { email, password, displayName } }: SignUpStart) {
   try {
-    const tokens: TokenType = yield loginIntent(`/auth/register`, {displayName, email, password});
+    const tokens: TokenType = yield authenticateUser(`/auth/register`, {displayName, email, password});
     yield* put(signUpSuccess({
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken
@@ -117,28 +128,16 @@ export function* getSnapshotFromUserAuth(user: User, accessToken?: string | unde
   }
 }
 
-// Function that refreshes the access token
-export function* refreshTokenSaga() {
+// // Function that updates the access token
+export function* updateAccessTokenSaga() {
   try {
-    const tokens = yield* select(selectCurrentUser);
-    if (tokens && tokens.accessToken) return;
+    const currentUser = yield* select(selectCurrentUser);
+    if (currentUser && currentUser.accessToken) return;
     else {
-      const payload = yield* call(updatedTokenPayload);
-
-      console.log(`persisted ID: ${JSON.stringify(payload.id)}`);
-      console.log(`New Access Token: ${JSON.stringify(payload.accessToken)}`);
-      console.log(`Refresh Token: ${tokens?.refreshToken}`);
-
-      yield* put(signInSuccess({ 
-        id: payload.id, 
-        accessToken: payload.accessToken, 
-        refreshToken: tokens?.refreshToken 
-      }));
+      const newAccessToken = yield* call(getNewAccessTokenFromFirebase);
+      yield* put(updateAccessTokenSuccess(newAccessToken));
     }  
-  } catch (error) {
-    console.error('Error refreshing token:', error);
-    yield* put(signInFailure(error as Error)); // Handle error by dispatching failure action
-  }
+  } catch (error) { yield* put(updateAccessTokenFailure(error as Error)); }
 }
 
 // Watcher sagas
@@ -159,7 +158,7 @@ export function* onTwitterSignInStart() {
 }
 
 export function* onSignUpStart() {
-  yield* takeLatest(UserTypes.SIGN_UP_START, signUp);
+  yield* takeLatest(UserTypes.SIGN_UP_START, signUpSaga);
 }
 
 export function* onCheckUserSession() {
@@ -170,8 +169,8 @@ export function* onSignOutStart() {
   yield* takeLatest(UserTypes.SIGN_OUT_START, signOutSaga);
 }
 
-export function* onRefreshTokens() {
-  yield* takeLatest(UserTypes.REFRESH_TOKEN, refreshTokenSaga)
+export function* onUpdateAccessTokenStart() {
+  yield* takeLatest(UserTypes.UPDATE_ACCESS_TOKEN_START, updateAccessTokenSaga)
 }
 
 // Root saga to combine all sagas
@@ -184,6 +183,6 @@ export function* usersSaga() {
     call(onTwitterSignInStart),
     call(onSignUpStart),
     call(onSignOutStart),
-    call(onRefreshTokens)
+    call(onUpdateAccessTokenStart)
   ]);
 }

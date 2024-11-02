@@ -1,5 +1,5 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
-import { LoginProps } from "../../data/types/types.global";
+import { RouteProps } from "../../data/types/types.global";
 import variables from '../../data/variables/variables.static.json';
 
 import { useNavigate } from 'react-router-dom';
@@ -21,7 +21,7 @@ import {
 } from '../login/login.styles';
 
   
-  const CreateAccountPage: React.FC<LoginProps> = ({ theme, setRoute, tokens, setTokens }) => {
+  const RegisterPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
     const [formFields, setFormFields] = useState(variables.defaultStates.createAccount);
     const { displayName, email, password, confirmPassword } = formFields;
     const currentUser = useSelector(selectCurrentUser);
@@ -49,16 +49,12 @@ import {
 
     useEffect(() => {
       if (currentUser?.accessToken && currentUser?.refreshToken) { navigate(variables.routes.home) }
-    }, [currentUser?.accessToken, currentUser?.refreshToken, navigate]);
-
-    useEffect(() => {
-      setTokens({ accessToken: currentUser?.accessToken, refreshToken: currentUser?.refreshToken });
-    }, [currentUser, setTokens]);
+    }, [currentUser, navigate]);
 
 
     useEffect(() => {
       dispatch(setIsCartOpen(false));
-      setRoute(variables.routes.createAccount);
+      setRoute(variables.routes.register);
     }, [dispatch, setRoute]);
   
     return (
@@ -81,7 +77,7 @@ import {
                         <FormInput type="password" name="confirmPassword" value={confirmPassword}
                             onChange={handleChange} label="Confirm Password" required
                         />
-                        <SubmitButton onClick={handleSubmit} buttonType={BUTTON_TYPE_CLASS.dropdown}>Create Account</SubmitButton>
+                        <SubmitButton onClick={handleSubmit} buttonType={BUTTON_TYPE_CLASS.dropdown}>Register</SubmitButton>
                     </form>
                     <RedirectionLink to={variables.routes.login}>Login</RedirectionLink>
                 </ComponentsContainer>
@@ -92,4 +88,4 @@ import {
   }
   
   
-  export default CreateAccountPage;
+  export default RegisterPage;

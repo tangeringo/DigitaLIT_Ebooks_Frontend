@@ -60,7 +60,7 @@ export const getCurrentUser = (): Promise<User | null> => {
 };
 
 
-export const updatedTokenPayload = async (): Promise<{ id: string, accessToken: string }> => {
+export const getNewAccessTokenFromFirebase = async (): Promise<string > => {
   const auth = getAuth();
 
   return new Promise((resolve, reject) => {
@@ -68,8 +68,7 @@ export const updatedTokenPayload = async (): Promise<{ id: string, accessToken: 
       if (user) {
         try {
           const accessToken = await user.getIdToken(true); // Force refresh the token
-          const payload = { id: user.uid, accessToken: accessToken };
-          resolve(payload);
+          resolve(accessToken);
         } catch (error) { reject(error) }
       } else { reject(new Error('No user is signed in')) }
     });

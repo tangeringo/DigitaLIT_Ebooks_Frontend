@@ -3,7 +3,7 @@
     "routes": {
         "home": "/",
         "login": "/login",
-        "createAccount": "/create-account",
+        "register": "/register",
         "resetPassword": "/reset-password",
         "profile": "/profile",
         "myBooks": "/my-books",

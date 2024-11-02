@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 
 import variables from './data/variables/variables.static.json';
 import books from './data/books/books.library.json';
-import { RouteOptions, TokenType, BooksLibrary } from './data/types/types.global';
+import { RouteOptions, BooksLibrary } from './data/types/types.global';
 import { darkTheme, lightTheme } from './styles/styles.global';
 
 
@@ -11,12 +11,12 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { selectCurrentTheme } from './redux/theme/theme.selectors';
-import { checkUserSession, refreshAccessToken } from './redux/user/user.actions';
+import { checkUserSession } from './redux/user/user.actions';
 
 import Navigation from './routes/navigation/navigation.route';
 import HomePage from './routes/home/home.route';
 import LoginPage from './routes/login/login.route';
-import CreateAccountPage from './routes/create-account/createAccount.route';
+import RegisterPage from './routes/register/register.route';
 import ProfilePage from './routes/profile/profile.route';
 import ResetPasswordPage from './routes/reset-password/resetPassword.route';
 import MyBooksPage from './routes/my-books/myBooks.route';
@@ -26,20 +26,21 @@ import PdfEditor from './routes/edit-pdf/editPdf.route';
 import UploadBook from './routes/upload-book/uploadBook.route';
 import CheckoutPage from './routes/checkout/checkout.route';
 import LoadingSpinner from './components/loading-spinner/loadingSpinner.component';
+import { selectRememberMe } from './redux/auth/auth.selectors';
 
 
 const App: React.FC = () => {
-  const [tokens, setTokens] = useState<TokenType>({ accessToken: undefined, refreshToken: undefined });
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [route, setRoute] = useState<RouteOptions>("/");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const currentUser = useSelector(selectCurrentUser);
   const currentTheme = useSelector(selectCurrentTheme);
+  const rememberMe = useSelector(selectRememberMe);
   const theme = currentTheme === 'light'? lightTheme : darkTheme;
   const currentUserInfo = !!(currentUser?.accessToken && currentUser?.refreshToken);
   const filterBooksByCategory = (category: keyof BooksLibrary) => books[category].filter(book => book.name.toLowerCase().includes(searchTerm.toLowerCase()));
   const dispatch = useDispatch();
-
+  
   const filteredBooks = Object.keys(books).map(category => {
     const genre = category as keyof BooksLibrary;
     return {
@@ -48,25 +49,17 @@ const App: React.FC = () => {
     };
   });
 
-
   useEffect(() => {
     const checkTokensAndSession = () => {
       if (!currentUser) {
         dispatch(checkUserSession());
-      } else if (currentUser.refreshToken && !currentUser.accessToken) {
-        setIsLoading(true); // Show spinner when refreshing token
-        dispatch(refreshAccessToken({ accessToken: undefined, refreshToken: currentUser.refreshToken }));
-        setIsLoading(false); // Hide spinner after tokens are updated
       } else {
         setIsLoading(false); // Hide spinner if tokens are already present
       }
     };
 
     checkTokensAndSession();
-  }, [dispatch, currentUser]);
-
-  // console.log(`currentUser: ${JSON.stringify( currentUser)}`);
-  // console.log("route: ", route);
+  }, [dispatch, currentUser, rememberMe]);
 
   return (
     <div>
@@ -78,8 +71,8 @@ const App: React.FC = () => {
             isLoading ? <LoadingSpinner theme={theme} /> : <HomePage theme={theme} setRoute={setRoute} />
           ) : <Navigate to={variables.routes.login} />
         } />
-        <Route path={variables.routes.login} element={<LoginPage theme={theme} setRoute={setRoute} tokens={tokens} setTokens={setTokens}/>} />
-        <Route path={variables.routes.createAccount} element={<CreateAccountPage theme={theme} setRoute={setRoute} tokens={tokens} setTokens={setTokens}/>} />
+        <Route path={variables.routes.login} element={<LoginPage theme={theme} setRoute={setRoute} />} />
+        <Route path={variables.routes.register} element={<RegisterPage theme={theme} setRoute={setRoute} />} />
         <Route path={variables.routes.resetPassword} element={<ResetPasswordPage theme={theme} setRoute={setRoute}/>}/>
         <Route path={variables.routes.profile} element={<ProfilePage theme={theme} setRoute={setRoute}/>} />
         <Route path={variables.routes.myBooks} element={<MyBooksPage theme={theme} setRoute={setRoute}/>} />
@@ -102,6 +95,4 @@ export default App;
 // 6.) translating the book into a ".pdf" format and hosting on our server
 
 
-
-
-// git commit -m"adding colors into static json, merging categories and ..."
+// TODO: change password and validate password strongness

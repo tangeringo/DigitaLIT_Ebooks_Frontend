@@ -1,14 +1,15 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 
-import { LoginProps } from "../../data/types/types.global";
+import { RouteProps } from "../../data/types/types.global";
 import variables from '../../data/variables/variables.static.json';
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsCartOpen } from '../../redux/cart/cart.actions';
+import { setRememberMe } from '../../redux/auth/auth.actions';
 import { emailAndPasswordSignInStart, facebookSignInStart, googleSignInStart, twitterSignInStart } from '../../redux/user/user.actions';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
-import { auth } from '../../firebase/firebase.utils';
+import { selectRememberMe } from '../../redux/auth/auth.selectors';
 
 import SubmitButton, { BUTTON_TYPE_CLASS } from '../../components/submit-button/submitButton.component';
 import FormInput from '../../components/form-input/formInput.component';
@@ -30,13 +31,14 @@ import {
 } from './login.styles';
 
 
-const LoginPage: React.FC<LoginProps> = ({ theme, setRoute, tokens, setTokens }) => {
+const LoginPage: React.FC<RouteProps> = ({ theme, setRoute }) => {
     const [formFields, setFormFields] = useState(variables.defaultStates.loginForm);
     const { email, password } = formFields;
     const currentUser = useSelector(selectCurrentUser);
+    const rememberMe = useSelector(selectRememberMe);
+    const toggle = () => dispatch(setRememberMe(!rememberMe));
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
     const signInWithFacebook = () => { dispatch(facebookSignInStart()) }
     const signInWithGoogle = () => { dispatch(googleSignInStart()) }
     const signInWithTwitter = () => { dispatch(twitterSignInStart()) }
@@ -61,29 +63,15 @@ const LoginPage: React.FC<LoginProps> = ({ theme, setRoute, tokens, setTokens })
         if (currentUser?.accessToken && currentUser?.refreshToken) { navigate(variables.routes.home) }
     }, [currentUser, navigate]);
 
-    useEffect(() => {
-        setTokens({ accessToken: currentUser?.accessToken, refreshToken: currentUser?.refreshToken });
-    }, [currentUser, setTokens]);
+    // useEffect(() => {
+    //     setTokens({ accessToken: currentUser?.accessToken, refreshToken: currentUser?.refreshToken });
+    // }, [currentUser, setTokens]);
 
     useEffect(() => {
         dispatch(setIsCartOpen(false));
         setRoute(variables.routes.login);
     }, [dispatch, setRoute]);
-
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(async (user) => {
-            if (!user) return;
-            try {
-                const newAccessToken = await user.getIdToken(true);
-                setTokens({ accessToken: newAccessToken, refreshToken: tokens.refreshToken });
-            } catch (error) { throw new Error('Failed to update access token') }
-        });
     
-        return () => unsubscribe();
-      }, [tokens, setTokens]);
-
-
-    // console.log("tokens: ", tokens);
     return (
         <ThemeProvider theme={theme}>
             <AuthAppContainer>
@@ -107,12 +95,12 @@ const LoginPage: React.FC<LoginProps> = ({ theme, setRoute, tokens, setTokens })
                         </form>
                         <BottomComponnetsContainer>
                             <RememberContainer>
-                                <RememberCheckbox id='checkbox' />
+                                <RememberCheckbox id='checkbox' onClick={toggle} checked={rememberMe}/>
                                 <label htmlFor='checkbox'><p style={{marginLeft: '7px'}}>Remember Me</p></label>
                             </RememberContainer>
                             <RedirectionLink to={variables.routes.resetPassword}><p>Reset password</p></RedirectionLink>
                         </BottomComponnetsContainer>
-                        <RedirectionLink to={variables.routes.createAccount}>Create Account</RedirectionLink>
+                        <RedirectionLink to={variables.routes.register}>Register</RedirectionLink>
                     </ComponentsContainer>
                 </LoginContainer>
             </AuthAppContainer>

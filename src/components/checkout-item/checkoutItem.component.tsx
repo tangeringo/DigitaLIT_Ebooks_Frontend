@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { CheckouComponnetProps } from '../../data/types/types.global';
+import { bookImages, BookImageKeys } from '../../assets/books/_images';
 import variables from '../../data/variables/variables.static.json';
 import { addItemToCart, clearItemFromCart, removeItemFromCart } from '../../redux/cart/cart.actions';
 import { selectCartItems } from '../../redux/cart/cart.selectors';
@@ -23,9 +24,9 @@ import {
 
 const CheckoutItemComponent: React.FC<CheckouComponnetProps> = ({ cartItem }) => {
     const { img, name, price, quantity, description } = cartItem;
-
-    const dispatch = useDispatch();
+    const imgPath = bookImages[img as BookImageKeys] ?? "";
     const cartItems = useSelector(selectCartItems);
+    const dispatch = useDispatch();
 
     const addItem = () => dispatch(addItemToCart(cartItems, cartItem));
     const removeItem = () => dispatch(removeItemFromCart(cartItems, cartItem));
@@ -34,7 +35,7 @@ const CheckoutItemComponent: React.FC<CheckouComponnetProps> = ({ cartItem }) =>
     return (
         <SectionWrapperUnderline>
             <SectionWeapper>
-                <CheckoutProductImage src={img} />
+                <CheckoutProductImage src={imgPath} />
                     <DescriptionWrapperContainer>
                         <WrapperContainer>
                             <ProductItemTitle>{name}</ProductItemTitle>

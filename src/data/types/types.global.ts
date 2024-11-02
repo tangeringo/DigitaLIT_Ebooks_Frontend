@@ -6,7 +6,7 @@ import variables from "../variables/variables.static.json";
 export type RouteOptions = 
 typeof variables.routes.home | 
 typeof variables.routes.login | 
-typeof variables.routes.createAccount | 
+typeof variables.routes.register | 
 typeof variables.routes.resetPassword | 
 typeof variables.routes.profile | 
 typeof variables.routes.myBooks | 
@@ -106,6 +106,9 @@ export interface CheckoutCardProps {
   secret: any;
 }
 
+export type PaylemtPayload = CurrentUserType & {
+  amount: number;
+}
 
 // LOGIN PAGE
 export interface LoginPayload {
@@ -121,11 +124,6 @@ export interface TokenType {
 
 export type CurrentUserType = TokenType & {
   id?: string | undefined;
-}
-
-export type LoginProps = RouteProps & {
-  tokens: TokenType;
-  setTokens: (tokens: TokenType) => void;
 }
 
 // LOGIN PAGE ~ FIREBASE
